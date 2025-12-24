@@ -1,26 +1,1763 @@
-@import "tailwindcss";
+/*
+  Global Styles - Pure CSS
+  No Tailwind - all styles are custom written
+*/
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================
+   CSS Reset & Base Styles
+   ============================================
+
+   Standard CSS reset to ensure consistent styling
+   across all browsers. Removes default margins,
+   paddings, and sets border-box sizing model.
+
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ============================================
+   CSS Variables - Design Tokens
+   ============================================
+
+   Central color palette and design values.
+   Used throughout the stylesheet for consistency.
+
+   Colors:
+   - sui-green: Primary brand green (Nigerian flag green)
+   - sui-green-light: Hover/accent states
+   - sui-green-dark: Dark backgrounds (spotlight section)
+
+   ============================================ */
+:root {
+  --background: #121212;
+  --foreground: #ffffff;
+  --sui-green: #008751;
+  --sui-green-light: #00B46C;
+  --sui-green-dark: #005A36;
+  --gray-dark: #404040;
+  --gray-border: #262424;
+}
+
+/* ============================================
+   Typography - Font Classes
+   ============================================
+
+   Font family utility classes.
+   Fonts are loaded via Next.js font optimization.
+
+   - Russo One: Bold display font for headings
+   - Montserrat: Primary body/UI font
+   - Press Start 2P: Pixel font for retro/gaming aesthetic
+
+   ============================================ */
+.font-russo {
+  font-family: 'Russo One', sans-serif;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.font-press-start {
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* ============================================
+   Layout Utilities
+   ============================================
+
+   Responsive container with consistent horizontal padding.
+   Breakpoints: 640px (tablet), 768px (small desktop), 1024px (desktop)
+
+   Padding scale:
+   - Mobile: 24px
+   - Tablet: 48px
+   - Desktop: 96px
+
+   ============================================ */
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 96px;
+  }
+}
+
+/* ============================================
+   HEADER STYLES
+   ============================================
+
+   Fixed navigation bar at the top of the page.
+   Contains logo, navigation links, and CTA button.
+
+   Features:
+   - Transparent background (no blur/backdrop effects)
+   - Responsive: shows mobile menu button on small screens
+   - Desktop nav hidden on mobile, visible on 768px+
+   - Consistent 96px horizontal padding on desktop
+
+   ============================================ */
+
+/* Fixed positioning keeps header visible during scroll */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
+
+.header-nav {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 640px) {
+  .header-nav {
+    padding: 0 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header-nav {
+    padding: 0 96px;
+  }
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-logo-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.header-logo-text {
+  font-weight: 700;
+  color: white;
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.header-desktop-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .header-desktop-nav {
+    display: flex;
+  }
+}
+
+.nav-link {
+  padding: 8px 16px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+}
+
+.nav-link:hover {
+  background: rgba(0, 135, 81, 0.2);
+}
+
+.nav-link-active {
+  background: rgba(0, 135, 81, 0.4);
+  border-radius: 8px;
+}
+
+.header-cta-wrapper {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .header-cta-wrapper {
+    display: block;
+  }
+}
+
+.mobile-menu-button {
+  display: block;
+  padding: 8px;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .mobile-menu-button {
+    display: none;
+  }
+}
+
+.mobile-menu {
+  padding: 16px 0;
+  border-top: 1px solid var(--gray-border);
+}
+
+@media (min-width: 768px) {
+  .mobile-menu {
+    display: none;
+  }
+}
+
+.mobile-menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================
+
+   Reusable button components used across the site.
+   - btn-primary: Green background button (main CTA)
+   - btn-white: White background with green text
+   - btn-icon: Small icon sizing for button icons
+
+   ============================================ */
+.btn-primary {
+  background: var(--sui-green);
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: var(--sui-green-light);
+}
+
+.btn-white {
+  background: #FFFFFF;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--sui-green);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-icon-lg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ============================================
+   HERO SECTION STYLES
+   ============================================
+
+   Full-screen hero section with background image.
+
+   Features:
+   - Background image with gradient overlay at bottom
+   - Animated "Welcome to" and "Sui NIGERIA" text
+   - Floating text labels (visible on desktop only)
+   - "Rewriting what's Possible" content block
+   - Draggable page progress card (fixed position)
+   - Bouncing scroll indicator at bottom
+
+   Animations:
+   - slideInFromLeft: "Welcome to" slides in from left
+   - slideInFromRight: "Sui NIGERIA" slides in from right
+   - bounce: Scroll indicator bounces continuously
+
+   ============================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.hero-bg-wrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-bg-image {
+  object-fit: cover;
+}
+
+.hero-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #121212 0%, #121212 10%, transparent 50%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  padding: 80px 24px 0;
+}
+
+@media (min-width: 640px) {
+  .hero-content {
+    padding: 80px 48px 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-content {
+    padding: 80px 96px 0;
+  }
+}
+
+.hero-welcome {
+  padding-top: 32px;
+}
+
+@media (min-width: 768px) {
+  .hero-welcome {
+    padding-top: 64px;
+  }
+}
+
+.hero-welcome-text {
+  font-size: 48px;
+  font-weight: 400;
+  font-family: 'Russo One', sans-serif;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .hero-welcome-text {
+    font-size: 72px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-welcome-text {
+    font-size: 144px;
+  }
+}
+
+.hero-welcome-green {
+  color: rgba(0, 135, 81, 0.5);
+}
+
+.hero-welcome-white {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-title-wrapper {
+  margin-top: 8px;
+}
+
+@media (min-width: 768px) {
+  .hero-title-wrapper {
+    margin-top: 16px;
+  }
+}
+
+.hero-title {
+  font-size: 60px;
+  font-weight: 400;
+  font-family: 'Russo One', sans-serif;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 96px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 144px;
+  }
+}
+
+.hero-title-sui {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-title-nigeria {
+  color: rgba(0, 135, 81, 0.5);
+}
+
+.hero-right-text {
+  position: absolute;
+  top: 128px;
+  right: 24px;
+  text-align: right;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .hero-right-text {
+    display: block;
+    top: 160px;
+    right: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-right-text {
+    right: 96px;
+  }
+}
+
+.hero-tagline {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.hero-nexa {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 4px;
+}
+
+.floating-text {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .floating-text {
+    display: block;
+  }
+}
+
+.hero-bottom-left {
+  position: absolute;
+  bottom: 128px;
+  left: 24px;
+  max-width: 448px;
+}
+
+@media (min-width: 640px) {
+  .hero-bottom-left {
+    bottom: 96px;
+    left: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-bottom-left {
+    left: 96px;
+  }
+}
+
+.hero-rewriting-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+  .hero-rewriting-title {
+    font-size: 36px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-rewriting-title {
+    font-size: 48px;
+  }
+}
+
+.hero-description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 24px;
+  max-width: 384px;
+}
+
+@media (min-width: 768px) {
+  .hero-description {
+    font-size: 16px;
+  }
+}
+
+/* Page progress card - fixed position, draggable by user
+   Shows scroll completion percentage with animated progress bar */
+.hero-progress-card {
+  position: fixed;
+  bottom: 128px;
+  right: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  padding: 16px;
+  width: 224px;
+  z-index: 40;
+}
+
+@media (min-width: 640px) {
+  .hero-progress-card {
+    bottom: 96px;
+    right: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-progress-card {
+    right: 96px;
+  }
+}
+
+.progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.progress-title {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.progress-check-icon {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.progress-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 8px;
+}
+
+.progress-bar-bg {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 10%;
+  background: white;
+  border-radius: 9999px;
+}
+
+/* Scroll indicator button - centered at bottom of hero
+   Uses custom double-chevron SVG icon with bounce animation */
+.scroll-button {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.scroll-icon {
+  width: 36px;
+  height: 51px;
+  animation: bounce 1s infinite;
+}
+
+/* Bounce animation for scroll indicator - draws attention to scroll action */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Slide-in animations for hero text
+   Triggered by Intersection Observer when hero section comes into view
+   Animation replays when user scrolls back to hero */
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Applied to "Welcome to" text - slides from left */
+.animate-slide-left {
+  animation: slideInFromLeft 1.2s ease-out forwards;
+}
+
+/* Applied to "Sui NIGERIA" text - slides from right with slight delay */
+.animate-slide-right {
+  animation: slideInFromRight 1.2s ease-out forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+/* ============================================
+   FRONTRUNNING SECTION STYLES
+   ============================================
+
+   This section displays the main tagline with large brackets.
+   Layout: Text content wrapped in [ ] brackets with globe image as background.
+   Text hierarchy: FRONTRUNNING, BLOCKCHAIN, INNOVATION inside brackets,
+   IN AFRICA and "Built on Sui" positioned below the brackets.
+
+   ============================================ */
+
+/* Main section container - dark background with overflow hidden for globe */
+.frontrunning {
+  padding: 80px 24px;
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .frontrunning {
+    padding: 80px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .frontrunning {
+    padding: 80px 96px;
+  }
+}
+
+/* Container holds the text content above the globe background */
+.frontrunning-container {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Content wrapper - inline-block ensures brackets wrap tightly around text */
+.frontrunning-content {
+  display: inline-block;
+}
+
+/* Flex container for brackets and text - gap creates spacing between elements */
+.frontrunning-text {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* Large bracket characters [ ] - sized to match first 3 lines only
+   Height is calculated to span FRONTRUNNING, BLOCKCHAIN, INNOVATION */
+.frontrunning-bracket {
+  font-size: 120px;
+  font-weight: 600;
+  color: white;
+  line-height: 1;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  align-items: center;
+  height: 100px;
+  margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+  .frontrunning-bracket {
+    font-size: 150px;
+    height: 130px;
+    margin-top: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .frontrunning-bracket {
+    font-size: 180px;
+    height: 160px;
+    margin-top: 20px;
+  }
+}
+
+/* Text inside brackets - FRONTRUNNING, BLOCKCHAIN, INNOVATION
+   Using CSS Grid to ensure container properly contains all content
+   First column is spacer, second is auto-sized content */
+.frontrunning-words-inner {
+  display: grid;
+  grid-template-columns: 5em auto;
+  font-family: 'Russo One', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .frontrunning-words-inner {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .frontrunning-words-inner {
+    font-size: 52px;
+  }
+}
+
+/* Each text line spans both columns by default (non-indented) */
+.frontrunning-line {
+  grid-column: 1 / -1;
+}
+
+/* Indented line - starts from second column, leaving first column as spacer */
+.frontrunning-line-indent {
+  grid-column: 2;
+}
+
+/* Line below brackets - IN AFRICA (adds margin to separate from bracketed content) */
+.frontrunning-line-below {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* White text - FRONTRUNNING and INNOVATION (left-aligned) */
+.frontrunning-white {
+  color: white;
+}
+
+/* Green text inside brackets - BLOCKCHAIN */
+.frontrunning-words-inner .frontrunning-green {
+  color: var(--sui-green);
+  white-space: nowrap;
+}
+
+/* "Built on Sui" subtitle - positioned directly under AFRICA */
+.frontrunning-subtitle {
+  font-family: 'Russo One', sans-serif;
+  font-size: 20px;
+  color: white;
+  margin-top: 0;
+  text-transform: none;
+}
+
+.frontrunning-globe {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  opacity: 0.5;
+}
+
+.frontrunning-globe-image {
+  width: 360px;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .frontrunning-globe-image {
+    width: 540px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .frontrunning-globe-image {
+    width: 780px;
+  }
+}
+
+/* ============================================
+   SPOTLIGHT SECTION STYLES
+   ============================================
+
+   Video spotlight section with dark green background.
+
+   Layout:
+   - Two-column grid on desktop (video left, content right)
+   - Single column stack on mobile
+   - Video placeholder with centered play button
+   - Progress bar showing video/content completion
+
+   ============================================ */
+.spotlight {
+  padding: 96px 24px;
+  background: var(--sui-green-dark);
+}
+
+@media (min-width: 640px) {
+  .spotlight {
+    padding: 96px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .spotlight {
+    padding: 96px 96px;
+  }
+}
+
+.spotlight-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.spotlight-header {
+  margin-bottom: 64px;
+}
+
+.spotlight-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.spotlight-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: white;
+  max-width: 672px;
+  font-family: 'Russo One', sans-serif;
+}
+
+@media (min-width: 768px) {
+  .spotlight-title {
+    font-size: 36px;
+  }
+}
+
+.spotlight-grid {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .spotlight-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.spotlight-video-wrapper {
+  position: relative;
+}
+
+.spotlight-video {
+  aspect-ratio: 16 / 9;
+  background: rgba(18, 18, 18, 0.3);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.spotlight-play-button {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spotlight-play-circle {
+  width: 96px;
+  height: 96px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spotlight-play-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--sui-green-dark);
+}
+
+.spotlight-number-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 4px 16px;
+  background: var(--sui-green);
+  border-radius: 9999px;
+}
+
+.spotlight-number-text {
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.spotlight-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.spotlight-content-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  font-family: 'Russo One', sans-serif;
+}
+
+@media (min-width: 768px) {
+  .spotlight-content-title {
+    font-size: 30px;
+  }
+}
+
+.spotlight-highlight {
+  color: var(--sui-green-light);
+}
+
+.spotlight-description {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.spotlight-progress {
+  margin-top: 64px;
+  max-width: 320px;
+}
+
+.spotlight-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 8px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.spotlight-progress-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.spotlight-progress-fill {
+  height: 100%;
+  width: 10%;
+  background: white;
+  border-radius: 9999px;
+}
+
+.spotlight-progress-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 8px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ============================================
+   ABOUT SECTION STYLES
+   ============================================
+
+   About section with logo card and description text.
+
+   Layout:
+   - Two-column grid on desktop (logo left, content right)
+   - Single column centered on mobile
+   - Glassmorphism logo card with decorative circles
+   - "S" letter in green circle as brand element
+
+   ============================================ */
+.about {
+  padding: 96px 24px;
+  background: var(--background);
+}
+
+@media (min-width: 640px) {
+  .about {
+    padding: 96px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about {
+    padding: 96px 96px;
+  }
+}
+
+.about-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.about-grid {
+  display: grid;
+  gap: 64px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.about-visual {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .about-visual {
+    justify-content: flex-start;
+  }
+}
+
+.about-logo-wrapper {
+  position: relative;
+}
+
+.about-logo-card {
+  width: 256px;
+  height: 256px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(18px);
+  border-radius: 24px;
+  border: 1px solid var(--gray-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .about-logo-card {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+.about-logo-content {
+  text-align: center;
+}
+
+.about-logo-circle {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 16px;
+  background: var(--sui-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-logo-letter {
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+  font-family: 'Russo One', sans-serif;
+}
+
+.about-logo-label {
+  color: var(--sui-green);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+}
+
+.about-decoration-1 {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 32px;
+  height: 32px;
+  background: var(--sui-green);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.about-decoration-2 {
+  position: absolute;
+  bottom: -16px;
+  left: -16px;
+  width: 48px;
+  height: 48px;
+  background: var(--sui-green-light);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.about-label {
+  color: var(--sui-green);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.about-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+@media (min-width: 768px) {
+  .about-title {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-title {
+    font-size: 60px;
+  }
+}
+
+.about-paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-paragraph {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ============================================
+   BLOG SECTION STYLES
+   ============================================
+
+   Blog/updates section with scrolling marquee cards.
+
+   Features:
+   - Two rows of horizontally scrolling blog cards
+   - Infinite marquee animation (20s loop)
+   - Second row scrolls in opposite direction
+   - Cards have hover effect (lift + green border)
+
+   Animation:
+   - marquee: Continuous horizontal scroll at 50% offset
+   - blog-marquee-content-reverse: Reverses direction for 2nd row
+
+   ============================================ */
+.blog-section {
+  padding: 96px 24px;
+  background: var(--background);
+}
+
+@media (min-width: 640px) {
+  .blog-section {
+    padding: 96px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .blog-section {
+    padding: 96px 96px;
+  }
+}
+
+.blog-header {
+  max-width: 1280px;
+  margin: 0 auto 48px;
+}
+
+.blog-header-text {
+  color: var(--sui-green);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.blog-marquee-container {
+  position: relative;
+  overflow: hidden;
+  padding: 32px 0;
+}
+
+.blog-marquee-row {
+  display: flex;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.blog-marquee-row:last-child {
+  margin-bottom: 0;
+}
+
+.blog-marquee-content {
+  display: flex;
+  animation: marquee 20s linear infinite;
+}
+
+.blog-marquee-content-reverse {
+  animation-direction: reverse;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.blog-card {
+  flex-shrink: 0;
+  margin: 0 16px;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--gray-border);
+  border-radius: 12px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.blog-card:hover {
+  border-color: var(--sui-green);
+  transform: translateY(-5px);
+}
+
+.blog-card-text {
+  color: white;
+  font-weight: 500;
+  white-space: nowrap;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.blog-footer {
+  max-width: 1280px;
+  margin: 48px auto 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.blog-view-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--sui-green);
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.blog-view-more:hover {
+  color: var(--sui-green-light);
+}
+
+.blog-view-more-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.blog-label {
+  max-width: 1280px;
+  margin: 32px auto 0;
+}
+
+.blog-label-text {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ============================================
+   MILESTONES SECTION STYLES
+   ============================================
+
+   Milestones/achievements section with video and cards.
+
+   Layout:
+   - Two-column grid on desktop (video left, cards right)
+   - Single column on mobile
+   - Video card with play button overlay
+   - Milestone cards with numbered badges
+
+   Features:
+   - Gradient text effect on section title
+   - Cards lift on hover for interactivity
+   - Numbered badges positioned above card border
+
+   ============================================ */
+.milestones {
+  padding: 96px 24px;
+  background: var(--background);
+}
+
+@media (min-width: 640px) {
+  .milestones {
+    padding: 96px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .milestones {
+    padding: 96px 96px;
+  }
+}
+
+.milestones-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.milestones-header {
+  margin-bottom: 64px;
+}
+
+.milestones-label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.milestones-title {
+  font-size: 30px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #008751 0%, #00B46C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Russo One', sans-serif;
+}
+
+@media (min-width: 768px) {
+  .milestones-title {
+    font-size: 36px;
+  }
+}
+
+.milestones-grid {
+  display: grid;
+  gap: 32px;
+}
+
+@media (min-width: 1024px) {
+  .milestones-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.milestones-video {
+  position: relative;
+}
+
+.milestones-video-card {
+  aspect-ratio: 16 / 9;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(18px);
+  border-radius: 16px;
+  border: 1px solid var(--gray-border);
+  overflow: hidden;
+  position: relative;
+}
+
+.milestones-video-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.milestones-play-button {
+  width: 80px;
+  height: 80px;
+  background: var(--sui-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.milestones-play-button:hover {
+  background: var(--sui-green-light);
+}
+
+.milestones-play-icon {
+  width: 40px;
+  height: 40px;
+  color: white;
+  margin-left: 4px;
+}
+
+.milestones-video-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(18, 18, 18, 0.8), transparent);
+}
+
+.milestones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.milestone-card {
+  position: relative;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--gray-border);
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.milestone-card:hover {
+  transform: translateY(-5px);
+}
+
+.milestone-badge {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  padding: 4px 16px;
+  background: var(--sui-green);
+  border-radius: 9999px;
+}
+
+.milestone-badge-text {
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.milestone-content {
+  padding-top: 8px;
+}
+
+.milestone-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+  font-family: 'Russo One', sans-serif;
+}
+
+.milestone-description {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  line-height: 1.7;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ============================================
+   FOOTER STYLES
+   ============================================
+
+   Site footer with navigation links and social icons.
+
+   Layout:
+   - Four-column grid on desktop (brand, 3 link columns)
+   - Two-column grid on mobile
+   - Brand section spans full width on mobile
+
+   Elements:
+   - Logo and tagline in brand column
+   - Navigation link groups (Quick Links, Resources, Connect)
+   - Copyright and social media icons at bottom
+
+   ============================================ */
+.footer {
+  background: var(--background);
+  border-top: 1px solid var(--gray-border);
+}
+
+.footer-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+@media (min-width: 640px) {
+  .footer-container {
+    padding: 64px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-container {
+    padding: 64px 96px;
+  }
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.footer-brand {
+  grid-column: span 2;
+}
+
+@media (min-width: 768px) {
+  .footer-brand {
+    grid-column: span 1;
+  }
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.footer-logo-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.footer-logo-text {
+  font-weight: 700;
+  color: white;
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.footer-tagline {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.footer-links-section h4 {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 16px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.footer-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: var(--sui-green);
+}
+
+.footer-bottom {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--gray-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.footer-copyright {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-social-link {
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s ease;
+}
+
+.footer-social-link:hover {
+  color: var(--sui-green);
+}
+
+.footer-social-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* ============================================
+   PAGE LAYOUT STYLES
+   ============================================
+
+   Main page container and scroll behavior.
+
+   Features:
+   - main-scroll-locked: Prevents scrolling on initial load
+   - Scroll lock is removed when user clicks scroll indicator
+   - Re-locks when user scrolls back to top
+
+   ============================================ */
+.main {
+  min-height: 100vh;
+  background: var(--background);
+}
+
+/* Applied when page is scroll-locked (user hasn't clicked to scroll yet) */
+.main-scroll-locked {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================
+
+   Generic utility classes for common patterns.
+
+   - hidden: Completely removes element from layout
+   - sr-only: Screen reader only (accessible but invisible)
+
+   ============================================ */
+.hidden {
+  display: none;
+}
+
+/* Visually hidden but accessible to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
