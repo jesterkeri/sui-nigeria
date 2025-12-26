@@ -280,8 +280,16 @@ img {
    ============================================ */
 .btn-primary {
   background: var(--sui-green);
-  border-radius: 5px;
-  padding: 10px 20px;
+  /* Diagonal cutout at bottom-right corner - slanted cut */
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 18px),
+    calc(100% - 25px) 100%,
+    0 100%
+  );
+  border-radius: 6px;
+  padding: 12px 24px;
   font-weight: 700;
   font-size: 16px;
   color: white;
@@ -311,6 +319,16 @@ img {
 .btn-icon {
   width: 16px;
   height: 16px;
+  animation: arrowBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
 }
 
 .btn-icon-lg {
@@ -855,7 +873,7 @@ img {
 
 @media (min-width: 1024px) {
   .frontrunning-globe-image {
-    width: 780px;
+    width: 680px;
   }
 }
 
@@ -863,193 +881,273 @@ img {
    SPOTLIGHT SECTION STYLES
    ============================================
 
-   Video spotlight section with dark green background.
+   Spotlight section with split layout.
 
    Layout:
-   - Two-column grid on desktop (video left, content right)
-   - Single column stack on mobile
-   - Video placeholder with centered play button
-   - Progress bar showing video/content completion
+   - Left side: Green background with content
+   - Right side: Dark purple/gradient with logo and progress
+   - Two-column layout on desktop, stacked on mobile
 
    ============================================ */
-.spotlight {
-  padding: 96px 24px;
-  background: var(--sui-green-dark);
+
+/* Section wrapper */
+.spotlight-section {
+  position: relative;
+  width: calc(100% - 48px);
+  margin: 0 24px;
+  padding: 0;
+}
+
+/* SVG shape background */
+.spotlight-shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Vertical divider line - 24px before the LINQ logo */
+.spotlight-divider {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  background: var(--background);
+  z-index: 3;
+  left: calc(50% - 24px);
+}
+
+@media (min-width: 1024px) {
+  .spotlight-divider {
+    display: block;
+  }
+}
+
+/* Main frame container */
+.spotlight-frame {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
+}
+
+@media (min-width: 1024px) {
+  .spotlight-frame {
+    flex-direction: row;
+    height: 794px;
+  }
+}
+
+/* Left Side */
+.spotlight-left {
+  position: relative;
+  flex: 1;
+  min-height: 400px;
+}
+
+@media (min-width: 1024px) {
+  .spotlight-left {
+    flex: 0 0 50%;
+    min-height: auto;
+  }
+}
+
+.spotlight-left-bg {
+  display: none; /* Green background is now on the section */
+}
+
+.spotlight-left-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 60px 24px;
+  max-width: 500px;
 }
 
 @media (min-width: 640px) {
-  .spotlight {
-    padding: 96px 48px;
+  .spotlight-left-content {
+    padding: 80px 48px;
   }
 }
 
 @media (min-width: 1024px) {
-  .spotlight {
-    padding: 96px 96px;
+  .spotlight-left-content {
+    position: absolute;
+    left: 96px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0;
   }
 }
 
-.spotlight-container {
-  max-width: 1280px;
-  margin: 0 auto;
+/* "01. Meet LinQ by suioncampus" title */
+.spotlight-meet-title {
+  font-family: 'Russo One', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #FFFFFF;
 }
 
-.spotlight-header {
-  margin-bottom: 64px;
+@media (min-width: 768px) {
+  .spotlight-meet-title {
+    font-size: 32px;
+  }
 }
 
-.spotlight-label {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 8px;
+@media (min-width: 1024px) {
+  .spotlight-meet-title {
+    font-size: 36px;
+    line-height: 43px;
+  }
+}
+
+/* Description text */
+.spotlight-description {
+  max-width: 447px;
   font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #FFFFFF;
+}
+
+@media (min-width: 768px) {
+  .spotlight-description {
+    font-size: 16px;
+  }
+}
+
+/* Explore button */
+.spotlight-explore-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: var(--sui-green);
+  /* Diagonal cutout at bottom-right corner - slanted cut */
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 18px),
+    calc(100% - 25px) 100%,
+    0 100%
+  );
+  border-radius: 6px;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.spotlight-explore-btn:hover {
+  background: var(--sui-green-light);
+}
+
+.spotlight-explore-btn span {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: #FFFFFF;
+}
+
+.spotlight-arrow-icon {
+  width: 16px;
+  height: 16px;
+  color: #FFFFFF;
+}
+
+/* Right Side */
+.spotlight-right {
+  position: relative;
+  flex: 1;
+  min-height: 400px;
+  margin: 24px;
+}
+
+@media (min-width: 1024px) {
+  .spotlight-right {
+    flex: 0 0 calc(50% - 24px);
+    min-height: auto;
+    margin: 24px 24px 24px 0;
+  }
+}
+
+.spotlight-right-bg {
+  position: absolute;
+  inset: 0;
+  background: url('/linq-logo.png') center/cover no-repeat;
+  border-radius: 12px;
+}
+
+.spotlight-right-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 24px;
+}
+
+@media (min-width: 640px) {
+  .spotlight-right-content {
+    padding: 40px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .spotlight-right-content {
+    padding: 50px 96px 50px 40px;
+  }
+}
+
+/* Right header */
+.spotlight-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .spotlight-title {
-  font-size: 30px;
-  font-weight: 700;
-  color: white;
-  max-width: 672px;
   font-family: 'Russo One', sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.2;
+  text-align: right;
+  color: #FFFFFF;
 }
 
 @media (min-width: 768px) {
   .spotlight-title {
-    font-size: 36px;
+    font-size: 48px;
   }
 }
 
-.spotlight-grid {
-  display: grid;
-  gap: 32px;
-  align-items: center;
-}
-
-@media (min-width: 1024px) {
-  .spotlight-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.spotlight-video-wrapper {
-  position: relative;
-}
-
-.spotlight-video {
-  aspect-ratio: 16 / 9;
-  background: rgba(18, 18, 18, 0.3);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-  position: relative;
-}
-
-.spotlight-play-button {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.spotlight-play-circle {
-  width: 96px;
-  height: 96px;
-  background: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.spotlight-play-icon {
-  width: 48px;
-  height: 48px;
-  color: var(--sui-green-dark);
-}
-
-.spotlight-number-badge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  padding: 4px 16px;
-  background: var(--sui-green);
-  border-radius: 9999px;
-}
-
-.spotlight-number-text {
-  color: white;
-  font-weight: 700;
-  font-size: 14px;
+.spotlight-subtitle {
   font-family: 'Montserrat', sans-serif;
-}
-
-.spotlight-content {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.spotlight-content-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: white;
-  font-family: 'Russo One', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: right;
+  color: #FFFFFF;
+  opacity: 0.6;
+  max-width: 400px;
 }
 
 @media (min-width: 768px) {
-  .spotlight-content-title {
-    font-size: 30px;
+  .spotlight-subtitle {
+    font-size: 16px;
   }
 }
 
-.spotlight-highlight {
-  color: var(--sui-green-light);
-}
-
-.spotlight-description {
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.7;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.spotlight-progress {
-  margin-top: 64px;
-  max-width: 320px;
-}
-
-.spotlight-progress-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 8px;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.spotlight-progress-bar {
-  height: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 9999px;
-  overflow: hidden;
-}
-
-.spotlight-progress-fill {
-  height: 100%;
-  width: 10%;
-  background: white;
-  border-radius: 9999px;
-}
-
-.spotlight-progress-label {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
-  margin-top: 8px;
-  font-family: 'Montserrat', sans-serif;
-}
 
 /* ============================================
    ABOUT SECTION STYLES
