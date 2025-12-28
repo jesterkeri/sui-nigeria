@@ -5,6 +5,7 @@ import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { Frontrunning } from '@/components/Frontrunning';
 import { Spotlight } from '@/components/Spotlight';
+import { Partners } from '@/components/Partners';
 import { About } from '@/components/About';
 import { BlogSection } from '@/components/BlogSection';
 import { Milestones } from '@/components/Milestones';
@@ -48,6 +49,7 @@ export default function Home() {
       <Hero onScrollClick={handleScrollClick} />
       <Frontrunning />
       <Spotlight />
+      <Partners />
       <About />
       <BlogSection />
       <Milestones />
