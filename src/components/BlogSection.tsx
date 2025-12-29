@@ -1,57 +1,101 @@
 'use client';
 
-const newsItems = [
-  'Move Registry Improves Developer Experience on Sui',
-  'Announcing the Move Registry (MVR): Radical interoperability',
+import Image from 'next/image';
+
+const blogPosts = [
+  {
+    title: 'Move Registry Improves Developer Experience on Sui',
+    description: 'Announcing the Move Registry (MVR): Radical interoperability',
+  },
+  {
+    title: 'Move Registry Improves Developer Experience on Sui',
+    description: 'Announcing the Move Registry (MVR): Radical interoperability',
+  },
+  {
+    title: 'Move Registry Improves Developer Experience on Sui',
+    description: 'Announcing the Move Registry (MVR): Radical interoperability',
+  },
+  {
+    title: 'Move Registry Improves Developer Experience on Sui',
+    description: 'Announcing the Move Registry (MVR): Radical interoperability',
+  },
+  {
+    title: 'Move Registry Improves Developer Experience on Sui',
+    description: 'Announcing the Move Registry (MVR): Radical interoperability',
+  },
 ];
 
 export function BlogSection() {
   return (
     <section className="blog-section">
+      {/* Background Image */}
+      <div className="blog-bg-image" />
+
+      {/* Header */}
       <div className="blog-header">
-        <p className="blog-header-text">
+        <h2 className="blog-header-text">
           CATCH WHAT&apos;S HAPPENING IN THE SUI COMMUNITY
-        </p>
+        </h2>
       </div>
 
-      {/* Marquee Container */}
-      <div className="blog-marquee-container">
-        {/* First Row - Moving Left */}
-        <div className="blog-marquee-row">
-          <div className="blog-marquee-content">
-            {[...newsItems, ...newsItems, ...newsItems, ...newsItems].map((item, index) => (
-              <div key={`row1-${index}`} className="blog-card">
-                <p className="blog-card-text">{item}</p>
+      {/* Blog Cards Marquee */}
+      <div className="blog-cards-wrapper">
+        <div className="blog-cards-marquee">
+          {/* First set of cards */}
+          {blogPosts.map((post, index) => (
+            <div key={`a-${index}`} className="blog-card">
+              <div className="blog-card-content">
+                <div className="blog-card-heading">
+                  <h3 className="blog-card-title">{post.title}</h3>
+                </div>
+                <div className="blog-card-footer">
+                  <p className="blog-card-description">{post.description}</p>
+                  <div className="blog-card-arrow">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#008751" strokeWidth="3">
+                      <path d="M7 17L17 7M17 7H7M17 7V17" />
+                    </svg>
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Second Row - Moving Right */}
-        <div className="blog-marquee-row">
-          <div className="blog-marquee-content blog-marquee-content-reverse">
-            {[...newsItems, ...newsItems, ...newsItems, ...newsItems].reverse().map((item, index) => (
-              <div key={`row2-${index}`} className="blog-card">
-                <p className="blog-card-text">{item}</p>
+            </div>
+          ))}
+          {/* Duplicate set for seamless loop */}
+          {blogPosts.map((post, index) => (
+            <div key={`b-${index}`} className="blog-card">
+              <div className="blog-card-content">
+                <div className="blog-card-heading">
+                  <h3 className="blog-card-title">{post.title}</h3>
+                </div>
+                <div className="blog-card-footer">
+                  <p className="blog-card-description">{post.description}</p>
+                  <div className="blog-card-arrow">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#008751" strokeWidth="3">
+                      <path d="M7 17L17 7M17 7H7M17 7V17" />
+                    </svg>
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
 
       {/* View More Button */}
-      <div className="blog-footer">
+      <div className="blog-view-more-container">
         <button className="blog-view-more">
-          View More
-          <svg className="blog-view-more-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          <span>View More</span>
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M7 17L17 7M17 7H7M17 7V17" />
           </svg>
         </button>
       </div>
 
-      {/* Blog Label */}
+      {/* Blog Label with Arrow */}
       <div className="blog-label">
-        <p className="blog-label-text">BLOG</p>
+        <span className="blog-label-text">BLOG</span>
+        <div className="blog-label-arrow">
+          <Image src="/blog-arrow.svg" alt="Arrow" width={120} height={120} />
+        </div>
       </div>
     </section>
   );

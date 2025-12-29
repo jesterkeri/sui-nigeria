@@ -202,7 +202,7 @@ img {
 .header-logo-text {
   font-weight: 700;
   color: white;
-  font-size: 18px;
+  font-size: 22px;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -316,7 +316,7 @@ img {
   border-radius: 5px;
   padding: 10px 20px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 22px;
   color: var(--sui-green);
   display: inline-flex;
   align-items: center;
@@ -847,12 +847,14 @@ img {
 .frontrunning-words-inner .frontrunning-green {
   color: var(--sui-green);
   white-space: nowrap;
+  
+  
 }
 
 /* "Built on Sui" subtitle - positioned directly under AFRICA */
 .frontrunning-subtitle {
   font-family: 'Russo One', sans-serif;
-  font-size: 20px;
+  font-size: 24px;
   color: white;
   margin-top: 0;
   text-transform: none;
@@ -1063,7 +1065,7 @@ img {
 /* Description text */
 .spotlight-description {
   max-width: 447px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif !important;
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
@@ -1198,7 +1200,7 @@ img {
 
 @media (min-width: 768px) {
   .spotlight-subtitle {
-    font-size: 16px;
+    font-size: 22px;
   }
 }
 
@@ -1312,6 +1314,7 @@ img {
 .about {
   padding: 96px 24px;
   background: var(--background);
+  overflow-x: hidden;
 }
 
 @media (min-width: 640px) {
@@ -1339,13 +1342,14 @@ img {
 
 @media (min-width: 1024px) {
   .about-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 400px 1fr;
   }
 }
 
 .about-visual {
   display: flex;
   justify-content: center;
+  align-self: end;
 }
 
 @media (min-width: 1024px) {
@@ -1378,7 +1382,7 @@ img {
 }
 
 .about-logo-content {
-  text-align: center;
+  text-align: right;
 }
 
 .about-logo-circle {
@@ -1433,118 +1437,237 @@ img {
   gap: 24px;
 }
 
+.about-header {
+  position: relative;
+  width: 100%;
+  max-width: 1292px;
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+}
+
+.about-header-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  border-bottom: 1px solid #404040;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .about-label {
-  color: var(--sui-green);
-  font-size: 14px;
+  color: #FFFFFF;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 1.15;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.about-label.animate {
+  animation: slideInFromLeft 0.8s ease-out forwards;
+}
+
+@media (min-width: 768px) {
+  .about-label {
+    font-size: 80px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-label {
+    font-size: 144px;
+    line-height: 166px;
+  }
 }
 
 .about-title {
-  font-size: 36px;
-  font-weight: 700;
-  color: white;
+  color: #FFFFFF;
   font-family: 'Helvetica', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 1.15;
+  margin: 0;
+  margin-left: 20%;
+  margin-top: -20px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(100%);
 }
 
 @media (min-width: 768px) {
   .about-title {
+    font-size: 80px;
+    margin-left: 25%;
+    margin-top: -30px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-title {
+    font-size: 144px;
+    line-height: 166px;
+    margin-left: 32%;
+    margin-top: -40px;
+  }
+}
+.about-title.animate {  animation: slideInFromRight 0.8s ease-out 0.2s forwards;}
+.about-robot-wrapper {  display: flex;  justify-content: center;  align-items: flex-start;}.about-robot-image {  width: 100%;  max-width: 400px;  height: auto;}@media (min-width: 1024px) {  .about-robot-image {    max-width: 500px;  }}
+
+.about-paragraphs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  gap: 64px;
+}
+
+@keyframes fadeIn {  from {    opacity: 0;    transform: translateY(20px);  }  to {    opacity: 1;    transform: translateY(0);  }}
+.about-paragraph-row {
+  opacity: 0;
+  transform: translateY(20px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0;
+  gap: 49px;
+  width: 100%;
+}
+.about-paragraph-row.animate {  animation: fadeIn 0.6s ease-out forwards;}.about-paragraph-row.animate.delay-1 {  animation-delay: 0s;}.about-paragraph-row.animate.delay-2 {  animation-delay: 0.3s;}.about-paragraph-row.animate.delay-3 {  animation-delay: 0.6s;}
+
+.about-paragraph {
+  font-family: 'Russo One', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .about-paragraph {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-paragraph {
+    font-size: 18px;
+  }
+}
+
+.about-bottom-line {  width: 100%;  height: 0;  border-bottom: 1px solid #404040;  margin-top: 0;}
+.about-paragraph-indicator {
+  width: 20px;
+  height: 20px;
+  background: #D9D9D9;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   BLOG SECTION STYLES
+   ============================================ */
+.blog-section {
+  position: relative;
+  min-height: 900px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.blog-bg-image {
+  position: absolute;
+  inset: 0;
+  background: url('/blog-bg.png') center center / cover no-repeat;
+  z-index: 0;
+}
+
+.blog-bg-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+.blog-header {
+  position: relative;
+  z-index: 1;
+  max-width: 1024px;
+  margin-left: auto;
+  padding: 100px 48px 0;
+}
+
+.blog-header-text {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.2;
+  text-align: right;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .blog-header-text {
     font-size: 48px;
   }
 }
 
 @media (min-width: 1024px) {
-  .about-title {
-    font-size: 60px;
+  .blog-header-text {
+    font-size: 64px;
+    line-height: 78px;
   }
 }
 
-.about-paragraphs {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.about-paragraph {
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.7;
-  font-family: 'Montserrat', sans-serif;
-}
-
-/* ============================================
-   BLOG SECTION STYLES
-   ============================================
-
-   Blog/updates section with scrolling marquee cards.
-
-   Features:
-   - Two rows of horizontally scrolling blog cards
-   - Infinite marquee animation (20s loop)
-   - Second row scrolls in opposite direction
-   - Cards have hover effect (lift + green border)
-
-   Animation:
-   - marquee: Continuous horizontal scroll at 50% offset
-   - blog-marquee-content-reverse: Reverses direction for 2nd row
-
-   ============================================ */
-.blog-section {
-  padding: 96px 24px;
-  background: var(--background);
-}
-
-@media (min-width: 640px) {
-  .blog-section {
-    padding: 96px 48px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .blog-section {
-    padding: 96px 96px;
-  }
-}
-
-.blog-header {
-  max-width: 1280px;
-  margin: 0 auto 48px;
-}
-
-.blog-header-text {
-  color: var(--sui-green);
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.blog-marquee-container {
+.blog-cards-wrapper {
   position: relative;
+  z-index: 1;
   overflow: hidden;
-  padding: 32px 0;
+  padding: 48px 0;
 }
 
-.blog-marquee-row {
+.blog-cards-marquee {
   display: flex;
-  overflow: hidden;
-  margin-bottom: 16px;
+  gap: 16px;
+  width: max-content;
+  animation: blog-scroll 25s linear infinite;
 }
 
-.blog-marquee-row:last-child {
-  margin-bottom: 0;
+.blog-cards-marquee:hover {
+  animation-play-state: paused;
 }
 
-.blog-marquee-content {
-  display: flex;
-  animation: marquee 20s linear infinite;
-}
-
-.blog-marquee-content-reverse {
-  animation-direction: reverse;
-}
-
-@keyframes marquee {
+@keyframes blog-scroll {
   0% {
     transform: translateX(0);
   }
@@ -1555,66 +1678,171 @@ img {
 
 .blog-card {
   flex-shrink: 0;
-  margin: 0 16px;
-  padding: 16px 24px;
-  background: rgba(255, 255, 255, 0.05);
+  width: 280px;
+  height: 261px;
+  padding: 32px 20px;
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(18px);
-  border: 1px solid var(--gray-border);
-  border-radius: 12px;
-  transition: border-color 0.3s ease, transform 0.3s ease;
-  cursor: pointer;
+  border-radius: 16px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .blog-card {
+    width: 329px;
+  }
 }
 
 .blog-card:hover {
-  border-color: var(--sui-green);
   transform: translateY(-5px);
 }
 
-.blog-card-text {
-  color: white;
-  font-weight: 500;
-  white-space: nowrap;
-  font-family: 'Montserrat', sans-serif;
+.blog-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: 100%;
 }
 
-.blog-footer {
-  max-width: 1280px;
-  margin: 48px auto 0;
+.blog-card-heading {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.blog-card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .blog-card-title {
+    font-size: 24px;
+    line-height: 29px;
+  }
+}
+
+.blog-card-footer {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.blog-card-description {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.25;
+  color: #FFFFFF;
+  margin: 0;
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .blog-card-description {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+.blog-card-arrow {
+  width: 30px;
+  height: 30px;
+  background: #D9D9D9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.blog-view-more-container {
+  position: relative;
+  z-index: 1;
+  padding: 0 48px 48px;
 }
 
 .blog-view-more {
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 8px;
-  color: var(--sui-green);
-  font-weight: 500;
-  font-family: 'Montserrat', sans-serif;
-  transition: color 0.3s ease;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: var(--sui-green);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 18px),
+    calc(100% - 25px) 100%,
+    0 100%
+  );
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .blog-view-more:hover {
-  color: var(--sui-green-light);
+  background: var(--sui-green-light);
 }
 
-.blog-view-more-icon {
+.blog-view-more span {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: #FFFFFF;
+}
+
+.blog-view-more svg {
   width: 16px;
   height: 16px;
+  color: #FFFFFF;
+  stroke: #FFFFFF;
 }
 
 .blog-label {
-  max-width: 1280px;
-  margin: 32px auto 0;
+  position: absolute;
+  bottom: 48px;
+  right: 48px;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
 }
 
 .blog-label-text {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Helvetica', sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1;
+  text-align: right;
+  color: #FFFFFF;
 }
+
+@media (min-width: 768px) {
+  .blog-label-text {
+    font-size: 72px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .blog-label-text {
+    font-size: 96px;
+    line-height: 110px;
+  }
+}
+
+.blog-label-arrow {
+  margin-left: -10px;
+}
+
 
 /* ============================================
    MILESTONES SECTION STYLES
@@ -1692,7 +1920,7 @@ img {
 
 @media (min-width: 1024px) {
   .milestones-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 400px 1fr;
   }
 }
 
@@ -1788,7 +2016,7 @@ img {
 }
 
 .milestone-title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: white;
   margin-bottom: 12px;
@@ -1880,7 +2108,7 @@ img {
 .footer-logo-text {
   font-weight: 700;
   color: white;
-  font-size: 18px;
+  font-size: 22px;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -1915,7 +2143,7 @@ img {
 }
 
 .footer-bottom {
-  margin-top: 48px;
+  margin-top: 0;
   padding-top: 32px;
   border-top: 1px solid var(--gray-border);
   display: flex;
@@ -2004,5 +2232,7 @@ img {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
+  opacity: 0;
+  transform: translateX(100%);
   border: 0;
 }
