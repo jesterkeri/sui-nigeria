@@ -11,6 +11,7 @@ export function Hero({ onScrollClick }: HeroProps) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
+  const [isProgressCardVisible, setIsProgressCardVisible] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const dragRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
@@ -143,10 +144,12 @@ export function Hero({ onScrollClick }: HeroProps) {
             <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
+
           </button>
         </div>
 
         {/* Bottom Right - Page Progress */}
+        {isProgressCardVisible &&
         <div
           ref={dragRef}
           className="hero-progress-card"
@@ -161,9 +164,12 @@ export function Hero({ onScrollClick }: HeroProps) {
         >
           <div className="progress-header">
             <span className="progress-title">PAGE PROGRESS</span>
-            <svg className="progress-check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
+            <button className="progress-close-btn" onClick={(e) => { e.stopPropagation(); setIsProgressCardVisible(false); }} aria-label="Close">
+              <svg className="progress-close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
           </div>
           <div className="progress-info">
             <span>Completed</span>
@@ -172,7 +178,7 @@ export function Hero({ onScrollClick }: HeroProps) {
           <div className="progress-bar-bg">
             <div className="progress-bar-fill" style={{ width: `${scrollProgress}%` }} />
           </div>
-        </div>
+        </div>}
 
         {/* Scroll indicator - Green chevron */}
         <button className="scroll-button" onClick={onScrollClick}>

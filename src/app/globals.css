@@ -438,7 +438,7 @@ img {
 }
 
 .hero-welcome-white {
-  color: rgba(255, 255, 255, 0.5);
+  color: #FFFFFF;
 }
 
 .hero-title-wrapper {
@@ -471,7 +471,7 @@ img {
 }
 
 .hero-title-sui {
-  color: rgba(255, 255, 255, 0.5);
+  color: #FFFFFF;
 }
 
 .hero-title-nigeria {
@@ -622,10 +622,23 @@ img {
   font-family: 'Montserrat', sans-serif;
 }
 
-.progress-check-icon {
+.progress-close-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.2s ease;
+}
+
+.progress-close-btn:hover {
+  color: #FFFFFF;
+}
+
+.progress-close-icon {
   width: 20px;
   height: 20px;
-  color: white;
+  color: inherit;
 }
 
 .progress-info {
@@ -1884,72 +1897,202 @@ img {
   margin: 0 auto;
 }
 
+
 .milestones-header {
+  position: relative;
   margin-bottom: 64px;
+  overflow: hidden;
 }
 
-.milestones-label {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 8px;
+.milestones-heading-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.milestones-heading-marquee {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 150px;
+  width: max-content;
+  animation: milestones-scroll 20s linear infinite;
+}
+
+.milestones-heading-text {
   font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 80px;
+  line-height: 1.2;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .milestones-heading-text {
+    font-size: 128px;
+  }
+  .milestones-heading-marquee {
+    gap: 220px;
+  }
+}
+
+.milestones-heading-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(270deg, #121212 0%, rgba(18, 18, 18, 0) 70%);
+  pointer-events: none;
+}
+
+@keyframes milestones-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Milestones Content Layout */
+.milestones-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+@media (min-width: 1024px) {
+  .milestones-content {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 2px;
+  }
+}
+
+/* Left Side - Info */
+.milestones-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* Navigation Arrows */
+.milestones-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+}
+
+.milestones-nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: #FFFFFF;
+  transition: color 0.3s ease;
+}
+
+.milestones-nav-btn.disabled {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* Text Content */
+.milestones-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .milestones-title {
-  font-size: 30px;
-  font-weight: 700;
-  background: linear-gradient(90deg, #008751 0%, #00B46C 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   font-family: 'Russo One', sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.2;
+  color: #FFFFFF;
 }
 
 @media (min-width: 768px) {
   .milestones-title {
     font-size: 36px;
+    line-height: 43px;
   }
 }
 
-.milestones-grid {
-  display: grid;
-  gap: 32px;
+.milestones-description {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #FFFFFF;
+  max-width: 447px;
+}
+
+/* Preview Image */
+.milestones-preview {
+  width: 305px;
+  height: 171px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.milestones-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Right Side - Video */
+.milestones-video {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 10px;
+  width: 100%;
 }
 
 @media (min-width: 1024px) {
-  .milestones-grid {
-    grid-template-columns: 400px 1fr;
+  .milestones-video {
+    max-width: 820px;
   }
 }
 
-.milestones-video {
-  position: relative;
+.milestones-number {
+  font-family: 'Russo One', sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 39px;
+  color: #FFFFFF;
 }
 
 .milestones-video-card {
-  aspect-ratio: 16 / 9;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(18px);
-  border-radius: 16px;
-  border: 1px solid var(--gray-border);
-  overflow: hidden;
   position: relative;
+  width: 100%;
+  max-width: 767px;
+  aspect-ratio: 767 / 495;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
-.milestones-video-play {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.milestones-video-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .milestones-play-button {
-  width: 80px;
-  height: 80px;
-  background: var(--sui-green);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: #404040;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1959,75 +2102,13 @@ img {
 }
 
 .milestones-play-button:hover {
-  background: var(--sui-green-light);
+  background: #505050;
 }
 
 .milestones-play-icon {
-  width: 40px;
-  height: 40px;
-  color: white;
-  margin-left: 4px;
-}
-
-.milestones-video-gradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(18, 18, 18, 0.8), transparent);
-}
-
-.milestones-list {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.milestone-card {
-  position: relative;
-  padding: 24px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(18px);
-  border: 1px solid var(--gray-border);
-  border-radius: 16px;
-  transition: transform 0.3s ease;
-}
-
-.milestone-card:hover {
-  transform: translateY(-5px);
-}
-
-.milestone-badge {
-  position: absolute;
-  top: -12px;
-  left: 24px;
-  padding: 4px 16px;
-  background: var(--sui-green);
-  border-radius: 9999px;
-}
-
-.milestone-badge-text {
-  color: white;
-  font-weight: 700;
-  font-size: 14px;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.milestone-content {
-  padding-top: 8px;
-}
-
-.milestone-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 12px;
-  font-family: 'Russo One', sans-serif;
-}
-
-.milestone-description {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 14px;
-  line-height: 1.7;
-  font-family: 'Montserrat', sans-serif;
+  width: 50px;
+  height: 50px;
+  color: #D9D9D9;
 }
 
 /* ============================================
@@ -2049,140 +2130,98 @@ img {
    ============================================ */
 .footer {
   background: var(--background);
-  border-top: 1px solid var(--gray-border);
+  padding: 0 74px 40px;
 }
 
 .footer-container {
-  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 1292px;
   margin: 0 auto;
-  padding: 64px 24px;
 }
 
-@media (min-width: 640px) {
-  .footer-container {
-    padding: 64px 48px;
-  }
+.footer-line {
+  width: 100%;
+  height: 0;
+  border: 1px solid #008751;
 }
 
-@media (min-width: 1024px) {
-  .footer-container {
-    padding: 64px 96px;
-  }
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
 }
 
 @media (min-width: 768px) {
-  .footer-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.footer-brand {
-  grid-column: span 2;
-}
-
-@media (min-width: 768px) {
-  .footer-brand {
-    grid-column: span 1;
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 
 .footer-logo {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 10px;
 }
 
 .footer-logo-image {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
 }
 
 .footer-logo-text {
+  font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  color: white;
-  font-size: 22px;
-  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  color: #00B46C;
 }
 
-.footer-tagline {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 14px;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.footer-links-section h4 {
-  color: white;
-  font-weight: 600;
-  margin-bottom: 16px;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.footer-links-list {
+.footer-right {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-}
-
-.footer-link {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 14px;
-  font-family: 'Montserrat', sans-serif;
-  transition: color 0.3s ease;
-}
-
-.footer-link:hover {
-  color: var(--sui-green);
-}
-
-.footer-bottom {
-  margin-top: 0;
-  padding-top: 32px;
-  border-top: 1px solid var(--gray-border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 16px;
 }
 
 @media (min-width: 768px) {
-  .footer-bottom {
+  .footer-right {
     flex-direction: row;
-    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
   }
 }
 
 .footer-copyright {
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 14px;
   font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #FFFFFF;
 }
 
 .footer-socials {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
 .footer-social-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: #FFFFFF;
   transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .footer-social-link:hover {
   color: var(--sui-green);
-}
-
-.footer-social-icon {
-  width: 20px;
-  height: 20px;
 }
 
 /* ============================================
@@ -2235,4 +2274,22 @@ img {
   opacity: 0;
   transform: translateX(100%);
   border: 0;
+}
+
+/* Milestone Navigation Animation */
+.milestones-info,
+.milestones-video {
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+
+.milestones-info.animating-next,
+.milestones-video.animating-next {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.milestones-info.animating-prev,
+.milestones-video.animating-prev {
+  opacity: 0;
+  transform: translateX(20px);
 }
