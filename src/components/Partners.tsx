@@ -30,14 +30,17 @@ const partners = [
 ];
 
 export function Partners() {
+  // Create multiple copies for seamless looping on large screens
+  const repeatedPartners = [...partners, ...partners, ...partners, ...partners];
+
   return (
     <section id="partners" className="partners-section">
       <div className="partners-slider">
         {/* Track with scrolling logos */}
         <div className="partners-track">
           {/* First set of logos */}
-          {partners.map((partner) => (
-            <div key={partner.id} className="partner-card">
+          {repeatedPartners.map((partner, index) => (
+            <div key={`first-${index}`} className="partner-card">
               <img
                 src={partner.logo}
                 alt={partner.name}
@@ -46,8 +49,8 @@ export function Partners() {
             </div>
           ))}
           {/* Duplicate for seamless loop */}
-          {partners.map((partner) => (
-            <div key={`dup-${partner.id}`} className="partner-card">
+          {repeatedPartners.map((partner, index) => (
+            <div key={`dup-${index}`} className="partner-card">
               <img
                 src={partner.logo}
                 alt={partner.name}
