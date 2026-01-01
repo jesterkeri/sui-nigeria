@@ -203,7 +203,7 @@ img {
 .header-logo-text {
   font-weight: 700;
   color: #00B46C;
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -222,12 +222,12 @@ img {
 .nav-link {
   padding: 10px;
   color: white;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   font-family: 'Montserrat', sans-serif;
   transition: background-color 0.3s ease;
   border-radius: 8px;
-  line-height: 24px;
+  line-height: 20px;
 }
 
 .nav-link:hover {
@@ -1393,7 +1393,7 @@ img {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 14px;
-  line-height: 24px;
+  line-height: 20px;
   text-align: right;
   color: #FFFFFF;
   opacity: 0.6;
@@ -1766,7 +1766,7 @@ img {
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
-  line-height: 24px;
+  line-height: 20px;
   text-align: right;
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
@@ -1924,7 +1924,7 @@ img {
 .blog-card-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.2;
   color: #FFFFFF;
   margin: 0;
@@ -2411,8 +2411,8 @@ img {
 .footer-logo-text {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 20px;
   color: #00B46C;
 }
 
@@ -2433,8 +2433,8 @@ img {
 .footer-copyright {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 20px;
   color: #FFFFFF;
 }
 
@@ -2790,8 +2790,8 @@ img {
 .event-date-range {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 20px;
   color: #FFFFFF;
 }
 
@@ -2812,8 +2812,8 @@ img {
 
 @media (min-width: 768px) {
   .event-time {
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 20px;
   }
 }
 
@@ -2858,8 +2858,8 @@ img {
 .event-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 20px;
   color: #FFFFFF;
   margin: 0;
 }
@@ -2888,8 +2888,8 @@ img {
 
 @media (min-width: 768px) {
   .event-location span {
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 20px;
   }
 }
 
@@ -3056,8 +3056,8 @@ img {
 .featured-event-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 20px;
   color: #FFFFFF;
   margin: 0;
 }
@@ -3121,8 +3121,8 @@ img {
 
 @media (min-width: 768px) {
   .featured-event-location span {
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 20px;
   }
 }
 
@@ -3502,20 +3502,20 @@ img {
 }
 
 .community-arrow-img {
-  transform: rotate(0deg);
+  transform: scaleX(-1);
 }
 
 .community-cta-text {
   position: absolute;
   right: 24px;
-  bottom: 100px;
+  bottom: 80px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
   text-align: right;
   color: #FFFFFF;
-  max-width: 240px;
+  max-width: 190px;
   display: none;
   z-index: 1;
 }
@@ -3530,8 +3530,8 @@ img {
   .community-cta-text {
     display: block;
     right: 96px;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 20px;
   }
 }
 
