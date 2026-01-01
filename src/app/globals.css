@@ -152,6 +152,7 @@ img {
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   z-index: 50;
   background: transparent;
   transition: background-color 0.3s ease;
@@ -163,20 +164,19 @@ img {
 }
 
 .header-nav {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 24px;
+  width: 100%;
+  padding: 16px 24px;
 }
 
 @media (min-width: 640px) {
   .header-nav {
-    padding: 0 48px;
+    padding: 16px 48px;
   }
 }
 
 @media (min-width: 1024px) {
   .header-nav {
-    padding: 0 96px;
+    padding: 16px 96px;
   }
 }
 
@@ -184,7 +184,8 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  width: 100%;
+  height: 44px;
 }
 
 .header-logo {
@@ -201,15 +202,15 @@ img {
 
 .header-logo-text {
   font-weight: 700;
-  color: white;
-  font-size: 22px;
+  color: #00B46C;
+  font-size: 20px;
   font-family: 'Montserrat', sans-serif;
 }
 
 .header-desktop-nav {
   display: none;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
 }
 
 @media (min-width: 768px) {
@@ -219,13 +220,14 @@ img {
 }
 
 .nav-link {
-  padding: 8px 16px;
+  padding: 10px;
   color: white;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 500;
   font-family: 'Montserrat', sans-serif;
   transition: background-color 0.3s ease;
   border-radius: 8px;
+  line-height: 24px;
 }
 
 .nav-link:hover {
@@ -274,6 +276,193 @@ img {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/* ============================================
+   HEADER DROPDOWN STYLES
+   ============================================
+
+   Navigation dropdown panel with dark background
+   and rounded bottom corners. Shows Events submenu.
+
+   ============================================ */
+
+.header-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: transparent;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.header-wrapper-expanded {
+  background: #121212;
+  border-bottom: 1px solid #008751;
+  backdrop-filter: blur(18px);
+}
+
+.header-dropdown-open .header-wrapper {
+  background: #121212;
+}
+
+.header-scrolled .header-wrapper {
+  background: var(--background);
+}
+
+/* Sui Hub Button */
+.btn-sui-hub {
+  background: var(--sui-green);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 18px),
+    calc(100% - 25px) 100%,
+    0 100%
+  );
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-sui-hub:hover {
+  background: var(--sui-green-light);
+}
+
+.btn-sui-hub span {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: #FFFFFF;
+}
+
+.btn-sui-hub .btn-icon {
+  width: 16px;
+  height: 16px;
+  color: #FFFFFF;
+  animation: arrowBounce 1.5s ease-in-out infinite;
+}
+
+/* Dropdown Panel */
+.header-dropdown {
+  padding: 32px 96px 40px;
+  width: 100%;
+}
+
+.dropdown-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.dropdown-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 36px;
+  width: 100%;
+}
+
+.dropdown-header {
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #008751;
+}
+
+.dropdown-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.dropdown-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 32px;
+  width: 100%;
+}
+
+.dropdown-link {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: right;
+  color: #FFFFFF;
+  transition: color 0.3s ease;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.dropdown-link::after {
+  content: '→';
+  color: var(--sui-green-light);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-link:hover {
+  color: var(--sui-green-light);
+}
+
+.dropdown-link:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+  animation: arrowBounce 1.5s ease-in-out infinite;
+}
+
+/* Responsive dropdown */
+@media (max-width: 767px) {
+  .header-dropdown {
+    padding: 20px 24px;
+  }
+
+  .dropdown-title {
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  .dropdown-links {
+    gap: 16px;
+  }
+
+  .dropdown-link {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .dropdown-section {
+    gap: 16px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .header-dropdown {
+    padding: 20px 48px;
+  }
+
+  .dropdown-links {
+    gap: 16px;
+  }
+
+  .dropdown-section {
+    gap: 20px;
+  }
 }
 
 /* ============================================
