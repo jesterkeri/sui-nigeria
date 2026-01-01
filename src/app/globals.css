@@ -938,7 +938,7 @@ img {
 
 @media (min-width: 640px) {
   .frontrunning {
-    padding: 80px 48px;
+    padding: 80px 48px 96px;
   }
 }
 
@@ -1228,7 +1228,7 @@ img {
 
 @media (min-width: 640px) {
   .spotlight-left-content {
-    padding: 80px 48px;
+    padding: 80px 48px 96px;
   }
 }
 
@@ -1253,7 +1253,7 @@ img {
 
 @media (min-width: 768px) {
   .spotlight-meet-title {
-    font-size: 32px;
+    font-size: 24px;
   }
 }
 
@@ -1385,7 +1385,7 @@ img {
 
 @media (min-width: 768px) {
   .spotlight-title {
-    font-size: 48px;
+    font-size: 36px;
   }
 }
 
@@ -1841,7 +1841,7 @@ img {
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 32px;
+  font-size: 24px;
   line-height: 1.2;
   text-align: right;
   color: #FFFFFF;
@@ -1850,13 +1850,13 @@ img {
 
 @media (min-width: 768px) {
   .blog-header-text {
-    font-size: 48px;
+    font-size: 36px;
   }
 }
 
 @media (min-width: 1024px) {
   .blog-header-text {
-    font-size: 64px;
+    font-size: 48px;
     line-height: 78px;
   }
 }
@@ -2287,7 +2287,7 @@ img {
 .milestones-number {
   font-family: 'Russo One', sans-serif;
   font-weight: 400;
-  font-size: 32px;
+  font-size: 24px;
   line-height: 39px;
   color: #FFFFFF;
 }
@@ -2956,6 +2956,7 @@ img {
 /* Past Events Section */
 .past-events-section {
   padding: 48px 24px;
+  margin-bottom: 48px;
 }
 
 @media (min-width: 640px) {
@@ -2973,7 +2974,7 @@ img {
 .past-events-title {
   font-family: 'Russo One', sans-serif;
   font-weight: 400;
-  font-size: 32px;
+  font-size: 24px;
   line-height: 39px;
   text-align: right;
   color: #FFFFFF;
@@ -2982,7 +2983,7 @@ img {
 
 @media (min-width: 768px) {
   .past-events-title {
-    font-size: 48px;
+    font-size: 36px;
     line-height: 58px;
   }
 }
@@ -3285,12 +3286,14 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 80px 24px;
+  justify-content: center;
+  padding: 80px 24px 96px;
+  margin-bottom: 96px;
 }
 
 @media (min-width: 640px) {
   .community-section {
-    padding: 80px 48px;
+    padding: 80px 48px 96px;
   }
 }
 
@@ -3302,7 +3305,7 @@ img {
 
 @media (min-width: 1024px) {
   .community-section {
-    padding: 100px 96px;
+    padding: 100px 96px 96px;
   }
 }
 
@@ -3331,9 +3334,21 @@ img {
   gap: 32px;
   max-width: 1072px;
   width: 100%;
+  margin: 0 auto;
+  
+}
+
+@media (min-width: 1024px) {
+  .community-content {
+    
+  }
 }
 
 .community-title {
+  position: absolute;
+  top: 80px;
+  right: 24px;
+  left: 24px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   font-size: 32px;
@@ -3341,6 +3356,14 @@ img {
   text-align: right;
   color: #FFFFFF;
   margin: 0;
+  z-index: 1;
+}
+
+@media (min-width: 640px) {
+  .community-title {
+    right: 48px;
+    left: 48px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -3351,8 +3374,11 @@ img {
 
 @media (min-width: 1024px) {
   .community-title {
-    font-size: 64px;
+    font-size: 56px;
     line-height: 78px;
+    right: 96px;
+    left: 96px;
+    top: 100px;
   }
 }
 
@@ -3361,10 +3387,12 @@ img {
   flex-direction: column;
   gap: 24px;
   width: 100%;
+  max-width: 1072px;
   padding: 32px 24px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(18px);
   border-radius: 16px;
+  margin: 36px auto 0;
 }
 
 @media (min-width: 768px) {
@@ -3455,7 +3483,7 @@ img {
 .community-arrow {
   position: absolute;
   left: 24px;
-  bottom: 150px;
+  bottom: 80px;
   display: none;
   z-index: 1;
 }
@@ -3474,7 +3502,7 @@ img {
 }
 
 .community-arrow-img {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 
 .community-cta-text {
@@ -3482,7 +3510,7 @@ img {
   right: 24px;
   bottom: 100px;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 16px;
   line-height: 20px;
   text-align: right;
