@@ -52,30 +52,90 @@ const pastEvents = [
     title: 'CODE WITH SUI - AKSU',
     dateRange: 'Sept 26 - Sept 27',
     time: '10:00 AM - 5:00 PM UTC+1',
-    location: 'H-FUTUREHUB Naweschools, Awka.',
-    description: 'Who can Attend: Developers, Designers, Content Creators, Entrepreneurs, Students, and anyone interested in blockchain technology, particularly the Sui ecosystem.',
+    location: 'Akwa Ibom State University, Ikot Akpaden.',
+    description: 'A 2-day intensive bootcamp introducing students to Move programming and the Sui blockchain ecosystem.',
     image: '/images/events/code-with-sui.png',
-    featured: true,
   },
   {
     id: 2,
-    title: 'CODE WITH SUI - AKSU',
-    dateRange: 'Sept 26 - Sept 27',
-    time: '10:00 AM - 5:00 PM UTC+1',
-    location: 'H-FUTUREHUB Naweschools, Awka.',
-    description: 'Who can Attend: Developers, Designers, Content Creators, Entrepreneurs, Students, and anyone interested in blockchain technology, particularly the Sui ecosystem.',
-    image: '/images/events/code-with-sui.png',
-    featured: false,
+    title: 'SUI DEVELOPER MEETUP - LAGOS',
+    dateRange: 'Aug 15 - Aug 16',
+    time: '9:00 AM - 4:00 PM UTC+1',
+    location: 'Zone Tech Park, Gbagada, Lagos.',
+    description: 'Networking event for Sui developers to share projects, collaborate, and learn from industry experts.',
+    image: '/images/community/bg-1.png',
   },
   {
     id: 3,
-    title: 'CODE WITH SUI - AKSU',
-    dateRange: 'Sept 26 - Sept 27',
+    title: 'MOVE HACKATHON 2024',
+    dateRange: 'Jul 20 - Jul 22',
+    time: '8:00 AM - 8:00 PM UTC+1',
+    location: 'Virtual Event',
+    description: 'A 48-hour hackathon challenging developers to build innovative dApps on the Sui network.',
+    image: '/images/community/bg-2.png',
+  },
+  {
+    id: 4,
+    title: 'WEB3 WOMEN IN TECH',
+    dateRange: 'Jun 10 - Jun 11',
+    time: '10:00 AM - 3:00 PM UTC+1',
+    location: 'Impact Hub, Ikoyi, Lagos.',
+    description: 'Empowering women in blockchain technology through workshops, mentorship, and hands-on Sui development.',
+    image: '/images/community/bg-3.png',
+  },
+  {
+    id: 5,
+    title: 'SUI CAMPUS TOUR - UNILAG',
+    dateRange: 'May 5 - May 6',
+    time: '11:00 AM - 4:00 PM UTC+1',
+    location: 'University of Lagos, Akoka.',
+    description: 'Introducing university students to blockchain careers and the Sui ecosystem through interactive sessions.',
+    image: '/images/community/bg-4.png',
+  },
+  {
+    id: 6,
+    title: 'DEFI ON SUI WORKSHOP',
+    dateRange: 'Apr 18 - Apr 19',
     time: '10:00 AM - 5:00 PM UTC+1',
-    location: 'H-FUTUREHUB Naweschools, Awka.',
-    description: 'Who can Attend: Developers, Designers, Content Creators, Entrepreneurs, Students, and anyone interested in blockchain technology, particularly the Sui ecosystem.',
-    image: '/images/events/code-with-sui.png',
-    featured: false,
+    location: 'Co-Creation Hub, Yaba, Lagos.',
+    description: 'Deep dive into decentralized finance protocols built on Sui, covering lending, DEXs, and yield farming.',
+    image: '/images/community/bg-5.png',
+  },
+  {
+    id: 7,
+    title: 'NFT CREATORS SUMMIT',
+    dateRange: 'Mar 8 - Mar 9',
+    time: '9:00 AM - 6:00 PM UTC+1',
+    location: 'Landmark Event Centre, Lagos.',
+    description: 'Artists and creators learning to mint, showcase, and sell NFTs on the Sui blockchain.',
+    image: '/images/community/bg-6.png',
+  },
+  {
+    id: 8,
+    title: 'SUI BUILDERS BOOTCAMP - ABUJA',
+    dateRange: 'Feb 14 - Feb 16',
+    time: '9:00 AM - 5:00 PM UTC+1',
+    location: 'nHub Nigeria, Abuja.',
+    description: 'Three-day intensive program taking developers from zero to deploying their first Sui smart contract.',
+    image: '/images/community/bg-7.png',
+  },
+  {
+    id: 9,
+    title: 'BLOCKCHAIN BASICS - PORT HARCOURT',
+    dateRange: 'Jan 20 - Jan 21',
+    time: '10:00 AM - 4:00 PM UTC+1',
+    location: 'Rivers State University, Port Harcourt.',
+    description: 'Beginner-friendly introduction to blockchain technology and why Sui stands out in the ecosystem.',
+    image: '/images/community/bg-1.png',
+  },
+  {
+    id: 10,
+    title: 'SUI NIGERIA LAUNCH EVENT',
+    dateRange: 'Dec 5 - Dec 6',
+    time: '12:00 PM - 6:00 PM UTC+1',
+    location: 'Eko Hotel & Suites, Victoria Island.',
+    description: 'The official launch of Sui Nigeria community, bringing together developers, creators, and enthusiasts.',
+    image: '/images/community/bg-2.png',
   },
 ];
 const communityBackgrounds = [  '/images/community/bg-1.png',  '/images/community/bg-2.png',  '/images/community/bg-3.png',  '/images/community/bg-4.png',  '/images/community/bg-5.png',  '/images/community/bg-6.png',  '/images/community/bg-7.png',];
@@ -83,7 +143,23 @@ const communityBackgrounds = [  '/images/community/bg-1.png',  '/images/communit
 export default function UpcomingEventsPage() {
   const [isTitleVisible, setIsTitleVisible] = useState(false);
   const [communityBg, setCommunityBg] = useState(communityBackgrounds[0]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const titleRef = useRef<HTMLDivElement>(null);
+
+  const handlePrevEvent = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+
+  const handleNextEvent = () => {
+    if (currentIndex < pastEvents.length - 1) {
+      setCurrentIndex((prev) => prev + 1);
+    }
+  };
+
+  const isFirstEvent = currentIndex === 0;
+  const isLastEvent = currentIndex === pastEvents.length - 1;
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * communityBackgrounds.length);
@@ -209,33 +285,57 @@ export default function UpcomingEventsPage() {
 
       {/* Past Events Section */}
       <section className="past-events-section">
-        <h2 className="past-events-title">Past Events</h2>
+        <div className="past-events-header">
+          <div className="past-events-nav">
+            <button
+              className={`past-events-nav-btn prev ${isFirstEvent ? 'disabled' : ''}`}
+              onClick={handlePrevEvent}
+              disabled={isFirstEvent}
+              aria-label="Show previous event"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              className={`past-events-nav-btn next ${isLastEvent ? 'disabled' : ''}`}
+              onClick={handleNextEvent}
+              disabled={isLastEvent}
+              aria-label="Show next event"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+          <h2 className="past-events-title">Past Events</h2>
+        </div>
 
         {/* Featured Past Event */}
         <div className="featured-past-event">
           <div className="featured-event-image">
             <Image
-              src="/images/events/code-with-sui.png"
-              alt="Featured Past Event"
+              src={pastEvents[currentIndex].image}
+              alt={pastEvents[currentIndex].title}
               fill
               className="featured-image"
             />
           </div>
           <div className="featured-event-details">
             <div className="featured-event-info">
-              <h3 className="featured-event-title">CODE WITH SUI - AKSU</h3>
+              <h3 className="featured-event-title">{pastEvents[currentIndex].title}</h3>
               <div className="featured-event-datetime">
-                <span>{pastEvents[0].dateRange}</span>
-                <span>{pastEvents[0].time}</span>
+                <span>{pastEvents[currentIndex].dateRange}</span>
+                <span>{pastEvents[currentIndex].time}</span>
               </div>
             </div>
-            <p className="featured-event-description">{pastEvents[0].description}</p>
+            <p className="featured-event-description">{pastEvents[currentIndex].description}</p>
             <div className="featured-event-location">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
                 <path d="M12 21C12 21 5 13.5 5 9C5 5.13401 8.13401 2 12 2C15.866 2 19 5.13401 19 9C19 13.5 12 21 12 21Z" />
                 <circle cx="12" cy="9" r="3" />
               </svg>
-              <span>H-FUTUREHUB Naweschools, Awka.</span>
+              <span>{pastEvents[currentIndex].location}</span>
             </div>
             <Link href="#" className="btn-highlights">
               <span>Highlights</span>
@@ -248,36 +348,43 @@ export default function UpcomingEventsPage() {
 
         {/* Past Events Grid */}
         <div className="past-events-grid">
-          {pastEvents.filter(e => !e.featured).map((event) => (
-            <div key={event.id} className="past-event-card">
-              <div className="past-event-image">
-                <Image
-                  src={event.image}
-                  alt={event.title}
-                  fill
-                  className="past-card-image"
-                />
-              </div>
-              <div className="past-event-content">
-                <div className="past-event-header">
-                  <h4 className="past-event-title">{event.title}</h4>
-                  <div className="past-event-datetime">
-                    <span>{event.dateRange}</span>
-                    <span>{event.time}</span>
+          {pastEvents
+            .slice(currentIndex + 1, currentIndex + 3)
+            .concat(
+              currentIndex + 3 > pastEvents.length
+                ? pastEvents.slice(0, (currentIndex + 3) - pastEvents.length)
+                : []
+            )
+            .map((event) => (
+              <div key={event.id} className="past-event-card">
+                <div className="past-event-image">
+                  <Image
+                    src={event.image}
+                    alt={event.title}
+                    fill
+                    className="past-card-image"
+                  />
+                </div>
+                <div className="past-event-content">
+                  <div className="past-event-header">
+                    <h4 className="past-event-title">{event.title}</h4>
+                    <div className="past-event-datetime">
+                      <span>{event.dateRange}</span>
+                      <span>{event.time}</span>
+                    </div>
+                  </div>
+                  <div className="past-event-divider"></div>
+                  <p className="past-event-description">{event.description}</p>
+                  <div className="past-event-location">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
+                      <path d="M12 21C12 21 5 13.5 5 9C5 5.13401 8.13401 2 12 2C15.866 2 19 5.13401 19 9C19 13.5 12 21 12 21Z" />
+                      <circle cx="12" cy="9" r="3" />
+                    </svg>
+                    <span>{event.location}</span>
                   </div>
                 </div>
-                <div className="past-event-divider"></div>
-                <p className="past-event-description">{event.description}</p>
-                <div className="past-event-location">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
-                    <path d="M12 21C12 21 5 13.5 5 9C5 5.13401 8.13401 2 12 2C15.866 2 19 5.13401 19 9C19 13.5 12 21 12 21Z" />
-                    <circle cx="12" cy="9" r="3" />
-                  </svg>
-                  <span>{event.location}</span>
-                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </section>
 
