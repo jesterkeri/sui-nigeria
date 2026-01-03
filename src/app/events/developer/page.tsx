@@ -53,7 +53,7 @@ const pastDevEvents = [
     dateRange: 'Sept 26 - Sept 27',
     time: '10:00 AM - 5:00 PM UTC+1',
     location: 'Akwa Ibom State University, Ikot Akpaden.',
-    description: 'A 2-day intensive bootcamp introducing students to Move programming and the Sui blockchain ecosystem.',
+    description: 'Who can Attend: Developers, Designers, Content Creators, Entrepreneurs, Students, and anyone interested in blockchain technology, particularly the Sui ecosystem.',
     image: '/images/events/code-with-sui.png',
   },
   {
@@ -132,9 +132,14 @@ export default function DeveloperEventsPage() {
   const [taglineText, setTaglineText] = useState('');
   const [isTypingComplete, setIsTypingComplete] = useState(false);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
+  const [globalTitleText, setGlobalTitleText] = useState('');
+  const [isGlobalTypingComplete, setIsGlobalTypingComplete] = useState(false);
+  const [isGlobalVisible, setIsGlobalVisible] = useState(false);
   const titleRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
+  const globalRef = useRef<HTMLDivElement>(null);
   const fullTagline = 'CODE. CREATE. CONNECT.';
+  const fullGlobalTitle = 'CONNECT WITH SUI BUILDERS AROUND THE WORLD.';
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * communityBackgrounds.length);
@@ -203,6 +208,49 @@ export default function DeveloperEventsPage() {
 
     return () => observer.disconnect();
   }, []);
+
+  // Global title typewriter effect
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsGlobalVisible(true);
+          } else {
+            setIsGlobalVisible(false);
+            setGlobalTitleText('');
+            setIsGlobalTypingComplete(false);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (globalRef.current) {
+      observer.observe(globalRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isGlobalVisible) {
+      return;
+    }
+
+    let index = 0;
+    const timer = setInterval(() => {
+      if (index <= fullGlobalTitle.length) {
+        setGlobalTitleText(fullGlobalTitle.slice(0, index));
+        index++;
+      } else {
+        clearInterval(timer);
+        setIsGlobalTypingComplete(true);
+      }
+    }, 50);
+
+    return () => clearInterval(timer);
+  }, [isGlobalVisible]);
 
   const handlePrevPastEvent = () => {
     if (currentPastIndex > 0) {
@@ -323,26 +371,24 @@ export default function DeveloperEventsPage() {
         <div className="dev-past-content">
           <div className="dev-past-left">
             {/* Navigation */}
-            <div className="dev-past-nav">
+            <div className="past-events-nav">
               <button
-                className={`dev-past-nav-btn prev ${isFirstPastEvent ? 'disabled' : ''}`}
+                className={`past-events-nav-btn prev ${isFirstPastEvent ? 'disabled' : ''}`}
                 onClick={handlePrevPastEvent}
                 disabled={isFirstPastEvent}
-                aria-label="Previous event"
+                aria-label="Show previous event"
               >
-                <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10" />
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               <button
-                className={`dev-past-nav-btn next ${isLastPastEvent ? 'disabled' : ''}`}
+                className={`past-events-nav-btn next ${isLastPastEvent ? 'disabled' : ''}`}
                 onClick={handleNextPastEvent}
                 disabled={isLastPastEvent}
-                aria-label="Next event"
+                aria-label="Show next event"
               >
-                <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10" />
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </button>
@@ -384,8 +430,26 @@ export default function DeveloperEventsPage() {
       </section>
 
       {/* Global Events Section */}
-      <section className="dev-global-section">
-        <h2 className="dev-global-title">CONNECT WITH SUI BUILDERS AROUND THE WORLD.</h2>
+      <section className="dev-global-section" ref={globalRef}>
+        <div className="dev-global-header">
+          <h2 className="dev-global-title">{globalTitleText}{!isGlobalTypingComplete && <span className="global-title-cursor">|</span>}</h2>
+          <div className="dev-global-arrows">
+            <Image
+              src="/blog-arrow.svg"
+              alt="Arrow"
+              width={120}
+              height={120}
+              className="dev-global-arrow rotated"
+            />
+            <Image
+              src="/blog-arrow.svg"
+              alt="Arrow"
+              width={120}
+              height={120}
+              className="dev-global-arrow"
+            />
+          </div>
+        </div>
 
         <div className="dev-global-grid">
           {globalEvents.map((event) => (
