@@ -16,8 +16,15 @@ const categories = [
   { id: 5, name: 'Ui/Ux design', freelancerCount: 235 },
   { id: 6, name: 'Ghost Writing', freelancerCount: 235 },
   { id: 7, name: 'Graphics Design', freelancerCount: 235 },
-  { id: 8, name: '+ 5 more', freelancerCount: 600, isMore: true },
+  { id: 8, name: 'Smart Contract Auditor', freelancerCount: 120 },
+  { id: 9, name: 'Sui-Move Dev', freelancerCount: 180 },
+  { id: 10, name: 'Product Manager', freelancerCount: 95 },
+  { id: 11, name: 'Social Media Manager', freelancerCount: 150 },
+  { id: 12, name: 'NFT Specialist', freelancerCount: 110 },
+  { id: 13, name: 'Community Manager', freelancerCount: 140 },
+  { id: 14, name: 'Quant/Tokenomics Expert', freelancerCount: 75 },
 ];
+
 
 // Freelancer data
 const freelancers = [
@@ -160,6 +167,13 @@ const categoryFilters = [
   '3d Artist',
   'Content Creation',
   'Motion Designer',
+  'Smart Contract Auditor',
+  'Sui-Move Dev',
+  'Product Manager',
+  'Social Media Manager',
+  'NFT Specialist',
+  'Community Manager',
+  'Quant/Tokenomics Expert',
 ];
 const starRatings = ['2 stars', '3 stars', '4 stars', 'Veteran'];
 
@@ -169,6 +183,20 @@ export default function FreelancersPage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>(['Programming', 'Content Creation']);
   const [selectedRatings, setSelectedRatings] = useState<string[]>(['3 stars', '4 stars', 'Veteran']);
   const [showFilters, setShowFilters] = useState(true);
+  const [categoryPage, setCategoryPage] = useState(0);
+
+  const ITEMS_PER_PAGE = 8; // 2 rows of 4
+  const totalPages = Math.ceil(categories.length / ITEMS_PER_PAGE);
+  const startIndex = categoryPage * ITEMS_PER_PAGE;
+  const visibleCategories = categories.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  const handlePrevPage = () => {
+    if (categoryPage > 0) setCategoryPage(categoryPage - 1);
+  };
+
+  const handleNextPage = () => {
+    if (categoryPage < totalPages - 1) setCategoryPage(categoryPage + 1);
+  };
 
   const toggleFilter = (filter: string, list: string[], setList: (value: string[]) => void) => {
     if (list.includes(filter)) {
@@ -218,21 +246,19 @@ export default function FreelancersPage() {
       <section className="category-section">
         <h2 className="category-title">Explore by category</h2>
         <div className="category-content">
-          <div className="category-grid">
-            {categories.map((category) => (
+          <div className="category-grid" key={categoryPage}>
+            {visibleCategories.map((category) => (
               <button
                 key={category.id}
-                className={`category-card ${activeCategory === category.id ? 'category-card-active' : ''} ${category.isMore ? 'category-card-more' : ''}`}
+                className={`category-card ${activeCategory === category.id ? 'category-card-active' : ''}`}
                 onClick={() => setActiveCategory(category.id)}
               >
-                {!category.isMore && (
-                  <div className="category-icon">
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
-                      <rect x="6" y="6" width="36" height="36" rx="4"/>
-                      <path d="M18 18L30 30M30 18L18 30"/>
-                    </svg>
-                  </div>
-                )}
+                <div className="category-icon">
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+                    <rect x="6" y="6" width="36" height="36" rx="4"/>
+                    <path d="M18 18L30 30M30 18L18 30"/>
+                  </svg>
+                </div>
                 <div className="category-info">
                   <span className="category-name">{category.name}</span>
                   <div className="category-count">
@@ -245,17 +271,25 @@ export default function FreelancersPage() {
               </button>
             ))}
           </div>
-          <div className="category-nav">
-            <button className="category-nav-btn category-nav-prev" disabled>
-              <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-                <circle cx="26" cy="26" r="25" stroke="currentColor" strokeWidth="2"/>
-                <path d="M30 18L22 26L30 34" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          <div className="past-events-nav">
+            <button
+              className={`past-events-nav-btn prev ${categoryPage === 0 ? 'disabled' : ''}`}
+              disabled={categoryPage === 0}
+              onClick={handlePrevPage}
+              aria-label="Show previous categories"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/>
               </svg>
             </button>
-            <button className="category-nav-btn category-nav-next">
-              <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-                <circle cx="26" cy="26" r="25" stroke="currentColor" strokeWidth="2"/>
-                <path d="M22 18L30 26L22 34" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            <button
+              className={`past-events-nav-btn next ${categoryPage >= totalPages - 1 ? 'disabled' : ''}`}
+              disabled={categoryPage >= totalPages - 1}
+              onClick={handleNextPage}
+              aria-label="Show next categories"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"/>
               </svg>
             </button>
           </div>
@@ -387,7 +421,8 @@ export default function FreelancersPage() {
                   </div>
                   <div className="filter-options">
                     {categoryFilters.map((category) => (
-                      <label key={category} className="filter-checkbox filter-checkbox-left">
+                      <label key={category} className="filter-checkbox">
+                        <span>{category}</span>
                         <input
                           type="checkbox"
                           checked={selectedCategories.includes(category)}
@@ -400,7 +435,6 @@ export default function FreelancersPage() {
                             </svg>
                           )}
                         </span>
-                        <span>{category}</span>
                       </label>
                     ))}
                   </div>
