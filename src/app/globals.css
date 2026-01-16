@@ -6606,8 +6606,6 @@ img {
 /* Freelancers Listing Section */
 .freelancers-listing {
   padding: 40px 24px 80px;
-  max-width: 1440px;
-  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
@@ -6626,6 +6624,7 @@ img {
   display: flex;
   flex-direction: column-reverse;
   gap: 32px;
+  margin: 96px;
 }
 
 @media (min-width: 1024px) {
@@ -6683,8 +6682,10 @@ img {
 .freelancer-card-pattern {
   position: absolute;
   inset: 0;
-  background: rgba(175, 175, 175, 0.1);
+  background: url('/images/hiring-pattern.svg') center / cover no-repeat;
+  opacity: 1;
   pointer-events: none;
+  z-index: 0;
 }
 
 .freelancer-header {
@@ -6745,7 +6746,7 @@ img {
 
 .freelancer-description {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   line-height: 20px;
   color: #FFFFFF;
