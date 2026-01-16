@@ -5,12 +5,18 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 
 const navItems = [
-  { name: 'Hiring', href: '/hiring', hasDropdown: false },
+  { name: 'Hiring', href: '/hiring', hasDropdown: true },
   { name: 'Events', href: '/events', hasDropdown: true },
   { name: 'Communities', href: '/communities', hasDropdown: false },
   { name: 'Earn', href: '/earn', hasDropdown: false },
   { name: 'Blog', href: '/blog', hasDropdown: false },
   { name: 'Academy', href: '/academy', hasDropdown: false },
+];
+
+const hiringDropdownItems = [
+  { name: 'Hire a freelancer', href: '/hiring/freelancers' },
+  { name: 'Get a gig', href: '/hiring/gigs' },
+  { name: 'Register as a freelancer', href: '/hiring/register' },
 ];
 
 const eventsDropdownItems = [
@@ -129,6 +135,31 @@ export function Header() {
             </button>
           </div>
         </nav>
+
+        {/* Hiring Dropdown Panel */}
+        {activeDropdown === 'Hiring' && (
+          <div className="header-dropdown" ref={dropdownRef}>
+            <div className="dropdown-content">
+              <div className="dropdown-section">
+                <div className="dropdown-header">
+                  <h3 className="dropdown-title">Hiring</h3>
+                </div>
+                <div className="dropdown-links">
+                  {hiringDropdownItems.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className="dropdown-link"
+                      onClick={() => setActiveDropdown(null)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Events Dropdown Panel */}
         {activeDropdown === 'Events' && (
