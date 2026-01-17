@@ -308,6 +308,7 @@ img {
 .header-wrapper-expanded {
   background: #121212;
   border-bottom: 1px solid #008751;
+  -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
 }
 
@@ -785,6 +786,7 @@ img {
   bottom: 128px;
   right: 24px;
   background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   border-radius: 12px;
   padding: 16px;
@@ -1220,7 +1222,7 @@ img {
 @media (min-width: 1024px) {
   .spotlight-left {
     flex: 0 0 50%;
-    min-height: auto;
+    min-height: 0;
   }
 }
 
@@ -1344,7 +1346,7 @@ img {
 @media (min-width: 1024px) {
   .spotlight-right {
     flex: 0 0 calc(50% - 24px);
-    min-height: auto;
+    min-height: 0;
     margin: 24px 24px 24px 0;
   }
 }
@@ -1580,6 +1582,7 @@ img {
   width: 256px;
   height: 256px;
   background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
   border-radius: 24px;
   border: 1px solid var(--gray-border);
@@ -1962,6 +1965,7 @@ img {
   height: 261px;
   padding: 32px 20px;
   background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
   border-radius: 16px;
   transition: transform 0.3s ease, border-color 0.3s ease;
@@ -3455,9 +3459,7 @@ img {
   margin: 0 auto;
 }
 
-@media (min-width: 1024px) {
-  .community-content {}
-}
+
 
 .community-title {
   position: relative;
@@ -3500,6 +3502,7 @@ img {
   max-width: 1072px;
   padding: 32px 24px;
   background: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
   border-radius: 16px;
   margin: 0 auto;
@@ -3651,6 +3654,7 @@ img {
   bottom: 128px;
   right: 24px;
   background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   border-radius: 12px;
   padding: 16px;
@@ -4661,6 +4665,7 @@ img {
   padding: 4px 8px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
   border-radius: 16px;
   font-family: 'Montserrat', sans-serif;
@@ -4989,6 +4994,7 @@ img {
   padding: 8px 16px;
   background: rgba(255, 255, 255, 0.05);
   border: 0.75px solid rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(13.5px);
   backdrop-filter: blur(13.5px);
   border-radius: 30px;
 }
@@ -6611,6 +6617,7 @@ img {
   gap: 24px;
   background: rgba(0, 0, 0, 0.1);
   border: 1px solid #404040;
+  -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
   border-radius: 16px;
   cursor: pointer;
@@ -6631,9 +6638,7 @@ img {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-.category-card-active {
-  /* Active state without green border */
-}
+
 
 .category-card-active .category-icon svg,
 .category-card-active .category-name,
@@ -6885,6 +6890,7 @@ img {
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
