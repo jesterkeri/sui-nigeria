@@ -5,20 +5,12 @@ import { Footer } from '@/components/Footer';
 import { PageProgress } from '@/components/PageProgress';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Category icons mapping
 const getCategoryIcon = (name: string) => {
   const icons: { [key: string]: React.ReactNode } = {
-    'All': (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
-        <rect x="6" y="6" width="14" height="14" rx="2" />
-        <rect x="28" y="6" width="14" height="14" rx="2" />
-        <rect x="6" y="28" width="14" height="14" rx="2" />
-        <rect x="28" y="28" width="14" height="14" rx="2" />
-      </svg>
-    ),
     'Video Editing': (
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
         <rect x="6" y="10" width="26" height="28" rx="3" />
@@ -31,7 +23,7 @@ const getCategoryIcon = (name: string) => {
         <path d="M20 16v16l12-8-12-8z" fill="currentColor" />
       </svg>
     ),
-    'Programming': (
+    'Software Development': (
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
         <path d="M16 14l-10 10 10 10" />
         <path d="M32 14l10 10-10 10" />
@@ -123,16 +115,23 @@ const getCategoryIcon = (name: string) => {
         <circle cx="42" cy="18" r="3" />
       </svg>
     ),
+    'Cyber Security': (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+        <path d="M24 4L6 12v12c0 11 8 21 18 24 10-3 18-13 18-24V12L24 4z" />
+        <rect x="18" y="20" width="12" height="10" rx="2" />
+        <circle cx="24" cy="18" r="4" />
+        <path d="M24 24v4" />
+      </svg>
+    ),
   };
-  return icons[name] || icons['All'];
+  return icons[name] || icons['Video Editing'];
 };
 
 // Category data
 const categories = [
-  { id: 1, name: 'All', freelancerCount: 235, isAll: true },
-  { id: 2, name: 'Video Editing', freelancerCount: 235 },
+  { id: 1, name: 'Video Editing', freelancerCount: 235 },
   { id: 3, name: 'Animation', freelancerCount: 235 },
-  { id: 4, name: 'Programming', freelancerCount: 235 },
+  { id: 4, name: 'Software Development', freelancerCount: 235 },
   { id: 5, name: 'Product Design', freelancerCount: 235 },
   { id: 6, name: 'Ghost Writing', freelancerCount: 235 },
   { id: 7, name: 'Graphics Design', freelancerCount: 235 },
@@ -143,139 +142,95 @@ const categories = [
   { id: 12, name: 'NFT Specialist', freelancerCount: 110 },
   { id: 13, name: 'Community Manager', freelancerCount: 140 },
   { id: 14, name: 'Quant/Tokenomics Expert', freelancerCount: 75 },
+  { id: 15, name: 'Cyber Security', freelancerCount: 85 },
 ];
 
 
-// Freelancer data
-const freelancers = [
-  {
-    id: 1,
-    name: 'Daniel Esoesa',
-    avatar: '/images/community/bg-1.png',
-    description: 'Sui Move dev, designer and video editors, i am currently a content creator on the Sui Network.',
-    employmentTypes: ['Contract', 'Full-Time'],
-    skills: [
-      { name: 'Video Editing', color: 'green' },
-      { name: 'Programming', color: 'white' },
-      { name: 'Animation', color: 'purple' },
-    ],
-    rating: 4.5,
-    reviewCount: 188,
-    featured: true,
-  },
-  {
-    id: 2,
-    name: 'Daniel Esoesa',
-    avatar: '/images/community/bg-2.png',
-    description: 'Sui Move dev, designer and video editors, i am currently a content creator on the Sui Network.',
-    employmentTypes: ['Contract', 'Full-Time'],
-    skills: [
-      { name: 'Video Editing', color: 'green' },
-      { name: 'Programming', color: 'white' },
-      { name: 'Animation', color: 'purple' },
-    ],
-    rating: 4.5,
-    reviewCount: 188,
-  },
-  {
-    id: 3,
-    name: 'Daniel Esoesa',
-    avatar: '/images/community/bg-3.png',
-    description: 'Sui Move dev, designer and video editors, i am currently a content creator on the Sui Network.',
-    employmentTypes: ['Contract', 'Full-Time'],
-    skills: [
-      { name: 'Video Editing', color: 'green' },
-      { name: 'Programming', color: 'white' },
-      { name: 'Animation', color: 'purple' },
-    ],
-    rating: 4.5,
-    reviewCount: 188,
-  },
-  {
-    id: 4,
-    name: 'Daniel Esoesa',
-    avatar: '/images/community/bg-4.png',
-    description: 'Sui Move dev, designer and video editors, i am currently a content creator on the Sui Network.',
-    employmentTypes: ['Contract', 'Full-Time'],
-    skills: [
-      { name: 'Video Editing', color: 'green' },
-      { name: 'Programming', color: 'white' },
-      { name: 'Animation', color: 'purple' },
-    ],
-    rating: 4.5,
-    reviewCount: 188,
-  },
-  {
-    id: 5,
-    name: 'Daniel Esoesa',
-    avatar: '/images/community/bg-5.png',
-    description: 'Sui Move dev, designer and video editors, i am currently a content creator on the Sui Network.',
-    employmentTypes: ['Contract', 'Full-Time'],
-    skills: [
-      { name: 'Video Editing', color: 'green' },
-      { name: 'Programming', color: 'white' },
-      { name: 'Animation', color: 'purple' },
-    ],
-    rating: 4.5,
-    reviewCount: 188,
-  },
-  {
-    id: 6,
-    name: 'Daniel Esoesa',
-    avatar: '/images/community/bg-6.png',
-    description: 'Sui Move dev, designer and video editors, i am currently a content creator on the Sui Network.',
-    employmentTypes: ['Contract', 'Full-Time'],
-    skills: [
-      { name: 'Video Editing', color: 'green' },
-      { name: 'Programming', color: 'white' },
-      { name: 'Animation', color: 'purple' },
-    ],
-    rating: 4.5,
-    reviewCount: 188,
-  },
-  {
-    id: 7,
-    name: 'Daniel Esoesa',
-    avatar: '/images/community/bg-7.png',
-    description: 'Sui Move dev, designer and video editors, i am currently a content creator on the Sui Network.',
-    employmentTypes: ['Contract', 'Full-Time'],
-    skills: [
-      { name: 'Video Editing', color: 'green' },
-      { name: 'Programming', color: 'white' },
-      { name: 'Animation', color: 'purple' },
-    ],
-    rating: 4.5,
-    reviewCount: 188,
-  },
-  {
-    id: 8,
-    name: 'Daniel Esoesa',
-    avatar: '/images/community/bg-1.png',
-    description: 'Sui Move dev, designer and video editors, i am currently a content creator on the Sui Network.',
-    employmentTypes: ['Contract', 'Full-Time'],
-    skills: [
-      { name: 'Video Editing', color: 'green' },
-      { name: 'Programming', color: 'white' },
-      { name: 'Animation', color: 'purple' },
-    ],
-    rating: 4.5,
-    reviewCount: 188,
-  },
-  {
-    id: 9,
-    name: 'Daniel Esoesa',
-    avatar: '/images/community/bg-2.png',
-    description: 'Sui Move dev, designer and video editors, i am currently a content creator on the Sui Network.',
-    employmentTypes: ['Contract', 'Full-Time'],
-    skills: [
-      { name: 'Video Editing', color: 'green' },
-      { name: 'Programming', color: 'white' },
-      { name: 'Animation', color: 'purple' },
-    ],
-    rating: 4.5,
-    reviewCount: 188,
-  },
+// Freelancer generation data
+const firstNames = ['Daniel', 'Sarah', 'Michael', 'Amara', 'Chidi', 'Fatima', 'Emmanuel', 'Ngozi', 'Tunde', 'Adaeze', 'Obinna', 'Yemi', 'Kemi', 'Ifeanyi', 'Zainab', 'Olumide', 'Chisom', 'Funke', 'Emeka', 'Aisha', 'Segun', 'Nneka', 'Babatunde', 'Halima', 'Chukwu', 'Tosin', 'Uche', 'Bola', 'Ikenna', 'Mariam'];
+const lastNames = ['Esoesa', 'Chen', 'Adeyemi', 'Okonkwo', 'Nwosu', 'Ibrahim', 'Okoro', 'Eze', 'Bakare', 'Okafor', 'Ademola', 'Bello', 'Obi', 'Afolabi', 'Mohammed', 'Onyeka', 'Adebayo', 'Nnamdi', 'Yusuf', 'Chukwuma', 'Olawale', 'Igwe', 'Abdullahi', 'Emenike', 'Ogunyemi'];
+const descriptions = [
+  'Sui Move dev and designer creating innovative solutions on the Sui Network.',
+  'Full-stack developer specializing in blockchain and DeFi applications.',
+  'Creative designer with expertise in UI/UX and brand identity for Web3.',
+  'Community manager and content strategist helping projects grow.',
+  'Security researcher and smart contract auditor focused on Move language.',
+  'Motion graphics artist and 3D animator for NFT collections.',
+  'Tokenomics expert designing sustainable economic models.',
+  'Product manager launching successful DeFi and GameFi projects.',
+  'Blockchain developer building decentralized applications.',
+  'NFT specialist creating and marketing digital collectibles.',
+  'Social media manager growing Web3 communities organically.',
+  'Technical writer documenting blockchain protocols and APIs.',
+  'Smart contract developer with expertise in DeFi protocols.',
+  'Graphics designer creating visual identities for crypto projects.',
+  'Video editor producing content for blockchain education.',
 ];
+const allSkills = [
+  { name: 'Video Editing', color: 'green' },
+  { name: 'Sui-Move Dev', color: 'white' },
+  { name: 'Animation', color: 'purple' },
+  { name: 'NFT Specialist', color: 'green' },
+  { name: 'Smart Contracts', color: 'white' },
+  { name: 'Programming', color: 'purple' },
+  { name: 'Product Design', color: 'green' },
+  { name: 'Graphics Design', color: 'white' },
+  { name: 'Community Manager', color: 'purple' },
+  { name: 'Social Media', color: 'green' },
+  { name: 'Ghost Writing', color: 'white' },
+  { name: 'Cyber Security', color: 'purple' },
+  { name: 'Tokenomics', color: 'green' },
+  { name: 'Product Manager', color: 'white' },
+  { name: '3D Artist', color: 'purple' },
+];
+const employmentOptions = ['Contract', 'Full-Time', 'Internship', 'Gig'];
+
+// Seeded random for consistent results
+const seededRandom = (seed: number) => {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+};
+
+// Generate 200 freelancers
+const freelancers = Array.from({ length: 200 }, (_, i) => {
+  const seed = i + 1;
+  const firstName = firstNames[Math.floor(seededRandom(seed * 1) * firstNames.length)];
+  const lastName = lastNames[Math.floor(seededRandom(seed * 2) * lastNames.length)];
+  const avatarNum = (i % 7) + 1;
+  const description = descriptions[Math.floor(seededRandom(seed * 3) * descriptions.length)];
+
+  // Random employment types (1-2)
+  const numEmployment = Math.floor(seededRandom(seed * 4) * 2) + 1;
+  const shuffledEmployment = [...employmentOptions].sort(() => seededRandom(seed * 5) - 0.5);
+  const selectedEmployment = shuffledEmployment.slice(0, numEmployment);
+
+  // Random skills (1-5)
+  const numSkills = Math.floor(seededRandom(seed * 6) * 5) + 1;
+  const shuffledSkills = [...allSkills].sort(() => seededRandom(seed * 7) - 0.5);
+  const selectedSkills = shuffledSkills.slice(0, numSkills);
+
+  // Random rating (3.5 - 5.0)
+  const rating = Math.round((3.5 + seededRandom(seed * 8) * 1.5) * 10) / 10;
+
+  // Random review count (20 - 300)
+  const reviewCount = Math.floor(seededRandom(seed * 9) * 280) + 20;
+
+  // Random completed jobs (1 - 12)
+  const completedJobs = Math.floor(seededRandom(seed * 10) * 12) + 1;
+
+  return {
+    id: i + 1,
+    name: `${firstName} ${lastName}`,
+    avatar: `/images/community/bg-${avatarNum}.png`,
+    description,
+    employmentTypes: selectedEmployment,
+    skills: selectedSkills,
+    rating,
+    reviewCount,
+    completedJobs,
+    featured: i === 0,
+  };
+});
 
 // Filter options
 const employmentTypes = ['Full-time', 'Internship', 'Contract', 'Gig'];
@@ -283,7 +238,7 @@ const categoryFilters = [
   'UI/UX design',
   'Video Editing',
   'Animation',
-  'Programming',
+  'Software Development',
   '3d Artist',
   'Content Creation',
   'Motion Designer',
@@ -294,18 +249,22 @@ const categoryFilters = [
   'NFT Specialist',
   'Community Manager',
   'Quant/Tokenomics Expert',
+  'Cyber Security',
 ];
 const starRatings = ['2 stars', '3 stars', '4 stars', 'Veteran'];
 
 export default function FreelancersPage() {
   const [activeCategory, setActiveCategory] = useState(1);
   const [selectedEmployment, setSelectedEmployment] = useState<string[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(['Programming', 'Content Creation']);
-  const [selectedRatings, setSelectedRatings] = useState<string[]>(['3 stars', '4 stars', 'Veteran']);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(true);
   const [categoryPage, setCategoryPage] = useState(0);
+  const [freelancerPage, setFreelancerPage] = useState(0);
   const [subtitleVisible, setSubtitleVisible] = useState(false);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
+
+  const FREELANCERS_PER_PAGE = 15; // ~5 rows with 3 columns
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -337,12 +296,71 @@ export default function FreelancersPage() {
     if (categoryPage < totalPages - 1) setCategoryPage(categoryPage + 1);
   };
 
-  const toggleFilter = (filter: string, list: string[], setList: (value: string[]) => void) => {
+  const toggleFilter = (filter: string, list: string[], setList: (value: string[]) => void, maxItems?: number) => {
     if (list.includes(filter)) {
       setList(list.filter(f => f !== filter));
     } else {
+      // If maxItems is set and we've reached the limit, don't add more
+      if (maxItems && list.length >= maxItems) return;
       setList([...list, filter]);
     }
+  };
+
+  // Filter freelancers based on selected filters
+  const filteredFreelancers = useMemo(() => {
+    return freelancers.filter((freelancer) => {
+      // Filter by employment type
+      if (selectedEmployment.length > 0) {
+        const hasMatchingEmployment = freelancer.employmentTypes.some((type) =>
+          selectedEmployment.some((selected) => selected.toLowerCase() === type.toLowerCase())
+        );
+        if (!hasMatchingEmployment) return false;
+      }
+
+      // Filter by categories (skills)
+      if (selectedCategories.length > 0) {
+        const hasMatchingSkill = freelancer.skills.some((skill) =>
+          selectedCategories.some((selected) =>
+            skill.name.toLowerCase().includes(selected.toLowerCase()) ||
+            selected.toLowerCase().includes(skill.name.toLowerCase())
+          )
+        );
+        if (!hasMatchingSkill) return false;
+      }
+
+      // Filter by star rating
+      if (selectedRatings.length > 0) {
+        const matchesRating = selectedRatings.some((rating) => {
+          // Veteran: 10+ consecutive jobs completed with 4+ star rating
+          if (rating === 'Veteran') return freelancer.completedJobs >= 10 && freelancer.rating >= 4;
+          if (rating === '4 stars') return freelancer.rating >= 4 && freelancer.rating < 5;
+          if (rating === '3 stars') return freelancer.rating >= 3 && freelancer.rating < 4;
+          if (rating === '2 stars') return freelancer.rating >= 2 && freelancer.rating < 3;
+          return false;
+        });
+        if (!matchesRating) return false;
+      }
+
+      return true;
+    });
+  }, [selectedEmployment, selectedCategories, selectedRatings]);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setFreelancerPage(0);
+  }, [selectedEmployment, selectedCategories, selectedRatings]);
+
+  // Pagination for freelancers
+  const totalFreelancerPages = Math.ceil(filteredFreelancers.length / FREELANCERS_PER_PAGE);
+  const freelancerStartIndex = freelancerPage * FREELANCERS_PER_PAGE;
+  const paginatedFreelancers = filteredFreelancers.slice(freelancerStartIndex, freelancerStartIndex + FREELANCERS_PER_PAGE);
+
+  const handleFreelancerPrevPage = () => {
+    if (freelancerPage > 0) setFreelancerPage(freelancerPage - 1);
+  };
+
+  const handleFreelancerNextPage = () => {
+    if (freelancerPage < totalFreelancerPages - 1) setFreelancerPage(freelancerPage + 1);
   };
 
   return (
@@ -444,7 +462,7 @@ export default function FreelancersPage() {
         <div className="freelancers-listing-content">
           {/* Freelancer Grid */}
           <div className="freelancers-grid">
-            {freelancers.map((freelancer) => (
+            {paginatedFreelancers.map((freelancer) => (
               <div key={freelancer.id} className={`freelancer-card ${freelancer.featured ? 'freelancer-card-featured' : ''}`}>
                 <div className="freelancer-card-pattern"></div>
 
@@ -462,6 +480,9 @@ export default function FreelancersPage() {
                     {freelancer.employmentTypes.map((type) => (
                       <span key={type} className="freelancer-badge">{type}</span>
                     ))}
+                    {freelancer.completedJobs >= 10 && freelancer.rating >= 4 && (
+                      <span className="freelancer-badge freelancer-badge-veteran">Veteran</span>
+                    )}
                   </div>
                 </div>
 
@@ -473,12 +494,11 @@ export default function FreelancersPage() {
 
                 {/* Skills */}
                 <div className="freelancer-skills">
-                  {freelancer.skills.map((skill) => (
+                  {freelancer.skills.slice(0, 5).map((skill) => (
                     <span key={skill.name} className={`skill-tag skill-tag-${skill.color}`}>
                       {skill.name}
                     </span>
                   ))}
-                  <span className="skill-more">+2</span>
                 </div>
 
                 {/* Rating */}
@@ -508,6 +528,11 @@ export default function FreelancersPage() {
                 </div>
               </div>
             ))}
+            {paginatedFreelancers.length === 0 && (
+              <div className="no-results">
+                <p>No freelancers match your filters. Try adjusting your criteria.</p>
+              </div>
+            )}
           </div>
 
           {/* Filter Sidebar */}
@@ -542,7 +567,7 @@ export default function FreelancersPage() {
                           <input
                             type="checkbox"
                             checked={selectedEmployment.includes(type)}
-                            onChange={() => toggleFilter(type, selectedEmployment, setSelectedEmployment)}
+                            onChange={() => toggleFilter(type, selectedEmployment, setSelectedEmployment, 2)}
                           />
                           <span className={`checkbox-custom ${selectedEmployment.includes(type) ? 'checkbox-checked' : ''}`}>
                             {selectedEmployment.includes(type) && (
@@ -624,6 +649,37 @@ export default function FreelancersPage() {
             </button>
           </motion.aside>
         </div>
+
+        {/* Freelancers Pagination */}
+        {filteredFreelancers.length > 0 && (
+          <div className="freelancers-pagination">
+            <div className="past-events-nav">
+              <button
+                className={`past-events-nav-btn prev ${freelancerPage === 0 ? 'disabled' : ''}`}
+                disabled={freelancerPage === 0}
+                onClick={handleFreelancerPrevPage}
+                aria-label="Show previous freelancers"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <span className="pagination-info">
+                Page {freelancerPage + 1} of {totalFreelancerPages}
+              </span>
+              <button
+                className={`past-events-nav-btn next ${freelancerPage >= totalFreelancerPages - 1 ? 'disabled' : ''}`}
+                disabled={freelancerPage >= totalFreelancerPages - 1}
+                onClick={handleFreelancerNextPage}
+                aria-label="Show next freelancers"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Community Signup Section */}

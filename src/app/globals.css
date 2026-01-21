@@ -6756,13 +6756,13 @@ img {
 
 @media (min-width: 768px) {
   .freelancers-listing {
-    padding: 40px 48px 100px;
+    padding: 40px 96px 100px;
   }
 }
 
 @media (min-width: 1024px) {
   .freelancers-listing {
-    padding: 40px 74px 120px;
+    padding: 40px 96px 120px;
   }
 }
 
@@ -6787,6 +6787,7 @@ img {
   grid-template-columns: repeat(auto-fill, minmax(324px, 1fr));
   gap: 24px;
   flex: 1;
+  align-content: start;
 }
 
 /* Freelancer Card */
@@ -6802,6 +6803,7 @@ img {
   overflow: hidden;
   transition: all 0.3s ease;
   max-width: 474px;
+  max-height: 460px;
   width: 100%;
   min-width: 324px;
 }
@@ -6851,6 +6853,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  justify-content: flex-end;
 }
 
 .freelancer-badge {
@@ -6861,6 +6864,11 @@ img {
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+  color: #FFFFFF;
+}
+
+.freelancer-badge-veteran {
+  background: #08f;
   color: #FFFFFF;
 }
 
@@ -6893,15 +6901,18 @@ img {
   line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  min-height: 60px;
 }
 
 .freelancer-skills {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
+  align-content: flex-start;
   gap: 8px;
   position: relative;
   z-index: 1;
+  min-height: 76px;
 }
 
 .skill-tag {
@@ -6943,6 +6954,7 @@ img {
   gap: 8px;
   position: relative;
   z-index: 1;
+  margin-top: auto;
 }
 
 .rating-label {
@@ -7037,6 +7049,41 @@ img {
 
 .btn-message:hover svg {
   stroke: #FFFFFF;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.no-results p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  color: #888;
+}
+
+/* Freelancers Pagination */
+.freelancers-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 48px;
+  padding-bottom: 24px;
+}
+
+.freelancers-pagination .past-events-nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pagination-info {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #FFFFFF;
+  min-width: 100px;
+  text-align: center;
 }
 
 /* Filter Sidebar */
@@ -7199,4 +7246,1297 @@ img {
 .checkbox-custom svg {
   width: 16px;
   height: 16px;
+}
+
+/* ============================================
+   FREELANCER PROFILE PAGE STYLES
+   ============================================ */
+
+.profile-page {
+  position: relative;
+  background: #121212;
+  min-height: 100vh;
+}
+
+/* Profile Hero Section */
+.profile-hero {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  margin-top: 76px;
+}
+
+@media (min-width: 768px) {
+  .profile-hero {
+    height: 625px;
+  }
+}
+
+.profile-hero-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.profile-hero-image {
+  object-fit: cover;
+  filter: brightness(0.8);
+}
+
+.profile-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+}
+
+.profile-hero-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.profile-hero-nav:hover {
+  opacity: 1;
+}
+
+.profile-hero-nav-prev {
+  left: 24px;
+}
+
+.profile-hero-nav-next {
+  right: 24px;
+}
+
+@media (min-width: 640px) {
+  .profile-hero-nav-prev {
+    left: 48px;
+  }
+
+  .profile-hero-nav-next {
+    right: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-hero-nav-prev {
+    left: 67px;
+  }
+
+  .profile-hero-nav-next {
+    right: 67px;
+  }
+}
+
+.profile-hero-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: #636363;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .profile-hero-play {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.profile-hero-play:hover {
+  background: #008751;
+}
+
+.profile-back-btn {
+  position: absolute;
+  top: 22px;
+  left: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 0.5px solid rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border-radius: 60px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  z-index: 10;
+}
+
+@media (min-width: 640px) {
+  .profile-back-btn {
+    left: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-back-btn {
+    left: 74px;
+  }
+}
+
+.profile-hero-tagline {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  max-width: 500px;
+  font-family: 'Russo One', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: right;
+  color: #FFFFFF;
+  z-index: 10;
+}
+
+@media (min-width: 640px) {
+  .profile-hero-tagline {
+    right: 48px;
+    bottom: 48px;
+  }
+}
+
+@media (min-width: 768px) {
+  .profile-hero-tagline {
+    font-size: 28px;
+    max-width: 700px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-hero-tagline {
+    right: 74px;
+    font-size: 36px;
+    max-width: 867px;
+  }
+}
+
+.profile-message-card {
+  position: absolute;
+  bottom: 120px;
+  right: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 12px 8px 8px;
+  gap: 17px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 0.5px solid rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border-radius: 60px;
+  z-index: 10;
+}
+
+@media (min-width: 640px) {
+  .profile-message-card {
+    right: 48px;
+    bottom: 160px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-message-card {
+    right: 74px;
+  }
+}
+
+.profile-message-avatar {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-message-avatar-img {
+  object-fit: cover;
+}
+
+.profile-online-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background: #008751;
+  border-radius: 50%;
+}
+
+.profile-message-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-message-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.profile-message-status {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #008751;
+}
+
+/* Profile Info Section */
+.profile-info-section {
+  padding: 24px 24px 48px;
+}
+
+@media (min-width: 640px) {
+  .profile-info-section {
+    padding: 24px 48px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-info-section {
+    padding: 24px 74px 48px;
+  }
+}
+
+.profile-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .profile-info-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 164px;
+  }
+}
+
+.profile-info-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 26px;
+}
+
+.profile-avatar-wrapper {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .profile-avatar-wrapper {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+.profile-avatar-img {
+  object-fit: cover;
+}
+
+.profile-name-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-name-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.profile-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .profile-name {
+    font-size: 32px;
+  }
+}
+
+.profile-veteran-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 16px;
+  background: #0088FF;
+  border-radius: 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.profile-meta-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.profile-rating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-stars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.profile-rating-value {
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.profile-employment-badges {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-employment-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 10px;
+  background: #008751;
+  border-radius: 80px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.profile-info-right {
+  max-width: 634px;
+}
+
+.profile-veteran-quote {
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 160%;
+  text-align: right;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .profile-veteran-quote {
+    font-size: 16px;
+  }
+}
+
+/* Skills Section */
+.profile-skills-section {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-skills-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.profile-skills-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.profile-skill-tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 80px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.profile-skill-green {
+  border: 1px solid #56CDAD;
+  color: #56CDAD;
+}
+
+.profile-skill-white {
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+}
+
+.profile-skill-purple {
+  border: 1px solid #4640DE;
+  color: #4640DE;
+}
+
+/* About Me Section */
+.profile-about-section {
+  padding: 0 24px 48px;
+}
+
+@media (min-width: 640px) {
+  .profile-about-section {
+    padding: 0 48px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-about-section {
+    padding: 0 74px 48px;
+  }
+}
+
+.profile-about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-section-title {
+  font-family: 'Russo One', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.profile-about-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-about-text p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.25;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .profile-about-text p {
+    font-size: 16px;
+  }
+}
+
+/* Additional Details Section */
+.profile-details-section {
+  padding: 0 24px 48px;
+}
+
+@media (min-width: 640px) {
+  .profile-details-section {
+    padding: 0 48px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-details-section {
+    padding: 0 74px 48px;
+  }
+}
+
+.profile-details-title {
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  color: #FFFFFF;
+  margin: 0 0 7px;
+}
+
+.profile-details-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .profile-details-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-details-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.profile-detail-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 0.5px solid rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border-radius: 16px;
+}
+
+.profile-detail-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-detail-label {
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 160%;
+  color: #008751;
+}
+
+.profile-detail-value {
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 160%;
+  color: #FFFFFF;
+}
+
+/* Portfolio Section */
+.profile-portfolio-section {
+  padding: 0 24px 48px;
+}
+
+@media (min-width: 640px) {
+  .profile-portfolio-section {
+    padding: 0 48px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-portfolio-section {
+    padding: 0 74px 48px;
+  }
+}
+
+.profile-portfolio-divider {
+  width: 100%;
+  height: 0;
+  border-bottom: 1px solid #404040;
+  margin-bottom: 24px;
+}
+
+.profile-portfolio-title {
+  font-family: 'Russo One', sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.2;
+  text-align: right;
+  color: #FFFFFF;
+  margin: 0 0 48px;
+}
+
+@media (min-width: 768px) {
+  .profile-portfolio-title {
+    font-size: 48px;
+  }
+}
+
+.profile-portfolio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.profile-portfolio-featured {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+  border: 1px solid #404040;
+  border-radius: 16px;
+}
+
+@media (min-width: 1024px) {
+  .profile-portfolio-featured {
+    flex-direction: row;
+    gap: 48px;
+  }
+}
+
+.profile-portfolio-featured-image {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .profile-portfolio-featured-image {
+    height: 355px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-portfolio-featured-image {
+    width: 594px;
+    flex-shrink: 0;
+  }
+}
+
+.portfolio-image {
+  object-fit: cover;
+}
+
+.profile-portfolio-featured-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  flex: 1;
+}
+
+.profile-portfolio-project-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.profile-portfolio-divider-sm {
+  width: 100%;
+  height: 0;
+  border-bottom: 1px solid #404040;
+}
+
+.profile-portfolio-project-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.25;
+  color: #FFFFFF;
+  margin: 0;
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .profile-portfolio-project-desc {
+    font-size: 16px;
+  }
+}
+
+.profile-preview-btn {
+  align-self: flex-start;
+}
+
+.profile-portfolio-thumbnails {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.profile-portfolio-thumb {
+  position: relative;
+  width: 180px;
+  height: 160px;
+  border: 1px solid #404040;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 12px;
+  background: transparent;
+}
+
+@media (min-width: 768px) {
+  .profile-portfolio-thumb {
+    width: 245px;
+    height: 212px;
+  }
+}
+
+.profile-portfolio-thumb.active {
+  border-color: #FFFFFF;
+}
+
+.thumb-image {
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.profile-portfolio-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 160px;
+  border: 1px solid #404040;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .profile-portfolio-more {
+    width: 245px;
+    height: 212px;
+  }
+}
+
+.profile-portfolio-more span {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+@media (min-width: 768px) {
+  .profile-portfolio-more span {
+    font-size: 64px;
+  }
+}
+
+/* Reviews Section */
+.profile-reviews-section {
+  padding: 48px 24px;
+}
+
+@media (min-width: 640px) {
+  .profile-reviews-section {
+    padding: 48px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-reviews-section {
+    padding: 48px 0;
+  }
+}
+
+.profile-reviews-title {
+  font-family: 'Russo One', sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  text-align: center;
+  color: #FFFFFF;
+  margin: 0 0 12px;
+}
+
+.profile-reviews-carousel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 26px;
+  overflow-x: auto;
+  padding: 36px 24px 24px;
+}
+
+@media (min-width: 640px) {
+  .profile-reviews-carousel {
+    padding: 36px 48px 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-reviews-carousel {
+    padding: 36px 0 24px;
+  }
+}
+
+.profile-review-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 60px 14px 24px;
+  width: 240px;
+  min-width: 240px;
+  background: #025634;
+  box-shadow: 0px 2px 20px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+@media (min-width: 768px) {
+  .profile-review-card {
+    width: 260px;
+    min-width: 260px;
+  }
+}
+
+.profile-review-avatar {
+  position: absolute;
+  top: -36px;
+  left: 14px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #FFFFFF;
+}
+
+.review-avatar-img {
+  object-fit: cover;
+}
+
+.profile-review-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 25px;
+  color: #FFFFFF;
+  margin: 16px 0 12px;
+}
+
+.profile-review-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: #FFFADA;
+  margin: 0 0 16px;
+}
+
+.profile-review-rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+.profile-review-rating-value {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 21px;
+  color: #FFFFFF;
+}
+
+/* Comments Section */
+.profile-comments-section {
+  padding: 0 24px 48px;
+}
+
+@media (min-width: 640px) {
+  .profile-comments-section {
+    padding: 0 48px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-comments-section {
+    padding: 0 74px 48px;
+  }
+}
+
+.profile-comments-divider {
+  width: 100%;
+  height: 0;
+  border-bottom: 1px solid #404040;
+  margin-bottom: 24px;
+}
+
+.profile-comments-title {
+  font-family: 'Russo One', sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  text-align: right;
+  color: #FFFFFF;
+  margin: 0 0 16px;
+}
+
+@media (min-width: 768px) {
+  .profile-comments-title {
+    font-size: 48px;
+  }
+}
+
+.profile-comments-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-comment-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 10px;
+  width: 100%;
+  max-width: 1292px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 2px solid #404040;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border-radius: 16px;
+}
+
+.profile-comment-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 10px;
+  gap: 8px;
+  border-bottom: 1px solid #404040;
+}
+
+.profile-comment-avatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.comment-avatar-img {
+  object-fit: cover;
+}
+
+.profile-comment-author {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.profile-comment-body {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16px;
+  gap: 4px;
+  border-bottom: 1px solid #404040;
+}
+
+.profile-comment-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.profile-comment-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.profile-comment-rating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-comment-rating span {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #FFFFFF;
+}
+
+.profile-comment-dot {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #9191A8;
+}
+
+.profile-comment-date {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.profile-comment-response {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+}
+
+.profile-response-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 13px;
+}
+
+.profile-response-avatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.response-avatar-img {
+  object-fit: cover;
+}
+
+.profile-response-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.profile-response-toggle {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Newsletter Section */
+.profile-newsletter-section {
+  position: relative;
+  padding: 64px 24px;
+  min-height: 600px;
+}
+
+@media (min-width: 640px) {
+  .profile-newsletter-section {
+    padding: 64px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-newsletter-section {
+    padding: 128px 51px;
+    min-height: 970px;
+  }
+}
+
+.profile-newsletter-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.profile-newsletter-bg-image {
+  object-fit: cover;
+}
+
+.profile-newsletter-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+}
+
+.profile-newsletter-title {
+  position: relative;
+  z-index: 1;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.2;
+  text-align: right;
+  color: #FFFFFF;
+  margin: 0 0 48px;
+}
+
+@media (min-width: 768px) {
+  .profile-newsletter-title {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-newsletter-title {
+    font-size: 64px;
+  }
+}
+
+.profile-newsletter-posts {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  overflow-x: auto;
+  padding-bottom: 24px;
+}
+
+.profile-newsletter-post {
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  gap: 18px;
+  width: 320px;
+  min-width: 320px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0px 3.6px 17.1px rgba(0, 0, 0, 0.31);
+  -webkit-backdrop-filter: blur(22.5px);
+  backdrop-filter: blur(22.5px);
+  border-radius: 18px;
+}
+
+@media (min-width: 768px) {
+  .profile-newsletter-post {
+    width: 377px;
+    min-width: 377px;
+  }
+}
+
+.profile-post-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.profile-post-avatar {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.post-avatar-img {
+  object-fit: cover;
+}
+
+.profile-post-author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  margin-left: 12px;
+}
+
+.profile-post-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.profile-post-handle {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #FFFFFF;
+}
+
+.profile-post-date {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #FFFFFF;
+}
+
+.profile-post-image {
+  position: relative;
+  width: 100%;
+  height: 188px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.post-img {
+  object-fit: cover;
+}
+
+.profile-post-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.profile-post-view {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 9px;
+  text-align: right;
+  color: #FFFFFF;
+}
+
+.profile-newsletter-cta {
+  position: relative;
+  z-index: 1;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: right;
+  color: #FFFFFF;
+  margin: 24px 0 0;
+}
+
+@media (min-width: 768px) {
+  .profile-newsletter-cta {
+    font-size: 20px;
+  }
 }
