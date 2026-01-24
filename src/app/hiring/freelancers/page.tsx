@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import MessagesDrawer from '@/components/MessagesDrawer';
 
 // Category icons mapping
 const getCategoryIcon = (name: string) => {
@@ -179,7 +180,7 @@ const allSkills = [
   { name: 'Social Media', color: 'green' },
   { name: 'Ghost Writing', color: 'white' },
   { name: 'Cyber Security', color: 'purple' },
-  { name: 'Tokenomics', color: 'green' },
+  { name: 'Quant/Tokenomics', color: 'green' },
   { name: 'Product Manager', color: 'white' },
   { name: '3D Artist', color: 'purple' },
 ];
@@ -254,7 +255,7 @@ const categoryFilters = [
 const starRatings = ['2 stars', '3 stars', '4 stars', 'Veteran'];
 
 export default function FreelancersPage() {
-  const [activeCategory, setActiveCategory] = useState(1);
+  const [activeCategory, setActiveCategory] = useState(0);
   const [selectedEmployment, setSelectedEmployment] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
@@ -262,9 +263,23 @@ export default function FreelancersPage() {
   const [categoryPage, setCategoryPage] = useState(0);
   const [freelancerPage, setFreelancerPage] = useState(0);
   const [subtitleVisible, setSubtitleVisible] = useState(false);
+
+
+
   const subtitleRef = useRef<HTMLParagraphElement>(null);
 
-  const FREELANCERS_PER_PAGE = 15; // ~5 rows with 3 columns
+  // Messaging State
+  const [isMessageDrawerOpen, setIsMessageDrawerOpen] = useState(false);
+  const [activeMessageFreelancer, setActiveMessageFreelancer] = useState<any>(null);
+
+  const handleOpenMessage = (freelancer: any) => {
+    console.log('Opening message for:', freelancer.name);
+    setActiveMessageFreelancer(freelancer);
+    setIsMessageDrawerOpen(true);
+  };
+
+  // Set to 20 as requested (fits 4 columns perfectly, 5 rows)
+  const FREELANCERS_PER_PAGE = 20;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -297,6 +312,9 @@ export default function FreelancersPage() {
   };
 
   const toggleFilter = (filter: string, list: string[], setList: (value: string[]) => void, maxItems?: number) => {
+    // Reset active category card when using sidebar filters
+    if (activeCategory !== 0) setActiveCategory(0);
+
     if (list.includes(filter)) {
       setList(list.filter(f => f !== filter));
     } else {
@@ -341,9 +359,21 @@ export default function FreelancersPage() {
         if (!matchesRating) return false;
       }
 
+      // Filter by active category card
+      if (activeCategory) {
+        const category = categories.find(c => c.id === activeCategory);
+        if (category) {
+          const hasMatchingSkill = freelancer.skills.some((skill) =>
+            skill.name.toLowerCase().includes(category.name.toLowerCase()) ||
+            category.name.toLowerCase().includes(skill.name.toLowerCase())
+          );
+          if (!hasMatchingSkill) return false;
+        }
+      }
+
       return true;
     });
-  }, [selectedEmployment, selectedCategories, selectedRatings]);
+  }, [selectedEmployment, selectedCategories, selectedRatings, activeCategory]);
 
   // Reset to first page when filters change
   useEffect(() => {
@@ -364,377 +394,428 @@ export default function FreelancersPage() {
   };
 
   return (
-    <main className="freelancers-page">
-      <Header showGreenBorder />
+    <>
+      <main className="freelancers-page">
+        <Header showGreenBorder />
 
-      {/* Pattern Background Wrapper */}
-      <div className="freelancers-pattern-wrapper">
-        <div className="freelancers-pattern-bg"></div>
+        {/* Pattern Background Wrapper */}
+        <div className="freelancers-pattern-wrapper">
+          <div className="freelancers-pattern-bg"></div>
+          <div className="freelancers-pattern-circles"></div>
 
-        {/* Hero Section */}
-        <section className="freelancers-hero">
-          <div className="freelancers-hero-content">
-            <div className="freelancers-hero-text">
-              <h1 className="freelancers-hero-title">FREELANCERS</h1>
-              <p
-                ref={subtitleRef}
-                className={`freelancers-hero-subtitle ${subtitleVisible ? 'animate-typewriter' : ''}`}
-              >
-                Get the perfect pro for every project right here in Sui Nigeria.
-              </p>
-              <Link href="/hiring/register" className="btn-primary">
-                <span>Register as a Freelancer</span>
-                <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </div>
-            <div className="freelancers-hero-illustration">
-              <Image
-                src="/images/guy-sitting.svg"
-                alt="Person sitting at desk illustration"
-                width={580}
-                height={392}
-                className="illustration-image"
-                priority
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Category Section */}
-        <section className="category-section">
-          <h2 className="category-title">Explore by category</h2>
-          <div className="category-content">
-            <div className="category-grid" key={categoryPage}>
-              {visibleCategories.map((category) => (
-                <button
-                  key={category.id}
-                  className={`category-card ${activeCategory === category.id ? 'category-card-active' : ''}`}
-                  onClick={() => setActiveCategory(category.id)}
+          {/* Hero Section */}
+          <section className="freelancers-hero">
+            <div className="freelancers-hero-content">
+              <div className="freelancers-hero-text">
+                <h1 className="freelancers-hero-title">FREELANCERS</h1>
+                <p
+                  ref={subtitleRef}
+                  className={`freelancers-hero-subtitle ${subtitleVisible ? 'animate-typewriter' : ''}`}
                 >
-                  <div className="category-icon">
-                    {getCategoryIcon(category.name)}
-                  </div>
-                  <div className="category-info">
-                    <span className="category-name">{category.name}</span>
-                    <div className="category-count">
-                      <span>{category.freelancerCount} freelancers available</span>
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-            <div className="past-events-nav">
-              <button
-                className={`past-events-nav-btn prev ${categoryPage === 0 ? 'disabled' : ''}`}
-                disabled={categoryPage === 0}
-                onClick={handlePrevPage}
-                aria-label="Show previous categories"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                className={`past-events-nav-btn next ${categoryPage >= totalPages - 1 ? 'disabled' : ''}`}
-                disabled={categoryPage >= totalPages - 1}
-                onClick={handleNextPage}
-                aria-label="Show next categories"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* Divider */}
-      <div className="freelancers-divider"></div>
-
-      {/* Freelancers Listing Section */}
-      <section className="freelancers-listing">
-        <div className="freelancers-listing-content">
-          {/* Freelancer Grid */}
-          <div className="freelancers-grid">
-            {paginatedFreelancers.map((freelancer) => (
-              <div key={freelancer.id} className={`freelancer-card ${freelancer.featured ? 'freelancer-card-featured' : ''}`}>
-                <div className="freelancer-card-pattern"></div>
-
-                {/* Header */}
-                <div className="freelancer-header">
-                  <div className="freelancer-avatar">
-                    <Image
-                      src={freelancer.avatar}
-                      alt={freelancer.name}
-                      fill
-                      className="freelancer-avatar-img"
-                    />
-                  </div>
-                  <div className="freelancer-badges">
-                    {freelancer.employmentTypes.map((type) => (
-                      <span key={type} className="freelancer-badge">{type}</span>
-                    ))}
-                    {freelancer.completedJobs >= 10 && freelancer.rating >= 4 && (
-                      <span className="freelancer-badge freelancer-badge-veteran">Veteran</span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Info */}
-                <div className="freelancer-info">
-                  <h3 className="freelancer-name">{freelancer.name}</h3>
-                  <p className="freelancer-description">{freelancer.description}</p>
-                </div>
-
-                {/* Skills */}
-                <div className="freelancer-skills">
-                  {freelancer.skills.slice(0, 5).map((skill) => (
-                    <span key={skill.name} className={`skill-tag skill-tag-${skill.color}`}>
-                      {skill.name}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Rating */}
-                <div className="freelancer-rating">
-                  <span className="rating-label">Rating</span>
-                  <div className="rating-value">
-                    <div className="rating-star">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="#FFB836">
-                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                      </svg>
-                      <span>{freelancer.rating}</span>
-                    </div>
-                    <span className="rating-count">({freelancer.reviewCount})</span>
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="freelancer-actions">
-                  <Link href={`/hiring/freelancers/${freelancer.id}`} className="btn-view-profile">
-                    View Profile
-                  </Link>
-                  <button className="btn-message" aria-label="Send Message">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-                    </svg>
-                  </button>
-                </div>
+                  Get the perfect pro for every project right here in Sui Nigeria.
+                </p>
+                <Link href="/hiring/register" className="btn-primary">
+                  <span>Register as a Freelancer</span>
+                  <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
               </div>
-            ))}
+              <div className="freelancers-hero-illustration">
+                <Image
+                  src="/images/guy-sitting.svg"
+                  alt="Person sitting at desk illustration"
+                  width={580}
+                  height={392}
+                  className="illustration-image"
+                  priority
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Category Section */}
+          <section className="category-section">
+            <h2 className="category-title">Explore by category</h2>
+            <div className="category-content">
+              <div className="category-grid" key={categoryPage}>
+                {visibleCategories.map((category) => (
+                  <button
+                    key={category.id}
+                    className={`category-card ${activeCategory === category.id ? 'category-card-active' : ''}`}
+                    onClick={() => setActiveCategory(activeCategory === category.id ? 0 : category.id)}
+                  >
+                    <div className="category-icon">
+                      {getCategoryIcon(category.name)}
+                    </div>
+                    <div className="category-info">
+                      <span className="category-name">{category.name}</span>
+                      <div className="category-count">
+                        <span>{category.freelancerCount} freelancers available</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+              <div className="past-events-nav">
+                <button
+                  className={`past-events-nav-btn prev ${categoryPage === 0 ? 'disabled' : ''}`}
+                  disabled={categoryPage === 0}
+                  onClick={handlePrevPage}
+                  aria-label="Show previous categories"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  className={`past-events-nav-btn next ${categoryPage >= totalPages - 1 ? 'disabled' : ''}`}
+                  disabled={categoryPage >= totalPages - 1}
+                  onClick={handleNextPage}
+                  aria-label="Show next categories"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        {/* Divider */}
+        <div className="freelancers-divider"></div>
+
+        {/* Freelancers Listing Section */}
+        <section className="freelancers-listing">
+          <div className="freelancers-listing-content">
+            {/* Freelancer Grid */}
+            {paginatedFreelancers.length > 0 && (
+              <motion.div
+                className="freelancers-grid"
+                layout
+                variants={{
+                  hidden: { opacity: 0 },
+                  show: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.1
+                    }
+                  }
+                }}
+                initial="hidden"
+                animate="show"
+                key={freelancerPage}
+              >
+                <AnimatePresence mode="popLayout">
+                  {paginatedFreelancers.map((freelancer) => (
+                    <motion.div
+                      layout
+                      key={freelancer.id}
+                      className={`freelancer-card spotlight-card ${freelancer.featured ? 'freelancer-card-featured' : ''}`}
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        show: { opacity: 1, y: 0 }
+                      }}
+                      initial="hidden"
+                      animate="show"
+                      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                      onMouseMove={(e) => {
+                        const { currentTarget, clientX, clientY } = e;
+                        const { left, top } = currentTarget.getBoundingClientRect();
+                        const x = clientX - left;
+                        const y = clientY - top;
+                        currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                        currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                      }}
+                    >
+                      <div className="freelancer-card-pattern"></div>
+
+                      {/* Header */}
+                      <div className="freelancer-header">
+                        <div className="freelancer-avatar">
+                          <Image
+                            src={freelancer.avatar}
+                            alt={freelancer.name}
+                            fill
+                            className="freelancer-avatar-img"
+                          />
+                        </div>
+                        <div className="freelancer-badges">
+                          {freelancer.employmentTypes.map((type) => (
+                            <span key={type} className="freelancer-badge">{type}</span>
+                          ))}
+                          {freelancer.completedJobs >= 10 && freelancer.rating >= 4 && (
+                            <span className="freelancer-badge freelancer-badge-veteran">Veteran</span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Info */}
+                      <div className="freelancer-info">
+                        <h3 className="freelancer-name">{freelancer.name}</h3>
+                        <p className="freelancer-description">{freelancer.description}</p>
+                      </div>
+
+                      {/* Skills */}
+                      <div className="freelancer-skills">
+                        {freelancer.skills.slice(0, 5).map((skill) => (
+                          <span key={skill.name} className={`skill-tag skill-tag-${skill.color}`}>
+                            {skill.name}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Rating */}
+                      <div className="freelancer-rating">
+                        <span className="rating-label">Rating</span>
+                        <div className="rating-value">
+                          <div className="rating-star">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="#FFB836">
+                              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                            </svg>
+                            <span>{freelancer.rating}</span>
+                          </div>
+                          <span className="rating-count">({freelancer.reviewCount})</span>
+                        </div>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="freelancer-actions">
+                        <Link href={`/hiring/freelancers/${freelancer.id}`} className="btn-view-profile">
+                          View Profile
+                        </Link>
+                        <button
+                          className="btn-message"
+                          aria-label="Send Message"
+                          onClick={() => handleOpenMessage(freelancer)}
+                        >
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                          </svg>
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
+            )}
             {paginatedFreelancers.length === 0 && (
               <div className="no-results">
                 <p>No freelancers match your filters. Try adjusting your criteria.</p>
               </div>
             )}
+
+            {/* Filter Sidebar */}
+            <motion.aside
+              className={`filter-sidebar ${showFilters ? 'sidebar-open' : 'sidebar-closed'}`}
+              initial={false}
+              animate={{ width: showFilters ? 324 : 0 }}
+              transition={{ duration: 0.3, type: "tween", ease: "easeInOut" }}
+              style={{ width: showFilters ? 324 : 0 }} // Force width to match animation state for Grid flow
+            >
+              <AnimatePresence>
+                {showFilters && (
+                  <motion.div
+                    className="filter-content"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {/* Type of Employment */}
+                    <div className="filter-section">
+                      <div className="filter-section-header">
+                        <span className="filter-section-title">Type of Employment</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M5 8l5 5 5-5" />
+                        </svg>
+                      </div>
+                      <div className="filter-options">
+                        {employmentTypes.map((type) => (
+                          <label key={type} className="filter-checkbox">
+                            <span>{type}</span>
+                            <input
+                              type="checkbox"
+                              checked={selectedEmployment.includes(type)}
+                              onChange={() => toggleFilter(type, selectedEmployment, setSelectedEmployment, 2)}
+                            />
+                            <span className={`checkbox-custom ${selectedEmployment.includes(type) ? 'checkbox-checked' : ''}`}>
+                              {selectedEmployment.includes(type) && (
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2">
+                                  <path d="M3 8l3 3 7-7" />
+                                </svg>
+                              )}
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Categories */}
+                    <div className="filter-section">
+                      <div className="filter-section-header">
+                        <span className="filter-section-title">Categories</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M5 8l5 5 5-5" />
+                        </svg>
+                      </div>
+                      <div className="filter-options">
+                        {categoryFilters.map((category) => (
+                          <label key={category} className="filter-checkbox">
+                            <span>{category}</span>
+                            <input
+                              type="checkbox"
+                              checked={selectedCategories.includes(category)}
+                              onChange={() => toggleFilter(category, selectedCategories, setSelectedCategories)}
+                            />
+                            <span className={`checkbox-custom ${selectedCategories.includes(category) ? 'checkbox-checked' : ''}`}>
+                              {selectedCategories.includes(category) && (
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2">
+                                  <path d="M3 8l3 3 7-7" />
+                                </svg>
+                              )}
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Star Rating */}
+                    <div className="filter-section">
+                      <div className="filter-section-header">
+                        <span className="filter-section-title">Star Rating</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M5 8l5 5 5-5" />
+                        </svg>
+                      </div>
+                      <div className="filter-options">
+                        {starRatings.map((rating) => (
+                          <label key={rating} className="filter-checkbox">
+                            <span>{rating}</span>
+                            <input
+                              type="checkbox"
+                              checked={selectedRatings.includes(rating)}
+                              onChange={() => toggleFilter(rating, selectedRatings, setSelectedRatings)}
+                            />
+                            <span className={`checkbox-custom ${selectedRatings.includes(rating) ? 'checkbox-checked' : ''}`}>
+                              {selectedRatings.includes(rating) && (
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2">
+                                  <path d="M3 8l3 3 7-7" />
+                                </svg>
+                              )}
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <button className="filter-toggle" onClick={() => setShowFilters(!showFilters)}>
+                <span>Filter</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+              </button>
+            </motion.aside>
           </div>
 
-          {/* Filter Sidebar */}
-          <motion.aside
-            className={`filter-sidebar ${showFilters ? 'sidebar-open' : 'sidebar-closed'}`}
-            initial={false}
-            animate={{ width: showFilters ? 324 : 0 }}
-            transition={{ duration: 0.3, type: "tween", ease: "easeInOut" }}
-            style={{ width: showFilters ? 324 : 0 }} // Force width to match animation state for Grid flow
-          >
-            <AnimatePresence>
-              {showFilters && (
-                <motion.div
-                  className="filter-content"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+          {/* Freelancers Pagination */}
+          {filteredFreelancers.length > 0 && (
+            <div className="freelancers-pagination">
+              <div className="past-events-nav">
+                <button
+                  className={`past-events-nav-btn prev ${freelancerPage === 0 ? 'disabled' : ''}`}
+                  disabled={freelancerPage === 0}
+                  onClick={handleFreelancerPrevPage}
+                  aria-label="Show previous freelancers"
                 >
-                  {/* Type of Employment */}
-                  <div className="filter-section">
-                    <div className="filter-section-header">
-                      <span className="filter-section-title">Type of Employment</span>
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 8l5 5 5-5" />
-                      </svg>
-                    </div>
-                    <div className="filter-options">
-                      {employmentTypes.map((type) => (
-                        <label key={type} className="filter-checkbox">
-                          <span>{type}</span>
-                          <input
-                            type="checkbox"
-                            checked={selectedEmployment.includes(type)}
-                            onChange={() => toggleFilter(type, selectedEmployment, setSelectedEmployment, 2)}
-                          />
-                          <span className={`checkbox-custom ${selectedEmployment.includes(type) ? 'checkbox-checked' : ''}`}>
-                            {selectedEmployment.includes(type) && (
-                              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2">
-                                <path d="M3 8l3 3 7-7" />
-                              </svg>
-                            )}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Categories */}
-                  <div className="filter-section">
-                    <div className="filter-section-header">
-                      <span className="filter-section-title">Categories</span>
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 8l5 5 5-5" />
-                      </svg>
-                    </div>
-                    <div className="filter-options">
-                      {categoryFilters.map((category) => (
-                        <label key={category} className="filter-checkbox">
-                          <span>{category}</span>
-                          <input
-                            type="checkbox"
-                            checked={selectedCategories.includes(category)}
-                            onChange={() => toggleFilter(category, selectedCategories, setSelectedCategories)}
-                          />
-                          <span className={`checkbox-custom ${selectedCategories.includes(category) ? 'checkbox-checked' : ''}`}>
-                            {selectedCategories.includes(category) && (
-                              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2">
-                                <path d="M3 8l3 3 7-7" />
-                              </svg>
-                            )}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Star Rating */}
-                  <div className="filter-section">
-                    <div className="filter-section-header">
-                      <span className="filter-section-title">Star Rating</span>
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 8l5 5 5-5" />
-                      </svg>
-                    </div>
-                    <div className="filter-options">
-                      {starRatings.map((rating) => (
-                        <label key={rating} className="filter-checkbox">
-                          <span>{rating}</span>
-                          <input
-                            type="checkbox"
-                            checked={selectedRatings.includes(rating)}
-                            onChange={() => toggleFilter(rating, selectedRatings, setSelectedRatings)}
-                          />
-                          <span className={`checkbox-custom ${selectedRatings.includes(rating) ? 'checkbox-checked' : ''}`}>
-                            {selectedRatings.includes(rating) && (
-                              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2">
-                                <path d="M3 8l3 3 7-7" />
-                              </svg>
-                            )}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-            <button className="filter-toggle" onClick={() => setShowFilters(!showFilters)}>
-              <span>Filter</span>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-              </svg>
-            </button>
-          </motion.aside>
-        </div>
-
-        {/* Freelancers Pagination */}
-        {filteredFreelancers.length > 0 && (
-          <div className="freelancers-pagination">
-            <div className="past-events-nav">
-              <button
-                className={`past-events-nav-btn prev ${freelancerPage === 0 ? 'disabled' : ''}`}
-                disabled={freelancerPage === 0}
-                onClick={handleFreelancerPrevPage}
-                aria-label="Show previous freelancers"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <span className="pagination-info">
-                Page {freelancerPage + 1} of {totalFreelancerPages}
-              </span>
-              <button
-                className={`past-events-nav-btn next ${freelancerPage >= totalFreelancerPages - 1 ? 'disabled' : ''}`}
-                disabled={freelancerPage >= totalFreelancerPages - 1}
-                onClick={handleFreelancerNextPage}
-                aria-label="Show next freelancers"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <span className="pagination-info">
+                  Page {freelancerPage + 1} of {totalFreelancerPages}
+                </span>
+                <button
+                  className={`past-events-nav-btn next ${freelancerPage >= totalFreelancerPages - 1 ? 'disabled' : ''}`}
+                  disabled={freelancerPage >= totalFreelancerPages - 1}
+                  onClick={handleFreelancerNextPage}
+                  aria-label="Show next freelancers"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
+          )}
+        </section>
+
+        {/* Community Signup Section */}
+        <section className="community-section">
+          <div className="community-bg">
+            <Image
+              src="/images/community/bg-1.png"
+              alt="Community Background"
+              fill
+              className="community-bg-image"
+            />
+            <div className="community-overlay"></div>
           </div>
-        )}
-      </section>
 
-      {/* Community Signup Section */}
-      <section className="community-section">
-        <div className="community-bg">
-          <Image
-            src="/images/community/bg-1.png"
-            alt="Community Background"
-            fill
-            className="community-bg-image"
-          />
-          <div className="community-overlay"></div>
-        </div>
+          <h2 className="community-title">JOIN THE COMMUNITY OF BUILDERS AND CREATIVES</h2>
 
-        <h2 className="community-title">JOIN THE COMMUNITY OF BUILDERS AND CREATIVES</h2>
+          <div className="community-content">
+            <form className="community-form">
+              <div className="form-field">
+                <input type="text" placeholder="NAME" className="form-input" />
+              </div>
+              <div className="form-field">
+                <input type="email" placeholder="EMAIL" className="form-input" />
+              </div>
+              <div className="form-field">
+                <input type="tel" placeholder="PHONE" className="form-input" />
+              </div>
+              <p className="form-disclaimer">
+                By Clicking this you agree to be onboarded into the Sui Nigeria Community and subscribe to our newsletter (No spam).
+              </p>
+              <button type="submit" className="btn-submit">
+                <span>Submit</span>
+                <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </button>
+            </form>
+          </div>
 
-        <div className="community-content">
-          <form className="community-form">
-            <div className="form-field">
-              <input type="text" placeholder="NAME" className="form-input" />
-            </div>
-            <div className="form-field">
-              <input type="email" placeholder="EMAIL" className="form-input" />
-            </div>
-            <div className="form-field">
-              <input type="tel" placeholder="PHONE" className="form-input" />
-            </div>
-            <p className="form-disclaimer">
-              By Clicking this you agree to be onboarded into the Sui Nigeria Community and subscribe to our newsletter (No spam).
-            </p>
-            <button type="submit" className="btn-submit">
-              <span>Submit</span>
-              <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </button>
-          </form>
-        </div>
+          {/* Arrow decoration */}
+          <div className="community-arrow">
+            <Image
+              src="/blog-arrow.svg"
+              alt="Arrow"
+              width={120}
+              height={120}
+              className="community-arrow-img"
+            />
+          </div>
 
-        {/* Arrow decoration */}
-        <div className="community-arrow">
-          <Image
-            src="/blog-arrow.svg"
-            alt="Arrow"
-            width={120}
-            height={120}
-            className="community-arrow-img"
-          />
-        </div>
+          <p className="community-cta-text">Let's keep in touch - Be the first to know what's coming.</p>
+        </section>
 
-        <p className="community-cta-text">Let's keep in touch - Be the first to know what's coming.</p>
-      </section>
-
-      <PageProgress />
-      <Footer />
-    </main>
+        <PageProgress />
+        <Footer />
+      </main>
+      {/* Messages Drawer */}
+      <MessagesDrawer
+        isOpen={isMessageDrawerOpen}
+        onClose={() => setIsMessageDrawerOpen(false)}
+        activeFreelancer={activeMessageFreelancer}
+      />
+    </>
   );
 }

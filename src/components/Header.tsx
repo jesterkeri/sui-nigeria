@@ -15,8 +15,7 @@ const navItems = [
 
 const hiringDropdownItems = [
   { name: 'Hire a freelancer', href: '/hiring/freelancers' },
-  { name: 'Get a gig', href: '/hiring/gigs' },
-  { name: 'Register as a freelancer', href: '/hiring/register' },
+  { name: 'Get a job', href: '/hiring/gigs' },
 ];
 
 const eventsDropdownItems = [
@@ -114,8 +113,17 @@ export function Header({ showGreenBorder = false }: HeaderProps) {
               ))}
             </div>
 
-            {/* CTA Button */}
+            {/* CTA Button and Profile */}
             <div className="header-cta-wrapper">
+              <Link href="/profile" className="btn-profile">
+                <Image
+                  src="/images/community/bg-2.png"
+                  alt="Profile"
+                  width={40}
+                  height={40}
+                  className="profile-avatar"
+                />
+              </Link>
               <Link href="/sui-hub" className="btn-sui-hub">
                 <span>Sui Hub</span>
                 <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -205,12 +213,23 @@ export function Header({ showGreenBorder = false }: HeaderProps) {
                 {item.name}
               </Link>
             ))}
-            <Link href="/sui-hub" className="btn-sui-hub" style={{ width: 'fit-content', marginTop: 16 }}>
-              <span>Sui Hub</span>
-              <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 16 }}>
+              <Link href="/profile" className="btn-profile">
+                <Image
+                  src="/images/community/bg-2.png"
+                  alt="Profile"
+                  width={40}
+                  height={40}
+                  className="profile-avatar"
+                />
+              </Link>
+              <Link href="/sui-hub" className="btn-sui-hub" style={{ width: 'fit-content' }}>
+                <span>Sui Hub</span>
+                <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
       )}
