@@ -136,8 +136,9 @@ export function Header({ showGreenBorder = false }: HeaderProps) {
             <button
               className="mobile-menu-button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
             >
-              <svg style={{ width: 24, height: 24 }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="icon-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -213,7 +214,7 @@ export function Header({ showGreenBorder = false }: HeaderProps) {
                 {item.name}
               </Link>
             ))}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 16 }}>
+            <div className="mobile-profile-wrapper">
               <Link href="/profile" className="btn-profile">
                 <Image
                   src="/images/community/bg-2.png"
@@ -223,7 +224,7 @@ export function Header({ showGreenBorder = false }: HeaderProps) {
                   className="profile-avatar"
                 />
               </Link>
-              <Link href="/sui-hub" className="btn-sui-hub" style={{ width: 'fit-content' }}>
+              <Link href="/sui-hub" className="btn-sui-hub btn-fit">
                 <span>Sui Hub</span>
                 <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

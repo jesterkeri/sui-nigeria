@@ -6,7 +6,7 @@ import { PageProgress } from '@/components/PageProgress';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 
 // Mock freelancer data
 const freelancerData = {
@@ -43,7 +43,7 @@ I am also a video editor and content creator, producing educational and promotio
 
 Currently, I am an active creator in the Sui Network, contributing through development, design, and media. I enjoy collaborating with builders, communities, and protocols to bring ideas to life and support the continued growth of the Sui ecosystem.`,
     email: 'jakegyll@email.com',
-    phone: '+234 1245 572 135',
+    twitterUrl: 'x.com/sui_dev',
     languages: 'English, French, Mandarin',
     portfolio: 'jakegylportfolio.com',
     isOnline: true,
@@ -71,39 +71,39 @@ Currently, I am an active creator in the Sui Network, contributing through devel
         { id: 16, name: 'Project 16', image: '/images/community/bg-2.png' },
     ],
     reviews: [
-        { id: 1, name: 'Cappacino', avatar: '/images/community/bg-1.png', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa, fermentum id id vitae, integer fermentum tellus. In vitae id nisl quis ornare diam commodo in vel dolor.', rating: 4.5 },
-        { id: 2, name: 'Cappacino', avatar: '/images/community/bg-2.png', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa, fermentum id id vitae, integer fermentum tellus. In vitae id nisl quis ornare diam commodo in vel dolor.', rating: 4.5 },
-        { id: 3, name: 'Cappacino', avatar: '/images/community/bg-3.png', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa, fermentum id id vitae, integer fermentum tellus. In vitae id nisl quis ornare diam commodo in vel dolor.', rating: 4.5 },
-        { id: 4, name: 'Cappacino', avatar: '/images/community/bg-4.png', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa, fermentum id id vitae, integer fermentum tellus. In vitae id nisl quis ornare diam commodo in vel dolor.', rating: 4.5 },
-        { id: 5, name: 'Cappacino', avatar: '/images/community/bg-5.png', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa, fermentum id id vitae, integer fermentum tellus. In vitae id nisl quis ornare diam commodo in vel dolor.', rating: 4.5 },
-        { id: 6, name: 'Cappacino', avatar: '/images/community/bg-6.png', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa, fermentum id id vitae, integer fermentum tellus. In vitae id nisl quis ornare diam commodo in vel dolor.', rating: 4.5 },
+        { id: 1, name: 'Sarah Jenkins', avatar: '/images/community/bg-1.png', text: 'Daniel is an exceptional developer. He delivered the smart contract well ahead of schedule and the code was impeccable. Highly recommended!', rating: 5.0 },
+        { id: 2, name: 'Michael Chen', avatar: '/images/community/bg-2.png', text: 'Great communication and very knowledgeable about the Sui ecosystem. The video edits were exactly what we needed for our marketing campaign.', rating: 4.8 },
+        { id: 3, name: 'Elena Rodriguez', avatar: '/images/community/bg-3.png', text: 'I was impressed by Daniel\'s attention to detail. He not only fixed our bugs but also suggested improvements that saved us gas fees.', rating: 5.0 },
+        { id: 4, name: 'David Okonjo', avatar: '/images/community/bg-4.png', text: 'Top tier talent. The designs were modern and clean, fitting our brand perfectly. Will definitely hire again for future projects.', rating: 4.7 },
+        { id: 5, name: 'Aisha Bello', avatar: '/images/community/bg-5.png', text: 'Working with Daniel was a breeze. He understood the requirements immediately and delivered high-quality work. A true professional.', rating: 4.9 },
+        { id: 6, name: 'John Smith', avatar: '/images/community/bg-6.png', text: 'Solid work on the front-end integration. There were a few minor delays but he made up for it with extra features.', rating: 4.5 },
     ],
-    comments: [
-        {
-            id: 1,
-            author: 'Moritz Wallawitsch',
-            avatar: '/images/community/bg-1.png',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."',
-            rating: 4.5,
-            date: '2 weeks ago',
-        },
-        {
-            id: 2,
-            author: 'Moritz Wallawitsch',
-            avatar: '/images/community/bg-2.png',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."',
-            rating: 4.5,
-            date: '2 weeks ago',
-        },
-        {
-            id: 3,
-            author: 'Moritz Wallawitsch',
-            avatar: '/images/community/bg-3.png',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."',
-            rating: 4.5,
-            date: '2 weeks ago',
-        },
-    ],
+    comments: Array.from({ length: 20 }, (_, i) => {
+        const names = ['Moritz Wallawitsch', 'Sarah Chen', 'James Okonkwo', 'Elena Rodriguez', 'Michael Adeyemi', 'Aisha Bello', 'David Kim', 'Fatima Hassan', 'Chris Nwosu', 'Amara Diallo'];
+        const texts = [
+            'Exceptional work! Daniel delivered the smart contract ahead of schedule and the code quality was outstanding. Highly recommend for any blockchain project.',
+            'Great communication throughout the project. He understood our requirements perfectly and delivered exactly what we needed. Will definitely work with him again.',
+            'Daniel is a true professional. His expertise in Sui Move is impressive and he was able to solve complex problems efficiently. Very satisfied with the results.',
+            'The video editing work was fantastic. Creative, timely, and exactly what our marketing campaign needed. Daniel has a great eye for detail.',
+            'Working with Daniel was seamless. He kept us updated at every step and was always responsive to feedback. The final product exceeded our expectations.',
+            'Impressive technical skills combined with excellent design sense. Daniel transformed our ideas into a polished product. Couldn\'t be happier!',
+            'Daniel\'s knowledge of the Sui ecosystem is remarkable. He provided valuable insights that improved our project significantly. A pleasure to work with.',
+            'Fast turnaround without compromising quality. Daniel managed to deliver a complex feature in record time. Truly dedicated to his craft.',
+            'The UI/UX improvements Daniel made were game-changing for our platform. User engagement increased significantly after his redesign.',
+            'Professional, skilled, and reliable. Daniel is exactly the kind of freelancer every project needs. Looking forward to future collaborations.',
+        ];
+        const dates = ['1 day ago', '3 days ago', '1 week ago', '2 weeks ago', '3 weeks ago', '1 month ago', '2 months ago'];
+        const ratings = [5.0, 4.9, 4.8, 4.7, 4.5, 4.6, 4.8, 5.0, 4.9, 4.7];
+
+        return {
+            id: i + 1,
+            author: names[i % names.length],
+            avatar: `/images/community/bg-${(i % 7) + 1}.png`,
+            text: texts[i % texts.length],
+            rating: ratings[i % ratings.length],
+            date: dates[i % dates.length],
+        };
+    }),
 };
 
 // Star Rating Component
@@ -116,6 +116,101 @@ const StarRating = ({ rating, size = 24 }: { rating: number; size?: number }) =>
                 </svg>
             ))}
         </div>
+    );
+};
+
+// Animated Comment Card Component
+interface CommentData {
+    id: number;
+    author: string;
+    avatar: string;
+    text: string;
+    rating: number;
+    date: string;
+}
+
+const AnimatedCommentCard = ({
+    comment,
+    freelancerAvatar,
+    freelancerName
+}: {
+    comment: CommentData;
+    freelancerAvatar: string;
+    freelancerName: string;
+}) => {
+    const cardRef = useRef<HTMLDivElement>(null);
+    const [isResponseOpen, setIsResponseOpen] = useState(false);
+    const { scrollYProgress } = useScroll({
+        target: cardRef,
+        offset: ["start end", "end start"]
+    });
+
+    const scale = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [0.65, 0.85, 1, 0.85, 0.65]);
+    const opacity = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [0.3, 0.7, 1, 0.7, 0.3]);
+
+    return (
+        <motion.div
+            ref={cardRef}
+            className="profile-comment-card"
+            style={{
+                scale,
+                opacity
+            }}
+        >
+            <div className="profile-comment-header">
+                <div className="profile-comment-avatar">
+                    <Image src={comment.avatar} alt={comment.author} fill className="comment-avatar-img" />
+                </div>
+                <span className="profile-comment-author">{comment.author}</span>
+            </div>
+            <div className="profile-comment-body">
+                <p className="profile-comment-text">{comment.text}</p>
+                <div className="profile-comment-meta">
+                    <div className="profile-comment-rating">
+                        <StarRating rating={comment.rating} size={17} />
+                        <span>{comment.rating}</span>
+                    </div>
+                    <span className="profile-comment-dot">·</span>
+                    <span className="profile-comment-date">{comment.date}</span>
+                </div>
+            </div>
+            <div
+                className="profile-comment-response"
+                onClick={() => setIsResponseOpen(!isResponseOpen)}
+                style={{ cursor: 'pointer' }}
+            >
+                <div className="profile-response-header">
+                    <div className="profile-response-avatar">
+                        <Image src={freelancerAvatar} alt={freelancerName} fill className="response-avatar-img" />
+                    </div>
+                    <span className="profile-response-label">{freelancerName.split(' ')[0]}&apos;s Response</span>
+                </div>
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="2"
+                    className={`profile-response-toggle ${isResponseOpen ? 'toggle-open' : ''}`}
+                >
+                    <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+            </div>
+            <AnimatePresence>
+                {isResponseOpen && (
+                    <motion.div
+                        className="profile-response-content"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                        <p>Thank you for your kind words! It was a pleasure working on your project. Looking forward to collaborating again in the future.</p>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.div>
     );
 };
 
@@ -369,12 +464,12 @@ export default function FreelancerProfilePage() {
                         </div>
                     </div>
                     <div className="profile-detail-card">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#008751" strokeWidth="2">
-                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#008751" stroke="none">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                         </svg>
                         <div className="profile-detail-content">
-                            <span className="profile-detail-label">Phone</span>
-                            <span className="profile-detail-value">{freelancer.phone}</span>
+                            <span className="profile-detail-label">X Profile</span>
+                            <span className="profile-detail-value">{freelancer.twitterUrl}</span>
                         </div>
                     </div>
                     <div className="profile-detail-card">
@@ -502,126 +597,120 @@ export default function FreelancerProfilePage() {
                             onClick={(e) => e.stopPropagation()}
                             onWheel={(e) => e.stopPropagation()}
                         >
-                        {/* Close Button */}
-                        <button
-                            className="portfolio-popup-close btn-close-rotate"
-                            onClick={() => setShowAllProjects(false)}
-                            aria-label="Close popup"
-                        >
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
+                            {/* Close Button */}
+                            <button
+                                className="portfolio-popup-close btn-close-rotate"
+                                onClick={() => setShowAllProjects(false)}
+                                aria-label="Close popup"
+                            >
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </button>
 
-                        {/* Preview Section */}
-                        <div className="portfolio-popup-preview">
-                            <div className="portfolio-popup-preview-image">
-                                <Image
-                                    src={portfolioProjects[popupSelectedProject].image}
-                                    alt={portfolioProjects[popupSelectedProject].name}
-                                    fill
-                                    className="preview-image"
-                                />
-                            </div>
-                            <div className="portfolio-popup-preview-details">
-                                <h3 className="portfolio-popup-preview-name">
-                                    {portfolioProjects[popupSelectedProject].name}
-                                </h3>
-                                <div className="portfolio-popup-preview-divider"></div>
-                                <p className="portfolio-popup-preview-desc">
-                                    {portfolioProjects[popupSelectedProject].description || 'No description available for this project.'}
-                                </p>
-                                <div className="portfolio-popup-preview-actions">
-                                    <Link href="#" className="btn-primary portfolio-popup-preview-btn">
-                                        <span>Preview</span>
-                                        <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                        </svg>
-                                    </Link>
+                            {/* Preview Section */}
+                            <div className="portfolio-popup-preview">
+                                <div className="portfolio-popup-preview-image">
+                                    <Image
+                                        src={portfolioProjects[popupSelectedProject].image}
+                                        alt={portfolioProjects[popupSelectedProject].name}
+                                        fill
+                                        className="preview-image"
+                                    />
+                                </div>
+                                <div className="portfolio-popup-preview-details">
+                                    <h3 className="portfolio-popup-preview-name">
+                                        {portfolioProjects[popupSelectedProject].name}
+                                    </h3>
+                                    <div className="portfolio-popup-preview-divider"></div>
+                                    <p className="portfolio-popup-preview-desc">
+                                        {portfolioProjects[popupSelectedProject].description || 'No description available for this project.'}
+                                    </p>
+                                    <div className="portfolio-popup-preview-actions">
+                                        <Link href="#" className="btn-primary portfolio-popup-preview-btn">
+                                            <span>Preview</span>
+                                            <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                            </svg>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Thumbnails Grid */}
-                        <div className="portfolio-popup-content">
-                            <h4 className="portfolio-popup-grid-title">All Projects ({portfolioProjects.length})</h4>
-                            <div className="portfolio-popup-grid">
-                                {portfolioProjects.map((project, index) => (
-                                    <button
-                                        key={project.id}
-                                        className={`portfolio-popup-thumb ${popupSelectedProject === index ? 'active' : ''}`}
-                                        onClick={() => setPopupSelectedProject(index)}
-                                        aria-label={`View ${project.name}`}
-                                        title={project.name}
-                                    >
-                                        <Image src={project.image} alt={project.name} fill className="thumb-image" />
-                                        <span className="portfolio-popup-thumb-name">{project.name}</span>
-                                    </button>
-                                ))}
+                            {/* Thumbnails Grid */}
+                            <div className="portfolio-popup-content">
+                                <h4 className="portfolio-popup-grid-title">All Projects ({portfolioProjects.length})</h4>
+                                <div className="portfolio-popup-grid">
+                                    {portfolioProjects.map((project, index) => (
+                                        <button
+                                            key={project.id}
+                                            className={`portfolio-popup-thumb ${popupSelectedProject === index ? 'active' : ''}`}
+                                            onClick={() => setPopupSelectedProject(index)}
+                                            aria-label={`View ${project.name}`}
+                                            title={project.name}
+                                        >
+                                            <Image src={project.image} alt={project.name} fill className="thumb-image" />
+                                            <span className="portfolio-popup-thumb-name">{project.name}</span>
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </motion.div>
-                </motion.div>
-            )}
+                )}
             </AnimatePresence>
 
             {/* Reviews Section */}
             <section className="profile-reviews-section">
                 <h2 className="profile-reviews-title">Reviews</h2>
-                <div className="profile-reviews-carousel">
-                    {freelancer.reviews.map((review) => (
-                        <div key={review.id} className="profile-review-card">
-                            <div className="profile-review-avatar">
-                                <Image src={review.avatar} alt={review.name} fill className="review-avatar-img" />
+                <div className="profile-reviews-carousel-wrapper">
+                    <div className="profile-reviews-carousel">
+                        {/* First set of reviews */}
+                        {freelancer.reviews.map((review) => (
+                            <div key={review.id} className="profile-review-card">
+                                <div className="profile-review-avatar">
+                                    <Image src={review.avatar} alt={review.name} fill className="review-avatar-img" />
+                                </div>
+                                <h4 className="profile-review-name">{review.name}</h4>
+                                <p className="profile-review-text">{review.text}</p>
+                                <div className="profile-review-rating">
+                                    <StarRating rating={review.rating} size={24} />
+                                    <span className="profile-review-rating-value">{review.rating}</span>
+                                </div>
                             </div>
-                            <h4 className="profile-review-name">{review.name}</h4>
-                            <p className="profile-review-text">{review.text}</p>
-                            <div className="profile-review-rating">
-                                <StarRating rating={review.rating} size={24} />
-                                <span className="profile-review-rating-value">{review.rating}</span>
+                        ))}
+                        {/* Duplicate set for seamless loop */}
+                        {freelancer.reviews.map((review) => (
+                            <div key={`dup-${review.id}`} className="profile-review-card">
+                                <div className="profile-review-avatar">
+                                    <Image src={review.avatar} alt={review.name} fill className="review-avatar-img" />
+                                </div>
+                                <h4 className="profile-review-name">{review.name}</h4>
+                                <p className="profile-review-text">{review.text}</p>
+                                <div className="profile-review-rating">
+                                    <StarRating rating={review.rating} size={24} />
+                                    <span className="profile-review-rating-value">{review.rating}</span>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </section>
 
             {/* Comments Section */}
             <section className="profile-comments-section">
-                <div className="profile-comments-divider"></div>
-                <h2 className="profile-comments-title">Comments</h2>
+                <div className="profile-comments-header">
+                    <h2 className="profile-comments-title">Comments</h2>
+                </div>
 
                 <div className="profile-comments-list">
                     {freelancer.comments.map((comment) => (
-                        <div key={comment.id} className="profile-comment-card">
-                            <div className="profile-comment-header">
-                                <div className="profile-comment-avatar">
-                                    <Image src={comment.avatar} alt={comment.author} fill className="comment-avatar-img" />
-                                </div>
-                                <span className="profile-comment-author">{comment.author}</span>
-                            </div>
-                            <div className="profile-comment-body">
-                                <p className="profile-comment-text">{comment.text}</p>
-                                <div className="profile-comment-meta">
-                                    <div className="profile-comment-rating">
-                                        <StarRating rating={comment.rating} size={17} />
-                                        <span>{comment.rating}</span>
-                                    </div>
-                                    <span className="profile-comment-dot">·</span>
-                                    <span className="profile-comment-date">{comment.date}</span>
-                                </div>
-                            </div>
-                            <div className="profile-comment-response">
-                                <div className="profile-response-header">
-                                    <div className="profile-response-avatar">
-                                        <Image src={freelancer.avatar} alt={freelancer.name} fill className="response-avatar-img" />
-                                    </div>
-                                    <span className="profile-response-label">{freelancer.name.split(' ')[0]}&apos;s Response</span>
-                                </div>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="profile-response-toggle">
-                                    <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </div>
-                        </div>
+                        <AnimatedCommentCard
+                            key={comment.id}
+                            comment={comment}
+                            freelancerAvatar={freelancer.avatar}
+                            freelancerName={freelancer.name}
+                        />
                     ))}
                 </div>
             </section>
@@ -640,28 +729,53 @@ export default function FreelancerProfilePage() {
 
                 <h2 className="profile-newsletter-title">KEEP UP WITH THE COMMUNITY</h2>
 
-                <div className="profile-newsletter-posts">
-                    {[1, 2, 3, 4].map((post) => (
-                        <div key={post} className="profile-newsletter-post">
-                            <div className="profile-post-header">
-                                <div className="profile-post-avatar">
-                                    <Image src="/images/community/bg-1.png" alt="DeLorean Labs" fill className="post-avatar-img" />
+                <div className="profile-newsletter-posts-wrapper">
+                    <div className="profile-newsletter-posts">
+                        {/* Original posts */}
+                        {[1, 2, 3, 4].map((post) => (
+                            <div key={post} className="profile-newsletter-post">
+                                <div className="profile-post-header">
+                                    <div className="profile-post-avatar">
+                                        <Image src="/images/community/bg-1.png" alt="DeLorean Labs" fill className="post-avatar-img" />
+                                    </div>
+                                    <div className="profile-post-author">
+                                        <span className="profile-post-name">DeLorean Labs</span>
+                                        <span className="profile-post-handle">soudodamon...</span>
+                                    </div>
+                                    <span className="profile-post-date">06/20/2025, 00.28</span>
                                 </div>
-                                <div className="profile-post-author">
-                                    <span className="profile-post-name">DeLorean Labs</span>
-                                    <span className="profile-post-handle">soudodamon...</span>
+                                <div className="profile-post-image">
+                                    <Image src="/images/community/bg-2.png" alt="Post" fill className="post-img" />
                                 </div>
-                                <span className="profile-post-date">06/20/2025, 00.28</span>
+                                <p className="profile-post-text">
+                                    A brand with legacy, now built for the future. $DMC is not just a token — it&apos;s a movement. Ready to see what happens at 88MPH? 🏁 @DeLoreanlabs is just getting started.
+                                </p>
+                                <span className="profile-post-view">View on X</span>
                             </div>
-                            <div className="profile-post-image">
-                                <Image src="/images/community/bg-2.png" alt="Post" fill className="post-img" />
+                        ))}
+                        {/* Duplicate posts for seamless loop */}
+                        {[1, 2, 3, 4].map((post) => (
+                            <div key={`dup-${post}`} className="profile-newsletter-post">
+                                <div className="profile-post-header">
+                                    <div className="profile-post-avatar">
+                                        <Image src="/images/community/bg-1.png" alt="DeLorean Labs" fill className="post-avatar-img" />
+                                    </div>
+                                    <div className="profile-post-author">
+                                        <span className="profile-post-name">DeLorean Labs</span>
+                                        <span className="profile-post-handle">soudodamon...</span>
+                                    </div>
+                                    <span className="profile-post-date">06/20/2025, 00.28</span>
+                                </div>
+                                <div className="profile-post-image">
+                                    <Image src="/images/community/bg-2.png" alt="Post" fill className="post-img" />
+                                </div>
+                                <p className="profile-post-text">
+                                    A brand with legacy, now built for the future. $DMC is not just a token — it&apos;s a movement. Ready to see what happens at 88MPH? 🏁 @DeLoreanlabs is just getting started.
+                                </p>
+                                <span className="profile-post-view">View on X</span>
                             </div>
-                            <p className="profile-post-text">
-                                A brand with legacy, now built for the future. $DMC is not just a token — it&apos;s a movement. Ready to see what happens at 88MPH? 🏁 @DeLoreanlabs is just getting started.
-                            </p>
-                            <span className="profile-post-view">View on X</span>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
 
                 <p className="profile-newsletter-cta">Let&apos;s keep in touch - Be the first to know what&apos;s coming.</p>

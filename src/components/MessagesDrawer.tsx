@@ -711,17 +711,13 @@ export default function MessagesDrawer({ isOpen, onClose, activeFreelancer }: Me
 
                     {/* Wrapper for Genie Effect */}
                     <div
-                        style={{
-                            position: 'fixed',
-                            bottom: 24,
-                            right: 24,
-                            zIndex: 9999,
-                        }}
+                        className="messages-drawer-wrapper"
                         onWheel={(e) => e.stopPropagation()}
                     >
+
                         {/* Drawer */}
                         <motion.div
-                            className="messages-drawer"
+                            className="messages-drawer messages-drawer-origin"
                             drag
                             dragControls={dragControls}
                             dragListener={false}
@@ -760,464 +756,451 @@ export default function MessagesDrawer({ isOpen, onClose, activeFreelancer }: Me
                                 damping: 25,
                                 stiffness: 300,
                             }}
-                            style={{
-                                transformOrigin: 'right bottom',
-                            }}
                             onClick={(e) => e.stopPropagation()}
                         >
-                        {/* Close Button */}
-                        <button className="messages-drawer-close btn-close-rotate" onClick={onClose} aria-label="Close">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
+                            {/* Close Button */}
+                            <button className="messages-drawer-close btn-close-rotate" onClick={onClose} aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </button>
 
-                        {/* Sidebar - Conversation List */}
-                        <div className="messages-sidebar">
-                            <div
-                                className="messages-sidebar-header"
-                                onPointerDown={(e) => dragControls.start(e)}
-                                style={{ cursor: 'grab' }}
-                            >
-                                <h3>Messages</h3>
-                                <button
-                                    className={`btn-sidebar-search ${showSidebarSearch ? 'active' : ''}`}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setShowSidebarSearch(!showSidebarSearch);
-                                        if (!showSidebarSearch) {
-                                            setTimeout(() => sidebarSearchInputRef.current?.focus(), 100);
-                                        } else {
-                                            setSidebarSearchQuery('');
-                                        }
-                                    }}
-                                    onPointerDown={(e) => e.stopPropagation()}
+                            {/* Sidebar - Conversation List */}
+                            <div className="messages-sidebar">
+                                <div
+                                    className="messages-sidebar-header cursor-grab"
+                                    onPointerDown={(e) => dragControls.start(e)}
                                 >
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                        <circle cx="11" cy="11" r="8" />
-                                        <path d="M21 21l-4.35-4.35" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <AnimatePresence>
-                                {showSidebarSearch && (
-                                    <motion.div
-                                        className="messages-search"
-                                        initial={{ opacity: 0, y: -20, scaleY: 0.8 }}
-                                        animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                                        exit={{ opacity: 0, y: -20, scaleY: 0.8 }}
-                                        transition={{ duration: 0.2, ease: 'easeOut' }}
+                                    <h3>Messages</h3>
+                                    <button
+                                        className={`btn-sidebar-search ${showSidebarSearch ? 'active' : ''}`}
+                                        aria-label="Toggle sidebar search"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setShowSidebarSearch(!showSidebarSearch);
+                                            if (!showSidebarSearch) {
+                                                setTimeout(() => sidebarSearchInputRef.current?.focus(), 100);
+                                            } else {
+                                                setSidebarSearchQuery('');
+                                            }
+                                        }}
+                                        onPointerDown={(e) => e.stopPropagation()}
                                     >
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                             <circle cx="11" cy="11" r="8" />
                                             <path d="M21 21l-4.35-4.35" />
                                         </svg>
-                                        <input
-                                            ref={sidebarSearchInputRef}
-                                            type="text"
-                                            placeholder="Search conversations..."
-                                            value={sidebarSearchQuery}
-                                            onChange={(e) => setSidebarSearchQuery(e.target.value)}
-                                        />
-                                        {sidebarSearchQuery && (
-                                            <button
-                                                className="search-clear"
-                                                onClick={() => setSidebarSearchQuery('')}
-                                            >
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                    <path d="M18 6L6 18M6 6l12 12" />
-                                                </svg>
-                                            </button>
-                                        )}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                            <div className="messages-list">
-                                {/* Active Freelancer (if opened from card) */}
-                                {activeFreelancer && (
-                                    <motion.div
-                                        className={`messages-item ${selectedChat === -1 ? 'active' : ''}`}
-                                        onClick={() => setSelectedChat(-1)}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.1 }}
-                                    >
-                                        <div className="messages-item-avatar">
-                                            <Image src={activeFreelancer.avatar} alt={activeFreelancer.name} fill style={{ objectFit: 'cover' }} />
-                                            <span className="online-dot"></span>
-                                        </div>
-                                        <div className="messages-item-content">
-                                            <span className="messages-item-name">{activeFreelancer.name}</span>
-                                            <span className="messages-item-preview new">New conversation</span>
-                                        </div>
-                                        <span className="messages-item-time">Now</span>
-                                    </motion.div>
-                                )}
-                                {/* Existing Conversations */}
-                                {filteredConversations.map((conv, index) => (
-                                    <motion.div
-                                        key={conv.id}
-                                        className={`messages-item ${selectedChat === conv.id ? 'active' : ''}`}
-                                        onClick={() => setSelectedChat(conv.id)}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.1 + (index * 0.05) }}
-                                    >
-                                        <div className="messages-item-avatar">
-                                            <Image src={conv.avatar} alt={conv.name} fill style={{ objectFit: 'cover' }} />
-                                            {conv.online && <span className="online-dot"></span>}
-                                        </div>
-                                        <div className="messages-item-content">
-                                            <span className="messages-item-name">{conv.name}</span>
-                                            <span className="messages-item-preview">{conv.lastMessage}</span>
-                                        </div>
-                                        <span className="messages-item-time">{conv.time}</span>
-                                    </motion.div>
-                                ))}
+                                    </button>
+                                </div>
+                                <AnimatePresence>
+                                    {showSidebarSearch && (
+                                        <motion.div
+                                            className="messages-search"
+                                            initial={{ opacity: 0, y: -20, scaleY: 0.8 }}
+                                            animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                                            exit={{ opacity: 0, y: -20, scaleY: 0.8 }}
+                                            transition={{ duration: 0.2, ease: 'easeOut' }}
+                                        >
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                <circle cx="11" cy="11" r="8" />
+                                                <path d="M21 21l-4.35-4.35" />
+                                            </svg>
+                                            <input
+                                                ref={sidebarSearchInputRef}
+                                                type="text"
+                                                placeholder="Search conversations..."
+                                                value={sidebarSearchQuery}
+                                                onChange={(e) => setSidebarSearchQuery(e.target.value)}
+                                                aria-label="Search conversations"
+                                            />
+                                            {sidebarSearchQuery && (
+                                                <button
+                                                    className="search-clear"
+                                                    onClick={() => setSidebarSearchQuery('')}
+                                                    aria-label="Clear sidebar search"
+                                                >
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                        <path d="M18 6L6 18M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            )}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                                <div className="messages-list">
+                                    {/* Active Freelancer (if opened from card) */}
+                                    {activeFreelancer && (
+                                        <motion.div
+                                            className={`messages-item ${selectedChat === -1 ? 'active' : ''}`}
+                                            onClick={() => setSelectedChat(-1)}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0.1 }}
+                                        >
+                                            <div className="messages-item-avatar">
+                                                <Image src={activeFreelancer.avatar} alt={activeFreelancer.name} fill className="media-cover" />
+                                                <span className="online-dot"></span>
+                                            </div>
+                                            <div className="messages-item-content">
+                                                <span className="messages-item-name">{activeFreelancer.name}</span>
+                                                <span className="messages-item-preview new">New conversation</span>
+                                            </div>
+                                            <span className="messages-item-time">Now</span>
+                                        </motion.div>
+                                    )}
+                                    {/* Existing Conversations */}
+                                    {filteredConversations.map((conv, index) => (
+                                        <motion.div
+                                            key={conv.id}
+                                            className={`messages-item ${selectedChat === conv.id ? 'active' : ''}`}
+                                            onClick={() => setSelectedChat(conv.id)}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0.1 + (index * 0.05) }}
+                                        >
+                                            <div className="messages-item-avatar">
+                                                <Image src={conv.avatar} alt={conv.name} fill className="media-cover" />
+                                                {conv.online && <span className="online-dot"></span>}
+                                            </div>
+                                            <div className="messages-item-content">
+                                                <span className="messages-item-name">{conv.name}</span>
+                                                <span className="messages-item-preview">{conv.lastMessage}</span>
+                                            </div>
+                                            <span className="messages-item-time">{conv.time}</span>
+                                        </motion.div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Chat Area */}
-                        <div className="messages-chat">
-                            {/* Background Pattern */}
-                            <div className="messages-chat-pattern"></div>
+                            {/* Chat Area */}
+                            <div className="messages-chat">
+                                {/* Background Pattern */}
+                                <div className="messages-chat-pattern"></div>
 
-                            {activeContact ? (
-                                <>
-                                    {/* Chat Header */}
-                                    <div
-                                        className="messages-chat-header"
-                                        onPointerDown={(e) => dragControls.start(e)}
-                                        style={{ cursor: 'grab' }}
-                                    >
-                                        <div className="messages-chat-user">
-                                            <div className="messages-chat-avatar">
-                                                <Image src={activeContact.avatar} alt={activeContact.name} fill style={{ objectFit: 'cover' }} />
+                                {activeContact ? (
+                                    <>
+                                        {/* Chat Header */}
+                                        <div
+                                            className="messages-chat-header cursor-grab"
+                                            onPointerDown={(e) => dragControls.start(e)}
+                                        >
+                                            <div className="messages-chat-user">
+                                                <div className="messages-chat-avatar">
+                                                    <Image src={activeContact.avatar} alt={activeContact.name} fill className="media-cover" />
+                                                </div>
+                                                <div className="messages-chat-info">
+                                                    <span className="messages-chat-name">{activeContact.name}</span>
+                                                    <span className="messages-chat-role">{activeContact.role}</span>
+                                                </div>
                                             </div>
-                                            <div className="messages-chat-info">
-                                                <span className="messages-chat-name">{activeContact.name}</span>
-                                                <span className="messages-chat-role">{activeContact.role}</span>
+                                            <div className="messages-header-actions" onPointerDown={(e) => e.stopPropagation()}>
+                                                <button
+                                                    className={`btn-header-action ${showSearch ? 'active' : ''}`}
+                                                    onClick={toggleSearch}
+                                                    aria-label="Search in chat"
+                                                >
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                        <circle cx="11" cy="11" r="8" />
+                                                        <path d="M21 21l-4.35-4.35" />
+                                                    </svg>
+                                                </button>
+                                                <button className="btn-header-action" aria-label="Start voice call">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                                                    </svg>
+                                                </button>
+                                                <button className="btn-header-action" aria-label="Start video call">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                        <path d="M23 7l-7 5 7 5V7z" />
+                                                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                                                    </svg>
+                                                </button>
                                             </div>
                                         </div>
-                                        <div className="messages-header-actions" onPointerDown={(e) => e.stopPropagation()}>
-                                            <button
-                                                className={`btn-header-action ${showSearch ? 'active' : ''}`}
-                                                onClick={toggleSearch}
-                                                aria-label="Search in chat"
-                                            >
-                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                    <circle cx="11" cy="11" r="8" />
-                                                    <path d="M21 21l-4.35-4.35" />
-                                                </svg>
-                                            </button>
-                                            <button className="btn-header-action" aria-label="Start voice call">
-                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                                                </svg>
-                                            </button>
-                                            <button className="btn-header-action" aria-label="Start video call">
-                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                    <path d="M23 7l-7 5 7 5V7z" />
-                                                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
 
-                                    {/* Search Bar */}
-                                    <AnimatePresence>
-                                        {showSearch && (
-                                            <motion.div
-                                                className="messages-search-bar"
-                                                initial={{ opacity: 0, y: -20, scaleY: 0.8 }}
-                                                animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                                                exit={{ opacity: 0, y: -20, scaleY: 0.8 }}
-                                                transition={{ duration: 0.2, ease: 'easeOut' }}
-                                            >
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                    <circle cx="11" cy="11" r="8" />
-                                                    <path d="M21 21l-4.35-4.35" />
-                                                </svg>
-                                                <input
-                                                    ref={searchInputRef}
-                                                    type="text"
-                                                    placeholder="Search messages..."
-                                                    value={searchQuery}
-                                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                                />
-                                                {searchQuery && (
-                                                    <span className="search-count">
-                                                        {filteredMessages.length} result{filteredMessages.length !== 1 ? 's' : ''}
+                                        {/* Search Bar */}
+                                        <AnimatePresence>
+                                            {showSearch && (
+                                                <motion.div
+                                                    className="messages-search-bar"
+                                                    initial={{ opacity: 0, y: -20, scaleY: 0.8 }}
+                                                    animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                                                    exit={{ opacity: 0, y: -20, scaleY: 0.8 }}
+                                                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                                                >
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                        <circle cx="11" cy="11" r="8" />
+                                                        <path d="M21 21l-4.35-4.35" />
+                                                    </svg>
+                                                    <input
+                                                        ref={searchInputRef}
+                                                        type="text"
+                                                        placeholder="Search messages..."
+                                                        value={searchQuery}
+                                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                                        aria-label="Search messages"
+                                                    />
+                                                    {searchQuery && (
+                                                        <span className="search-count">
+                                                            {filteredMessages.length} result{filteredMessages.length !== 1 ? 's' : ''}
+                                                        </span>
+                                                    )}
+                                                    <button className="search-close" onClick={toggleSearch} aria-label="Close search">
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                            <path d="M18 6L6 18M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+
+                                        {/* Messages */}
+                                        <div className="messages-chat-body" ref={chatBodyRef}>
+                                            {selectedChat === -1 ? (
+                                                <div className="messages-empty">
+                                                    <p>Start a conversation with {activeContact.name}</p>
+                                                </div>
+                                            ) : (
+                                                filteredMessages.map((msg, index) => (
+                                                    <div key={msg.id} className={`message-group ${msg.sender === 'me' ? 'sent' : 'received'}`}>
+                                                        {msg.sender !== 'me' && (
+                                                            <div className="message-avatar">
+                                                                <Image
+                                                                    src={activeContact.avatar}
+                                                                    alt={activeContact.name}
+                                                                    fill
+                                                                    className="object-cover"
+                                                                />
+                                                            </div>
+                                                        )}
+                                                        <motion.div
+                                                            className={`message-bubble ${msg.sender === 'me' ? 'message-sent' : 'message-received'}`}
+                                                            initial={{ opacity: 0, y: 10 }}
+                                                            animate={{ opacity: 1, y: 0 }}
+                                                            transition={{ delay: index * 0.1 }}
+                                                        >
+                                                            {msg.replyTo && (
+                                                                <div className="message-reply-preview">
+                                                                    <div className="reply-preview-bar"></div>
+                                                                    <div className="reply-preview-content">
+                                                                        <span className="reply-preview-sender">
+                                                                            {msg.replyTo.sender === 'me' ? 'You' : activeContact.name}
+                                                                        </span>
+                                                                        <p className="reply-preview-text">{msg.replyTo.text}</p>
+                                                                    </div>
+                                                                </div>
+                                                            )}
+
+                                                            {msg.attachments && msg.attachments.length > 0 && (
+                                                                <div className="message-attachments-display">
+                                                                    {msg.attachments.map((att, i) => (
+                                                                        <div key={i} className="message-attachment-item">
+                                                                            {att.type === 'image' && att.preview && (
+                                                                                <img src={att.preview} alt={att.name} className="attachment-img" />
+                                                                            )}
+                                                                            {att.type !== 'image' && (
+                                                                                <div className={`attachment-icon-lg ${att.type}`}>
+                                                                                    <span className="attachment-ext">{att.type.toUpperCase()}</span>
+                                                                                </div>
+                                                                            )}
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            )}
+
+                                                            {msg.text && <p className="message-text">{searchQuery ? highlightText(msg.text, searchQuery) : renderTextWithEmojis(msg.text)}</p>}
+                                                            <span className="message-time">{msg.time}</span>
+
+                                                            <button
+                                                                className="btn-reply-message"
+                                                                onClick={() => setReplyingTo(msg)}
+                                                                aria-label="Reply to message"
+                                                            >
+                                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                    <path d="M3 10h10a5 5 0 0 1 5 5v6" />
+                                                                    <path d="M8 5L3 10l5 5" />
+                                                                </svg>
+                                                            </button>
+                                                        </motion.div>
+                                                    </div>
+                                                ))
+                                            )}
+                                        </div>
+
+                                        {/* Reply Banner */}
+                                        {replyingTo && (
+                                            <div className="reply-banner">
+                                                <div className="reply-banner-content">
+                                                    <span className="reply-banner-title">
+                                                        Replying to {replyingTo.sender === 'me' ? 'yourself' : activeContact.name}
                                                     </span>
-                                                )}
-                                                <button className="search-close" onClick={toggleSearch}>
+                                                    <p className="reply-banner-text">{replyingTo.text}</p>
+                                                </div>
+                                                <button
+                                                    className="reply-banner-close"
+                                                    onClick={() => setReplyingTo(null)}
+                                                    aria-label="Cancel reply"
+                                                >
                                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                                         <path d="M18 6L6 18M6 6l12 12" />
                                                     </svg>
                                                 </button>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-
-                                    {/* Messages */}
-                                    <div className="messages-chat-body" ref={chatBodyRef}>
-                                        {selectedChat === -1 ? (
-                                            <div className="messages-empty">
-                                                <p>Start a conversation with {activeContact.name}</p>
                                             </div>
-                                        ) : (
-                                            filteredMessages.map((msg, index) => (
-                                                <div key={msg.id} className={`message-group ${msg.sender === 'me' ? 'sent' : 'received'}`}>
-                                                    {msg.sender !== 'me' && (
-                                                        <div className="message-avatar">
-                                                            <Image
-                                                                src={activeContact.avatar}
-                                                                alt={activeContact.name}
-                                                                fill
-                                                                className="object-cover"
-                                                            />
-                                                        </div>
-                                                    )}
-                                                    <motion.div
-                                                        className={`message-bubble ${msg.sender === 'me' ? 'message-sent' : 'message-received'}`}
-                                                        initial={{ opacity: 0, y: 10 }}
-                                                        animate={{ opacity: 1, y: 0 }}
-                                                        transition={{ delay: index * 0.1 }}
-                                                    >
-                                                        {msg.replyTo && (
-                                                            <div className="message-reply-preview">
-                                                                <div className="reply-preview-bar"></div>
-                                                                <div className="reply-preview-content">
-                                                                    <span className="reply-preview-sender">
-                                                                        {msg.replyTo.sender === 'me' ? 'You' : activeContact.name}
-                                                                    </span>
-                                                                    <p className="reply-preview-text">{msg.replyTo.text}</p>
-                                                                </div>
+                                        )}
+
+                                        {/* Attached Files Preview */}
+                                        {attachedFiles.length > 0 && (
+                                            <div className="messages-attachments">
+                                                {attachedFiles.map((file) => (
+                                                    <div key={file.id} className="attachment-preview">
+                                                        {file.type === 'image' && file.preview && (
+                                                            <img src={file.preview} alt={file.file.name} />
+                                                        )}
+                                                        {file.type === 'video' && (
+                                                            <div className="attachment-icon video">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                    <polygon points="5 3 19 12 5 21 5 3" />
+                                                                </svg>
                                                             </div>
                                                         )}
+                                                        {file.type === 'pdf' && (
+                                                            <div className="attachment-icon pdf">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                                                    <polyline points="14 2 14 8 20 8" />
+                                                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                                                </svg>
+                                                            </div>
+                                                        )}
+                                                        <span className="attachment-name">{file.file.name}</span>
+                                                        <button
+                                                            className="attachment-remove"
+                                                            onClick={() => removeAttachment(file.id)}
+                                                            aria-label="Remove attachment"
+                                                        >
+                                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                <path d="M18 6L6 18M6 6l12 12" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
 
-                                                        {msg.attachments && msg.attachments.length > 0 && (
-                                                            <div className="message-attachments-display">
-                                                                {msg.attachments.map((att, i) => (
-                                                                    <div key={i} className="message-attachment-item">
-                                                                        {att.type === 'image' && att.preview && (
-                                                                            <img src={att.preview} alt={att.name} className="attachment-img" />
+                                        {/* Input Area */}
+                                        <div className="messages-chat-input">
+                                            <input
+                                                ref={fileInputRef}
+                                                type="file"
+                                                accept="image/*,video/*,application/pdf"
+                                                aria-label="Upload file"
+                                                multiple
+                                                onChange={handleFileChange}
+                                                className="hidden-input"
+                                            />
+                                            <button className="messages-attach-btn" onClick={handleAttachClick} aria-label="Attach file">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                                                </svg>
+                                            </button>
+                                            <textarea
+                                                ref={textareaRef}
+                                                placeholder="Type a message..."
+                                                value={inputText}
+                                                onChange={(e) => {
+                                                    setInputText(e.target.value);
+                                                    adjustTextareaHeight();
+                                                }}
+                                                onKeyDown={handleKeyDown}
+                                                rows={1}
+                                                aria-label="Type a message"
+                                            />
+
+                                            {/* Sticker Picker */}
+                                            <div className="sticker-container relative" ref={stickerContainerRef}>
+                                                <button
+                                                    className={`messages-sticker-btn ${showStickers ? 'active' : ''}`}
+                                                    onClick={() => {
+                                                        const newState = !showStickers;
+                                                        setShowStickers(newState);
+                                                        if (newState) {
+                                                            setTimeout(() => stickerSearchRef.current?.focus(), 100);
+                                                        } else {
+                                                            setStickerSearchQuery('');
+                                                            setActiveStickerCategory(null);
+                                                        }
+                                                    }}
+                                                    aria-label="Send sticker"
+                                                >
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                        <circle cx="12" cy="12" r="10" />
+                                                        <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                                                        <line x1="9" y1="9" x2="9.01" y2="9" />
+                                                        <line x1="15" y1="9" x2="15.01" y2="9" />
+                                                    </svg>
+                                                </button>
+
+                                                {showStickers && (
+                                                    <div className="sticker-picker">
+                                                        <div className="sticker-search">
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                <circle cx="11" cy="11" r="8" />
+                                                                <path d="M21 21l-4.35-4.35" />
+                                                            </svg>
+                                                            <input
+                                                                ref={stickerSearchRef}
+                                                                type="text"
+                                                                placeholder="Search stickers..."
+                                                                value={stickerSearchQuery}
+                                                                onChange={(e) => setStickerSearchQuery(e.target.value)}
+                                                                onClick={(e) => e.stopPropagation()}
+                                                                aria-label="Search stickers"
+                                                            />
+                                                        </div>
+
+                                                        {/* Category Tabs */}
+                                                        {!stickerSearchQuery.trim() && (
+                                                            <div className="sticker-category-tabs">
+                                                                {STICKER_CATEGORIES.map((cat) => (
+                                                                    <button
+                                                                        key={cat.name}
+                                                                        className={`sticker-category-tab ${activeStickerCategory === cat.name ? 'active' : ''}`}
+                                                                        onClick={() => setActiveStickerCategory(
+                                                                            activeStickerCategory === cat.name ? null : cat.name
                                                                         )}
-                                                                        {att.type !== 'image' && (
-                                                                            <div className={`attachment-icon-lg ${att.type}`}>
-                                                                                <span className="attachment-ext">{att.type.toUpperCase()}</span>
-                                                                            </div>
-                                                                        )}
-                                                                    </div>
+                                                                        title={cat.name}
+                                                                        aria-label={cat.name}
+                                                                    >
+                                                                        {cat.icon}
+                                                                    </button>
                                                                 ))}
                                                             </div>
                                                         )}
 
-                                                        {msg.text && <p className="message-text">{searchQuery ? highlightText(msg.text, searchQuery) : renderTextWithEmojis(msg.text)}</p>}
-                                                        <span className="message-time">{msg.time}</span>
-
-                                                        <button
-                                                            className="btn-reply-message"
-                                                            onClick={() => setReplyingTo(msg)}
-                                                            aria-label="Reply to message"
-                                                        >
-                                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                                <path d="M3 10h10a5 5 0 0 1 5 5v6" />
-                                                                <path d="M8 5L3 10l5 5" />
-                                                            </svg>
-                                                        </button>
-                                                    </motion.div>
-                                                </div>
-                                            ))
-                                        )}
-                                    </div>
-
-                                    {/* Reply Banner */}
-                                    {replyingTo && (
-                                        <div className="reply-banner">
-                                            <div className="reply-banner-content">
-                                                <span className="reply-banner-title">
-                                                    Replying to {replyingTo.sender === 'me' ? 'yourself' : activeContact.name}
-                                                </span>
-                                                <p className="reply-banner-text">{replyingTo.text}</p>
-                                            </div>
-                                            <button
-                                                className="reply-banner-close"
-                                                onClick={() => setReplyingTo(null)}
-                                            >
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                    <path d="M18 6L6 18M6 6l12 12" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    )}
-
-                                    {/* Attached Files Preview */}
-                                    {attachedFiles.length > 0 && (
-                                        <div className="messages-attachments">
-                                            {attachedFiles.map((file) => (
-                                                <div key={file.id} className="attachment-preview">
-                                                    {file.type === 'image' && file.preview && (
-                                                        <img src={file.preview} alt={file.file.name} />
-                                                    )}
-                                                    {file.type === 'video' && (
-                                                        <div className="attachment-icon video">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                                <polygon points="5 3 19 12 5 21 5 3" />
-                                                            </svg>
-                                                        </div>
-                                                    )}
-                                                    {file.type === 'pdf' && (
-                                                        <div className="attachment-icon pdf">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                                                <polyline points="14 2 14 8 20 8" />
-                                                                <line x1="16" y1="13" x2="8" y2="13" />
-                                                                <line x1="16" y1="17" x2="8" y2="17" />
-                                                            </svg>
-                                                        </div>
-                                                    )}
-                                                    <span className="attachment-name">{file.file.name}</span>
-                                                    <button
-                                                        className="attachment-remove"
-                                                        onClick={() => removeAttachment(file.id)}
-                                                        aria-label="Remove attachment"
-                                                    >
-                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                            <path d="M18 6L6 18M6 6l12 12" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    {/* Input Area */}
-                                    <div className="messages-chat-input">
-                                        <input
-                                            ref={fileInputRef}
-                                            type="file"
-                                            accept="image/*,video/*,application/pdf"
-                                            multiple
-                                            onChange={handleFileChange}
-                                            style={{ display: 'none' }}
-                                        />
-                                        <button className="messages-attach-btn" onClick={handleAttachClick} aria-label="Attach file">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
-                                            </svg>
-                                        </button>
-                                        <textarea
-                                            ref={textareaRef}
-                                            placeholder="Type a message..."
-                                            value={inputText}
-                                            onChange={(e) => {
-                                                setInputText(e.target.value);
-                                                adjustTextareaHeight();
-                                            }}
-                                            onKeyDown={handleKeyDown}
-                                            rows={1}
-                                        />
-
-                                        {/* Sticker Picker */}
-                                        <div className="sticker-container" ref={stickerContainerRef} style={{ position: 'relative' }}>
-                                            <button
-                                                className={`messages-sticker-btn ${showStickers ? 'active' : ''}`}
-                                                onClick={() => {
-                                                    const newState = !showStickers;
-                                                    setShowStickers(newState);
-                                                    if (newState) {
-                                                        setTimeout(() => stickerSearchRef.current?.focus(), 100);
-                                                    } else {
-                                                        setStickerSearchQuery('');
-                                                        setActiveStickerCategory(null);
-                                                    }
-                                                }}
-                                                aria-label="Send sticker"
-                                            >
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                    <circle cx="12" cy="12" r="10" />
-                                                    <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-                                                    <line x1="9" y1="9" x2="9.01" y2="9" />
-                                                    <line x1="15" y1="9" x2="15.01" y2="9" />
-                                                </svg>
-                                            </button>
-
-                                            {showStickers && (
-                                                <div className="sticker-picker">
-                                                    <div className="sticker-search">
-                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                            <circle cx="11" cy="11" r="8" />
-                                                            <path d="M21 21l-4.35-4.35" />
-                                                        </svg>
-                                                        <input
-                                                            ref={stickerSearchRef}
-                                                            type="text"
-                                                            placeholder="Search stickers..."
-                                                            value={stickerSearchQuery}
-                                                            onChange={(e) => setStickerSearchQuery(e.target.value)}
-                                                            onClick={(e) => e.stopPropagation()}
-                                                        />
-                                                    </div>
-
-                                                    {/* Category Tabs */}
-                                                    {!stickerSearchQuery.trim() && (
-                                                        <div className="sticker-category-tabs">
-                                                            {STICKER_CATEGORIES.map((cat) => (
-                                                                <button
-                                                                    key={cat.name}
-                                                                    className={`sticker-category-tab ${activeStickerCategory === cat.name ? 'active' : ''}`}
-                                                                    onClick={() => setActiveStickerCategory(
-                                                                        activeStickerCategory === cat.name ? null : cat.name
-                                                                    )}
-                                                                    title={cat.name}
-                                                                >
-                                                                    {cat.icon}
-                                                                </button>
-                                                            ))}
-                                                        </div>
-                                                    )}
-
-                                                    <div className="sticker-grid-wrapper">
-                                                        {stickerSearchQuery.trim() ? (
-                                                            // Search results
-                                                            filteredStickers && filteredStickers.length > 0 ? (
-                                                                <div className="sticker-grid">
-                                                                    {filteredStickers.map((sticker) => (
-                                                                        <button
-                                                                            key={sticker.emoji}
-                                                                            className="sticker-item"
-                                                                            onClick={() => handleStickerClick(sticker.emoji)}
-                                                                        >
-                                                                            {sticker.emoji}
-                                                                        </button>
-                                                                    ))}
-                                                                </div>
-                                                            ) : (
-                                                                <div className="sticker-no-results">No stickers found</div>
-                                                            )
-                                                        ) : activeStickerCategory ? (
-                                                            // Single category view
-                                                            <div className="sticker-category-section">
-                                                                <div className="sticker-grid">
-                                                                    {STICKER_CATEGORIES.find(c => c.name === activeStickerCategory)?.stickers.map((sticker) => (
-                                                                        <button
-                                                                            key={sticker.emoji}
-                                                                            className="sticker-item"
-                                                                            onClick={() => handleStickerClick(sticker.emoji)}
-                                                                        >
-                                                                            {sticker.emoji}
-                                                                        </button>
-                                                                    ))}
-                                                                </div>
-                                                            </div>
-                                                        ) : (
-                                                            // All categories view
-                                                            STICKER_CATEGORIES.map((category) => (
-                                                                <div key={category.name} className="sticker-category-section">
-                                                                    <div className="sticker-category-header">{category.name}</div>
+                                                        <div className="sticker-grid-wrapper">
+                                                            {stickerSearchQuery.trim() ? (
+                                                                // Search results
+                                                                filteredStickers && filteredStickers.length > 0 ? (
                                                                     <div className="sticker-grid">
-                                                                        {category.stickers.slice(0, 16).map((sticker) => (
+                                                                        {filteredStickers.map((sticker) => (
+                                                                            <button
+                                                                                key={sticker.emoji}
+                                                                                className="sticker-item"
+                                                                                onClick={() => handleStickerClick(sticker.emoji)}
+                                                                            >
+                                                                                {sticker.emoji}
+                                                                            </button>
+                                                                        ))}
+                                                                    </div>
+                                                                ) : (
+                                                                    <div className="sticker-no-results">No stickers found</div>
+                                                                )
+                                                            ) : activeStickerCategory ? (
+                                                                // Single category view
+                                                                <div className="sticker-category-section">
+                                                                    <div className="sticker-grid">
+                                                                        {STICKER_CATEGORIES.find(c => c.name === activeStickerCategory)?.stickers.map((sticker) => (
                                                                             <button
                                                                                 key={sticker.emoji}
                                                                                 className="sticker-item"
@@ -1228,32 +1211,49 @@ export default function MessagesDrawer({ isOpen, onClose, activeFreelancer }: Me
                                                                         ))}
                                                                     </div>
                                                                 </div>
-                                                            ))
-                                                        )}
+                                                            ) : (
+                                                                // All categories view
+                                                                STICKER_CATEGORIES.map((category) => (
+                                                                    <div key={category.name} className="sticker-category-section">
+                                                                        <div className="sticker-category-header">{category.name}</div>
+                                                                        <div className="sticker-grid">
+                                                                            {category.stickers.slice(0, 16).map((sticker) => (
+                                                                                <button
+                                                                                    key={sticker.emoji}
+                                                                                    className="sticker-item"
+                                                                                    onClick={() => handleStickerClick(sticker.emoji)}
+                                                                                >
+                                                                                    {sticker.emoji}
+                                                                                </button>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+                                                                ))
+                                                            )}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            )}
-                                        </div>
+                                                )}
+                                            </div>
 
-                                        <button className="messages-send-btn" onClick={handleSend} aria-label="Send message">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                                            <button className="messages-send-btn" onClick={handleSend} aria-label="Send message">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div className="messages-no-chat">
+                                        <div className="messages-no-chat-icon">
+                                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
                                             </svg>
-                                        </button>
+                                        </div>
+                                        <p>Select a conversation to start messaging</p>
                                     </div>
-                                </>
-                            ) : (
-                                <div className="messages-no-chat">
-                                    <div className="messages-no-chat-icon">
-                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
-                                        </svg>
-                                    </div>
-                                    <p>Select a conversation to start messaging</p>
-                                </div>
-                            )}
-                        </div>
-                    </motion.div>
+                                )}
+                            </div>
+                        </motion.div>
                     </div>
                 </>
             )}

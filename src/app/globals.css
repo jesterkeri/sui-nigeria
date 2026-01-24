@@ -7258,6 +7258,632 @@ img {
   color: #888;
 }
 
+/* ============================================
+   FREELANCER REGISTRATION PAGE
+   ============================================ */
+.register-page {
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.register-pattern-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.register-pattern-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 600px;
+  background: transparent;
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+
+@keyframes pulseCircles {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(0.95);
+    opacity: 0.4;
+  }
+}
+
+/* Register Hero */
+.register-hero {
+  position: relative;
+  z-index: 1;
+  padding: 120px 24px 40px;
+}
+
+@media (min-width: 768px) {
+  .register-hero {
+    padding: 140px 48px 60px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .register-hero {
+    padding: 160px 96px 80px;
+  }
+}
+
+.register-hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 32px;
+}
+
+.register-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: #CCCCCC;
+  text-decoration: none;
+  margin-bottom: 0;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.register-back-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.register-hero-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 400;
+  background: linear-gradient(180deg, #FFFFFF 0%, #AAAAAA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .register-hero-title {
+    font-size: 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .register-hero-title {
+    font-size: 80px;
+  }
+}
+
+.register-hero-subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #AAAAAA;
+  max-width: 600px;
+}
+
+@media (min-width: 768px) {
+  .register-hero-subtitle {
+    font-size: 18px;
+    max-width: 700px;
+  }
+}
+
+@media (min-width: 768px) {
+  .register-hero-subtitle {
+    font-size: 20px;
+    max-width: 600px;
+  }
+}
+
+/* Progress Steps */
+.register-progress {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+}
+
+@media (min-width: 768px) {
+  .register-progress {
+    padding: 0 48px 60px;
+  }
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #262424;
+  border: 2px solid #404040;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.progress-step.step-active .step-number {
+  background: var(--sui-green);
+  border-color: var(--sui-green);
+  color: #FFFFFF;
+  box-shadow: 0 0 15px rgba(0, 135, 81, 0.6);
+}
+
+.progress-step.step-completed .step-number {
+  background: var(--sui-green);
+  border-color: var(--sui-green);
+  color: #FFFFFF;
+}
+
+.step-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .step-label {
+    font-size: 14px;
+  }
+}
+
+.progress-step.step-active .step-label {
+  color: #FFFFFF;
+}
+
+.progress-step.step-completed .step-label {
+  color: var(--sui-green);
+}
+
+.progress-bar {
+  height: 4px;
+  background: #262424;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--sui-green);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Registration Form Section */
+.register-form-section {
+  position: relative;
+  z-index: 1;
+  padding: 0 24px 80px;
+}
+
+@media (min-width: 768px) {
+  .register-form-section {
+    padding: 0 48px 100px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .register-form-section {
+    padding: 0 96px 120px;
+  }
+}
+
+.register-form {
+  max-width: 800px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 40px;
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+}
+
+@media (min-width: 768px) {
+  .register-form {
+    padding: 48px;
+  }
+}
+
+/* Form Steps */
+.form-step {
+  display: block;
+}
+
+.form-step-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #FFFFFF;
+  margin: 0 0 8px;
+}
+
+@media (min-width: 768px) {
+  .form-step-title {
+    font-size: 28px;
+  }
+}
+
+.form-step-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #888;
+  margin: 0 0 32px;
+}
+
+/* Avatar Upload */
+.avatar-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.avatar-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px dashed #404040;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.avatar-preview:hover {
+  border-color: var(--sui-green);
+  background: rgba(0, 135, 81, 0.1);
+}
+
+.avatar-img {
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+}
+
+.avatar-placeholder span {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.avatar-input {
+  display: none;
+}
+
+.avatar-hint {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  color: #666;
+  margin-top: 12px;
+}
+
+/* Form Fields */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.register-form .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.register-form .form-input {
+  width: 100%;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #FFFFFF;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.register-form .form-input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
+}
+
+.register-form .form-input::placeholder {
+  color: #666;
+  transition: color 0.2s;
+}
+
+.register-form .form-input:focus::placeholder {
+  color: #999;
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #FFFFFF;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
+}
+
+.form-textarea::placeholder {
+  color: #555;
+}
+
+.form-hint {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.form-section {
+  margin-bottom: 32px;
+}
+
+/* Employment Options */
+.employment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+@media (min-width: 640px) {
+  .employment-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.employment-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #DDDDDD;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.employment-option:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.employment-option.option-selected {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  color: #FFFFFF;
+}
+
+.option-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid #404040;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.employment-option.option-selected .option-checkbox {
+  background: var(--sui-green);
+  border-color: var(--sui-green);
+}
+
+/* Skills Grid */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.skill-option {
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: #AAAAAA;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-option:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  transform: scale(1.03);
+}
+
+.skill-option.skill-selected {
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+  color: #000000;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.skill-option:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Links Grid */
+.links-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.link-field {
+  position: relative;
+}
+
+.link-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link-field .form-input {
+  padding-left: 48px;
+}
+
+/* Form Navigation */
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid #262424;
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: transparent;
+  border: 1px solid #404040;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+  border-color: #666;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-next,
+.btn-submit-register {
+  margin-left: auto;
+}
+
+.btn-next:disabled,
+.btn-submit-register:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.register-form .form-disclaimer {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #666;
+  margin-top: 24px;
+}
+
 /* Utility: Rotating Close Button */
 .btn-close-rotate {
   transition: transform 0.3s ease;
@@ -9067,7 +9693,7 @@ img {
 
 .profile-about-text p {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.25;
   color: #FFFFFF;
@@ -9599,80 +10225,100 @@ img {
 
 /* Reviews Section */
 .profile-reviews-section {
-  padding: 48px 24px;
+  position: relative;
+  background: #121212;
+  padding: 40px 0 60px;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .profile-reviews-section {
-    padding: 48px 48px;
+    padding: 60px 0 80px;
   }
 }
 
 @media (min-width: 1024px) {
   .profile-reviews-section {
-    padding: 48px 0;
+    padding: 80px 0 100px;
   }
 }
 
 .profile-reviews-title {
   font-family: 'Russo One', sans-serif;
+  font-size: 28px;
   font-weight: 400;
-  font-size: 36px;
   text-align: center;
   color: #FFFFFF;
-  margin: 0 0 12px;
+  margin: 0 0 32px;
+}
+
+@media (min-width: 768px) {
+  .profile-reviews-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+}
+
+.profile-reviews-carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
 }
 
 .profile-reviews-carousel {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 26px;
-  overflow-x: auto;
-  padding: 36px 24px 24px;
+  gap: 20px;
+  padding-top: 45px;
+  padding-bottom: 16px;
+  width: max-content;
+  animation: scrollReviews 30s linear infinite;
 }
 
-@media (min-width: 640px) {
-  .profile-reviews-carousel {
-    padding: 36px 48px 24px;
+.profile-reviews-carousel-wrapper:hover .profile-reviews-carousel {
+  animation-play-state: paused;
+}
+
+@keyframes scrollReviews {
+  0% {
+    transform: translateX(0);
   }
-}
 
-@media (min-width: 1024px) {
-  .profile-reviews-carousel {
-    padding: 36px 0 24px;
+  100% {
+    transform: translateX(calc(-50% - 10px));
   }
 }
 
 .profile-review-card {
   position: relative;
+  flex-shrink: 0;
+  width: 260px;
+  height: 330px;
+  padding: 112px 24px 24px;
+  background: linear-gradient(145deg, #025634 0%, #014026 100%);
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 60px 14px 24px;
-  width: 240px;
-  min-width: 240px;
-  background: #025634;
-  box-shadow: 0px 2px 20px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@media (min-width: 768px) {
-  .profile-review-card {
-    width: 260px;
-    min-width: 260px;
-  }
+.profile-review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .profile-review-avatar {
   position: absolute;
-  top: -36px;
+  top: -45px;
   left: 14px;
   width: 90px;
   height: 90px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid #FFFFFF;
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .review-avatar-img {
@@ -9683,18 +10329,26 @@ img {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: 25px;
+  line-height: 30px;
   color: #FFFFFF;
-  margin: 16px 0 12px;
+  margin: 0 0 12px;
 }
 
 .profile-review-text {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 21px;
   letter-spacing: 0.02em;
-  color: #FFFADA;
-  margin: 0 0 16px;
+  color: #E0E0E0;
+  margin: 0;
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  /* Limits text to ~6 lines */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
 }
 
 .profile-review-rating {
@@ -9702,48 +10356,60 @@ img {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  gap: 16px;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.profile-review-rating .profile-stars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
 }
 
 .profile-review-rating-value {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-size: 21px;
+  line-height: 32px;
   color: #FFFFFF;
 }
 
 /* Comments Section */
 .profile-comments-section {
-  padding: 0 24px 48px;
+  position: relative;
+  background: #121212;
+  padding: 40px 24px 60px;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .profile-comments-section {
-    padding: 0 48px 48px;
+    padding: 60px 48px 80px;
   }
 }
 
 @media (min-width: 1024px) {
   .profile-comments-section {
-    padding: 0 74px 48px;
+    padding: 80px 96px 100px;
   }
 }
 
-.profile-comments-divider {
-  width: 100%;
-  height: 0;
+.profile-comments-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 70px;
   border-bottom: 1px solid #404040;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
 }
 
 .profile-comments-title {
   font-family: 'Russo One', sans-serif;
   font-weight: 400;
   font-size: 36px;
-  text-align: right;
+  line-height: 58px;
   color: #FFFFFF;
-  margin: 0 0 16px;
+  margin: 0;
 }
 
 @media (min-width: 768px) {
@@ -9755,8 +10421,7 @@ img {
 .profile-comments-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  gap: 8px;
 }
 
 .profile-comment-card {
@@ -9765,7 +10430,6 @@ img {
   padding: 24px;
   gap: 10px;
   width: 100%;
-  max-width: 1292px;
   background: rgba(255, 255, 255, 0.02);
   border: 2px solid #404040;
   -webkit-backdrop-filter: blur(18px);
@@ -9887,7 +10551,28 @@ img {
 
 .profile-response-toggle {
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease-in-out;
+  will-change: transform;
+}
+
+.profile-response-toggle.toggle-open {
+  transform: rotate(180deg);
+}
+
+.profile-response-content {
+  overflow: hidden;
+  padding: 16px 0 0;
+  border-top: 1px solid #404040;
+  margin-top: 16px;
+}
+
+.profile-response-content p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #CCCCCC;
+  margin: 0;
 }
 
 /* Newsletter Section */
@@ -9950,15 +10635,48 @@ img {
   }
 }
 
-.profile-newsletter-posts {
+.profile-newsletter-posts-wrapper {
   position: relative;
   z-index: 1;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: -24px;
+}
+
+@media (min-width: 640px) {
+  .profile-newsletter-posts-wrapper {
+    margin-left: -48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-newsletter-posts-wrapper {
+    margin-left: -51px;
+  }
+}
+
+.profile-newsletter-posts {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 24px;
-  overflow-x: auto;
   padding-bottom: 24px;
+  width: max-content;
+  animation: scrollPosts 40s linear infinite;
+}
+
+.profile-newsletter-posts-wrapper:hover .profile-newsletter-posts {
+  animation-play-state: paused;
+}
+
+@keyframes scrollPosts {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-50% - 12px));
+  }
 }
 
 .profile-newsletter-post {
@@ -9968,6 +10686,7 @@ img {
   gap: 18px;
   width: 320px;
   min-width: 320px;
+  min-height: 420px;
   background: rgba(255, 255, 255, 0.05);
   box-shadow: 0px 3.6px 17.1px rgba(0, 0, 0, 0.31);
   -webkit-backdrop-filter: blur(22.5px);
@@ -9979,6 +10698,7 @@ img {
   .profile-newsletter-post {
     width: 377px;
     min-width: 377px;
+    min-height: 480px;
   }
 }
 
@@ -10057,6 +10777,7 @@ img {
   font-size: 9px;
   text-align: right;
   color: #FFFFFF;
+  margin-top: auto;
 }
 
 .profile-newsletter-cta {
@@ -10065,14 +10786,160 @@ img {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   font-size: 16px;
-  line-height: 1.2;
+  line-height: 1.4;
   text-align: right;
   color: #FFFFFF;
   margin: 24px 0 0;
+  max-width: 180px;
+  margin-left: auto;
 }
 
 @media (min-width: 768px) {
   .profile-newsletter-cta {
     font-size: 20px;
+    max-width: 220px;
   }
+}
+
+/* ============================================
+   MESSAGES DRAWER & UTILITIES
+   ============================================ */
+
+/* Wrapper for positioning the drawer */
+.messages-drawer-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+}
+
+/* Transform origin for animations */
+.messages-drawer-origin {
+  transform-origin: bottom right;
+}
+
+/* Media handling */
+.media-cover {
+  object-fit: cover;
+}
+
+/* Utility: Hidden */
+.hidden-input {
+  display: none;
+}
+
+/* Utility: Icon Sizes */
+.icon-md {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-sm {
+  width: 16px;
+  height: 16px;
+}
+
+/* Utility: Width */
+.btn-fit {
+  width: fit-content;
+}
+
+/* Mobile Menu Profile Section */
+.mobile-profile-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* ============================================
+   PROFILE ADDITIONAL DETAILS
+   ============================================ */
+.profile-details-section {
+  padding: 0 24px 64px;
+}
+
+@media (min-width: 768px) {
+  .profile-details-section {
+    padding: 0 48px 80px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-details-section {
+    padding: 0 51px 100px;
+  }
+}
+
+.profile-details-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: #FFFFFF;
+  margin-bottom: 24px;
+}
+
+.profile-details-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .profile-details-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-details-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.profile-detail-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.profile-detail-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.profile-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.profile-detail-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  color: #888;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.profile-detail-value {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #FFFFFF;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
