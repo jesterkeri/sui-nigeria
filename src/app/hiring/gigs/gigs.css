@@ -20,25 +20,26 @@
 
 .gigs-hero {
     position: relative;
-    padding: 140px 24px 80px;
+    padding: 180px 24px 80px;
     z-index: 1;
+    min-height: 70vh;
 }
 
 @media (min-width: 768px) {
     .gigs-hero {
-        padding: 160px 48px 100px;
+        padding: 200px 48px 100px;
     }
 }
 
 @media (min-width: 1024px) {
     .gigs-hero {
-        padding: 180px 80px 120px;
+        padding: 220px 80px 120px;
     }
 }
 
 .gigs-hero-content {
-    max-width: 1400px;
-    margin: 0 auto;
+    max-width: none;
+    margin: 0;
     display: grid;
     grid-template-columns: 1fr;
     gap: 60px;
@@ -86,6 +87,7 @@
     display: flex;
     gap: 12px;
     margin-top: 8px;
+    max-width: 480px;
 }
 
 .gigs-search-wrapper {
@@ -140,7 +142,7 @@
 }
 
 .gigs-search-btn {
-    padding: 12px 24px;
+    padding: 12px 48px;
     min-height: 48px;
     background: #008751;
     /* Diagonal cutout at bottom-right corner */
@@ -202,17 +204,46 @@
     background: #404040;
 }
 
-/* Hero Visual - Floating Cards */
+/* Hero Visual - 3D Model */
 .gigs-hero-visual {
-    display: none;
+    display: block;
+    position: relative;
+    height: 350px;
+    order: -1;
 }
 
 @media (min-width: 1024px) {
     .gigs-hero-visual {
-        display: block;
-        position: relative;
-        height: 400px;
+        height: 450px;
+        order: 0;
     }
+}
+
+.robot-model-container {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    overflow: visible;
+    background: transparent;
+    border: none;
+}
+
+.robot-model-container canvas {
+    outline: none;
+}
+
+.robot-model-loading {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 135, 81, 0.05);
+    border: 1px solid rgba(0, 135, 81, 0.2);
+    border-radius: 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #008751;
 }
 
 .gigs-hero-cards {
@@ -713,27 +744,89 @@
     color: #888888;
 }
 
-.gigs-sort-select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    padding: 10px 36px 10px 16px;
+/* Custom Sort Dropdown */
+.gigs-sort-dropdown {
+    position: relative;
+}
+
+.gigs-sort-trigger {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
     background: rgba(255, 255, 255, 0.05);
-    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
     border: 1px solid #404040;
     border-radius: 8px;
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     color: #FFFFFF;
     cursor: pointer;
-    transition: border-color 0.2s;
+    transition: all 0.3s ease;
+    min-width: 160px;
+    justify-content: space-between;
 }
 
-.gigs-sort-select:focus {
-    outline: none;
+.gigs-sort-trigger:hover {
     border-color: #008751;
+}
+
+.gigs-sort-trigger.open {
+    border-color: #008751;
+    background: rgba(0, 135, 81, 0.05);
+}
+
+.gigs-sort-trigger svg {
+    color: #666666;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.gigs-sort-trigger.open svg {
+    transform: rotate(180deg);
+    color: #008751;
+}
+
+.gigs-sort-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: #1a1a1a;
+    border: 1px solid #404040;
+    border-radius: 16px;
+    padding: 8px;
+    z-index: 100;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.gigs-sort-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #AAAAAA;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.gigs-sort-option:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #FFFFFF;
+}
+
+.gigs-sort-option.active {
+    background: rgba(0, 135, 81, 0.1);
+    color: #008751;
+}
+
+.gigs-sort-option svg {
+    color: #008751;
 }
 
 .gigs-view-toggle {
@@ -896,18 +989,13 @@
 .gigs-jobs-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 24px;
+    align-content: start;
 }
 
 @media (min-width: 640px) {
     .gigs-jobs-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (min-width: 1200px) {
-    .gigs-jobs-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     }
 }
 
@@ -926,13 +1014,31 @@
     display: flex;
     flex-direction: column;
     padding: 24px;
-    background: rgba(255, 255, 255, 0.02);
     border: 1px solid #2a2a2a;
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.3s ease;
     --mouse-x: 50%;
     --mouse-y: 50%;
+    width: 100%;
+    min-height: 380px;
+}
+
+@media (max-width: 639px) {
+    .gigs-job-card {
+        min-width: 100%;
+        max-width: 100%;
+    }
+}
+
+.gigs-job-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('/images/hiring-pattern.svg') center / cover no-repeat;
+    opacity: 0.4;
+    z-index: -1;
+    pointer-events: none;
 }
 
 .gigs-job-card:hover {
@@ -948,14 +1054,7 @@
 
 /* Spotlight Effect */
 .job-card-spotlight {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
-            rgba(0, 135, 81, 0.1),
-            transparent 40%);
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
+    display: none;
 }
 
 .gigs-job-card:hover .job-card-spotlight {
@@ -1453,11 +1552,26 @@
     background: #FFFFFF;
     color: #008751;
     border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    clip-path: polygon(0 0,
+            100% 0,
+            100% calc(100% - 18px),
+            calc(100% - 25px) 100%,
+            0 100%);
+}
+
+.gigs-cta-btn.primary svg {
+    transition: transform 0.3s ease;
 }
 
 .gigs-cta-btn.primary:hover {
     background: #f0f0f0;
-    transform: translateY(-2px);
+    transform: none;
+}
+
+.gigs-cta-btn.primary:hover svg {
+    transform: rotate(90deg);
 }
 
 .gigs-cta-btn.secondary {
@@ -1480,6 +1594,8 @@
     align-items: center;
     gap: 24px;
     padding: 20px 24px;
+    min-height: auto;
+    max-width: none;
 }
 
 @media (max-width: 768px) {

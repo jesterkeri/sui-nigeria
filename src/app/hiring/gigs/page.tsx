@@ -4,11 +4,17 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { PageProgress } from '@/components/PageProgress';
 import { JOBS, FILTERS, type Job } from './data';
 import './gigs.css';
+
+const RobotModel = dynamic(() => import('./RobotModel'), {
+    ssr: false,
+    loading: () => <div className="robot-model-loading">Loading 3D Model...</div>
+});
 
 // Category icons mapping (same as freelancers page)
 const getCategoryIcon = (name: string) => {
@@ -125,6 +131,14 @@ const getCategoryIcon = (name: string) => {
                 <path d="M24 24v4" />
             </svg>
         ),
+        'AI/ML': (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+                <circle cx="24" cy="24" r="8" />
+                <circle cx="24" cy="24" r="3" fill="currentColor" />
+                <path d="M24 8v8M24 32v8M8 24h8M32 24h8" />
+                <path d="M12 12l6 6M30 30l6 6M12 36l6-6M30 18l6-6" />
+            </svg>
+        ),
     };
     return icons[name] || icons['Video Editing'];
 };
@@ -145,6 +159,7 @@ const categories = [
     { id: 13, name: 'Community Manager', jobCount: 45 },
     { id: 14, name: 'Quant/Tokenomics Expert', jobCount: 12 },
     { id: 15, name: 'Cyber Security', jobCount: 21 },
+    { id: 16, name: 'AI/ML', jobCount: 34 },
 ];
 
 // Job Card Component
@@ -330,9 +345,28 @@ export default function GigsPage() {
     const [showFilters, setShowFilters] = useState(true);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [sortBy, setSortBy] = useState('relevant');
+    const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
     const [categoryPage, setCategoryPage] = useState(0);
+    const sortDropdownRef = useRef<HTMLDivElement>(null);
 
-    const JOBS_PER_PAGE = 9;
+    const sortOptions = [
+        { value: 'relevant', label: 'Most Relevant' },
+        { value: 'recent', label: 'Most Recent' },
+        { value: 'salary', label: 'Highest Salary' },
+    ];
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (sortDropdownRef.current && !sortDropdownRef.current.contains(event.target as Node)) {
+                setSortDropdownOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const JOBS_PER_PAGE = 30;
     const CATEGORIES_PER_PAGE = 8; // 2 rows of 4
 
     // Category pagination
@@ -373,24 +407,47 @@ export default function GigsPage() {
         });
     }, [searchQuery, selectedTypes, selectedCategories]);
 
-    // Sort jobs
+    // Parse "X days ago" to a sortable number (lower = more recent)
+    const parsePostedTime = (timeStr: string): number => {
+        const match = timeStr.match(/(\d+)\s*(hour|day|week|month)/i);
+        if (!match) return 999;
+        const value = parseInt(match[1]);
+        const unit = match[2].toLowerCase();
+        const multipliers: { [key: string]: number } = {
+            'hour': 1,
+            'day': 24,
+            'week': 168,
+            'month': 720,
+        };
+        return value * (multipliers[unit] || 1);
+    };
+
+    // Parse salary string to a number for comparison
+    const parseSalary = (salaryStr: string): number => {
+        const match = salaryStr.match(/\$(\d+(?:\.\d+)?)(k)?/i);
+        if (!match) return 0;
+        let value = parseFloat(match[1]);
+        if (match[2]?.toLowerCase() === 'k') value *= 1000;
+        return value;
+    };
+
+    // Sort jobs (featured always at top)
     const sortedJobs = useMemo(() => {
-        const jobs = [...filteredJobs];
-        switch (sortBy) {
-            case 'recent':
-                return jobs; // Already sorted by most recent in data
-            case 'salary':
-                return jobs.sort((a, b) => {
-                    const getSalaryValue = (s: string) => {
-                        const match = s.match(/\d+/);
-                        return match ? parseInt(match[0]) : 0;
-                    };
-                    return getSalaryValue(b.salary) - getSalaryValue(a.salary);
-                });
-            default:
-                // Featured first, then regular
-                return jobs.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-        }
+        const featured = filteredJobs.filter(job => job.featured);
+        const regular = filteredJobs.filter(job => !job.featured);
+
+        const sortFn = (a: Job, b: Job) => {
+            switch (sortBy) {
+                case 'recent':
+                    return parsePostedTime(a.postedAt) - parsePostedTime(b.postedAt);
+                case 'salary':
+                    return parseSalary(b.salary) - parseSalary(a.salary);
+                default:
+                    return 0;
+            }
+        };
+
+        return [...featured.sort(sortFn), ...regular.sort(sortFn)];
     }, [filteredJobs, sortBy]);
 
     // Pagination
@@ -403,10 +460,10 @@ export default function GigsPage() {
     // Featured jobs (first 3)
     const featuredJobs = JOBS.filter(job => job.featured);
 
-    // Reset page when filters change
+    // Reset page when filters or sort change
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectedTypes, selectedCategories, searchQuery]);
+    }, [selectedTypes, selectedCategories, searchQuery, sortBy]);
 
     const toggleFilter = (option: string, selected: string[], setSelected: (value: string[]) => void) => {
         if (selected.includes(option)) {
@@ -509,18 +566,7 @@ export default function GigsPage() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                        <div className="gigs-hero-cards">
-                            {featuredJobs.slice(0, 2).map((job, i) => (
-                                <div key={job.id} className={`gigs-hero-card hero-card-${i + 1}`}>
-                                    <div className="hero-card-logo">{job.company.charAt(0)}</div>
-                                    <div className="hero-card-info">
-                                        <span className="hero-card-title">{job.title}</span>
-                                        <span className="hero-card-company">{job.company}</span>
-                                    </div>
-                                    <span className="hero-card-salary">{job.salary}</span>
-                                </div>
-                            ))}
-                        </div>
+                        <RobotModel />
                     </motion.div>
                 </div>
             </section>
@@ -605,19 +651,50 @@ export default function GigsPage() {
                 <div className="gigs-listing-header">
                     <div className="gigs-listing-controls">
                         <div className="gigs-controls-left">
-                            <div className="gigs-sort-wrapper">
+                            <div className="gigs-sort-wrapper" ref={sortDropdownRef}>
                                 <label>Sort by:</label>
-                                <select
-                                    value={sortBy}
-                                    onChange={(e) => setSortBy(e.target.value)}
-                                    className="gigs-sort-select"
-                                    aria-label="Sort jobs by"
-                                    title="Sort jobs by"
-                                >
-                                    <option value="relevant">Most Relevant</option>
-                                    <option value="recent">Most Recent</option>
-                                    <option value="salary">Highest Salary</option>
-                                </select>
+                                <div className="gigs-sort-dropdown">
+                                    <button
+                                        className={`gigs-sort-trigger ${sortDropdownOpen ? 'open' : ''}`}
+                                        onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
+                                        aria-label="Sort jobs by"
+                                        aria-expanded={sortDropdownOpen}
+                                    >
+                                        <span>{sortOptions.find(o => o.value === sortBy)?.label}</span>
+                                        <svg width="12" height="8" viewBox="0 0 12 8" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <path d="M1 1.5L6 6.5L11 1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </button>
+                                    <AnimatePresence>
+                                        {sortDropdownOpen && (
+                                            <motion.div
+                                                className="gigs-sort-menu"
+                                                initial={{ opacity: 0, y: -10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -10 }}
+                                                transition={{ duration: 0.2 }}
+                                            >
+                                                {sortOptions.map((option) => (
+                                                    <button
+                                                        key={option.value}
+                                                        className={`gigs-sort-option ${sortBy === option.value ? 'active' : ''}`}
+                                                        onClick={() => {
+                                                            setSortBy(option.value);
+                                                            setSortDropdownOpen(false);
+                                                        }}
+                                                    >
+                                                        {option.label}
+                                                        {sortBy === option.value && (
+                                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                <path d="M3 8l3 3 7-7" strokeLinecap="round" strokeLinejoin="round" />
+                                                            </svg>
+                                                        )}
+                                                    </button>
+                                                ))}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
                             </div>
                             <div className="gigs-view-toggle">
                                 <button
@@ -874,14 +951,14 @@ export default function GigsPage() {
                         </p>
                     </div>
                     <div className="gigs-cta-actions">
+                        <Link href="/hiring/freelancers" className="gigs-cta-btn secondary">
+                            <span>Browse Freelancers</span>
+                        </Link>
                         <Link href="/hiring/post-job" className="gigs-cta-btn primary">
                             <span>Post a Job</span>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M12 5v14M5 12h14" strokeLinecap="round" />
                             </svg>
-                        </Link>
-                        <Link href="/hiring/freelancers" className="gigs-cta-btn secondary">
-                            <span>Browse Freelancers</span>
                         </Link>
                     </div>
                 </div>

@@ -12,228 +12,96 @@ export interface Job {
     featured?: boolean;
 }
 
-export const JOBS: Job[] = [
-    {
-        id: '1',
-        title: 'Senior Rust Developer',
-        company: 'Mysten Labs',
-        logo: '/images/partners/sui-logo.svg',
-        location: 'Remote (US/EU)',
-        type: 'Full-time',
-        level: 'Senior',
-        salary: '$140k - $220k',
-        tags: ['Rust', 'Blockchain', 'Sui'],
-        postedAt: '2 days ago',
-        featured: true,
-    },
-    {
-        id: '2',
-        title: 'Smart Contract Engineer',
-        company: 'Cetus Protocol',
-        logo: '/images/partners/cetus.svg',
-        location: 'Remote',
-        type: 'Full-time',
-        level: 'Mid',
-        salary: '$80k - $150k',
-        tags: ['Move', 'DeFi', 'Smart Contracts'],
-        postedAt: '5 hours ago',
-        featured: true,
-    },
-    {
-        id: '3',
-        title: 'Community Manager',
-        company: 'Scallop',
-        logo: '/images/partners/flowxfinance.svg',
-        location: 'Lagos, Nigeria',
-        type: 'Contract',
-        level: 'Entry',
-        salary: '$1.5k - $3k /mo',
-        tags: ['Community', 'Social Media', 'Marketing'],
-        postedAt: '1 day ago',
-    },
-    {
-        id: '4',
-        title: 'Frontend Developer (Next.js)',
-        company: 'Bluefin',
-        logo: '/images/partners/deepbook.svg',
-        location: 'Remote',
-        type: 'Full-time',
-        level: 'Mid',
-        salary: '$60k - $100k',
-        tags: ['React', 'TypeScript', 'Web3'],
-        postedAt: '3 days ago',
-    },
-    {
-        id: '5',
-        title: 'Product Designer',
-        company: 'Sui Foundation',
-        logo: '/images/partners/sui-logo.svg',
-        location: 'Remote',
-        type: 'Contract',
-        level: 'Senior',
-        salary: '$80 - $120 /hr',
-        tags: ['UI/UX', 'Figma', 'Design System'],
-        postedAt: '1 week ago',
-        featured: true,
-    },
-    {
-        id: '6',
-        title: 'Developer Relations Engineer',
-        company: 'Mysten Labs',
-        logo: '/images/partners/sui-logo.svg',
-        location: 'London, UK',
-        type: 'Full-time',
-        level: 'Senior',
-        salary: '$120k - $180k',
-        tags: ['DevRel', 'Content', 'Community'],
-        postedAt: '4 days ago',
-        featured: true,
-    },
-    {
-        id: '7',
-        title: 'Marketing Specialist',
-        company: 'Typus Finance',
-        logo: '/images/logos/sui-ng-logo.png',
-        location: 'Remote',
-        type: 'Contract',
-        level: 'Entry',
-        salary: '$2k - $4k /mo',
-        tags: ['Marketing', 'Growth', 'Analytics'],
-        postedAt: '6 hours ago',
-    },
-    {
-        id: '8',
-        title: 'Security Auditor',
-        company: 'OtterSec',
-        logo: '/images/logos/sui-ng-logo.png',
-        location: 'Remote',
-        type: 'Full-time',
-        level: 'Senior',
-        salary: '$200k - $350k',
-        tags: ['Security', 'Auditing', 'Rust'],
-        postedAt: '1 day ago',
-    },
-    {
-        id: '9',
-        title: 'Backend Engineer',
-        company: 'Aftermath Finance',
-        logo: '/images/partners/cetus.svg',
-        location: 'Remote',
-        type: 'Full-time',
-        level: 'Mid',
-        salary: '$90k - $140k',
-        tags: ['Rust', 'TypeScript', 'DeFi'],
-        postedAt: '2 days ago',
-    },
-    {
-        id: '10',
-        title: 'Technical Writer',
-        company: 'Sui Foundation',
-        logo: '/images/partners/sui-logo.svg',
-        location: 'Remote',
-        type: 'Contract',
-        level: 'Mid',
-        salary: '$50 - $80 /hr',
-        tags: ['Content', 'Documentation', 'Web3'],
-        postedAt: '5 days ago',
-    },
-    {
-        id: '11',
-        title: 'Full Stack Developer',
-        company: 'Turbos Finance',
-        logo: '/images/partners/flowxfinance.svg',
-        location: 'Singapore',
-        type: 'Full-time',
-        level: 'Senior',
-        salary: '$100k - $160k',
-        tags: ['React', 'Move', 'TypeScript'],
-        postedAt: '3 days ago',
-    },
-    {
-        id: '12',
-        title: 'NFT Artist',
-        company: 'Clutchy',
-        logo: '/images/logos/sui-ng-logo.png',
-        location: 'Remote',
-        type: 'Freelance',
-        level: 'Mid',
-        salary: '$3k - $10k /project',
-        tags: ['Design', 'NFT', 'Creative'],
-        postedAt: '1 week ago',
-    },
-    {
-        id: '13',
-        title: 'Protocol Engineer',
-        company: 'NAVI Protocol',
-        logo: '/images/partners/deepbook.svg',
-        location: 'Remote',
-        type: 'Full-time',
-        level: 'Senior',
-        salary: '$130k - $200k',
-        tags: ['Move', 'DeFi', 'Blockchain'],
-        postedAt: '4 days ago',
-    },
-    {
-        id: '14',
-        title: 'Growth Lead',
-        company: 'Bucket Protocol',
-        logo: '/images/partners/cetus.svg',
-        location: 'Remote',
-        type: 'Full-time',
-        level: 'Lead',
-        salary: '$100k - $150k',
-        tags: ['Marketing', 'Growth', 'Strategy'],
-        postedAt: '2 days ago',
-    },
-    {
-        id: '15',
-        title: 'QA Engineer',
-        company: 'Cetus Protocol',
-        logo: '/images/partners/cetus.svg',
-        location: 'Remote',
-        type: 'Full-time',
-        level: 'Mid',
-        salary: '$60k - $90k',
-        tags: ['Testing', 'Automation', 'Web3'],
-        postedAt: '6 days ago',
-    },
-    {
-        id: '16',
-        title: 'Data Analyst',
-        company: 'Sui Foundation',
-        logo: '/images/partners/sui-logo.svg',
-        location: 'Remote',
-        type: 'Contract',
-        level: 'Mid',
-        salary: '$70k - $100k',
-        tags: ['Analytics', 'SQL', 'Python'],
-        postedAt: '1 week ago',
-    },
-    {
-        id: '17',
-        title: 'Mobile Developer',
-        company: 'Suiet Wallet',
-        logo: '/images/partners/flowxfinance.svg',
-        location: 'Remote',
-        type: 'Full-time',
-        level: 'Mid',
-        salary: '$80k - $120k',
-        tags: ['React Native', 'TypeScript', 'Mobile'],
-        postedAt: '3 days ago',
-    },
-    {
-        id: '18',
-        title: 'Tokenomics Designer',
-        company: 'Aftermath Finance',
-        logo: '/images/partners/deepbook.svg',
-        location: 'Remote',
-        type: 'Contract',
-        level: 'Senior',
-        salary: '$100 - $150 /hr',
-        tags: ['Tokenomics', 'DeFi', 'Economics'],
-        postedAt: '5 days ago',
-    },
+const titles = [
+    'Senior Rust Developer', 'Smart Contract Engineer', 'Community Manager', 'Frontend Developer (Next.js)',
+    'Product Designer', 'Developer Relations Engineer', 'Marketing Specialist', 'Security Auditor',
+    'Backend Engineer', 'Technical Writer', 'Full Stack Developer', 'NFT Artist', 'Protocol Engineer',
+    'Growth Lead', 'QA Engineer', 'Data Analyst', 'Mobile Developer', 'Tokenomics Designer',
+    'Blockchain Developer', 'DevOps Engineer', 'UI/UX Designer', 'Content Strategist', 'Research Analyst',
+    'Project Manager', 'Social Media Manager', 'Video Editor', 'Motion Designer', 'Smart Contract Auditor',
+    'DeFi Specialist', 'Web3 Developer', 'Solidity Developer', 'Move Developer', 'Infrastructure Engineer',
+    'Solutions Architect', 'Product Manager', 'Business Development Manager', 'Partnerships Lead',
+    'Head of Engineering', 'CTO', 'VP of Product', 'AI/ML Engineer', 'Data Scientist', 'Analytics Engineer'
 ];
+
+const companies = [
+    'Mysten Labs', 'Cetus Protocol', 'Scallop', 'Bluefin', 'Sui Foundation', 'Typus Finance',
+    'OtterSec', 'Aftermath Finance', 'Turbos Finance', 'Clutchy', 'NAVI Protocol', 'Bucket Protocol',
+    'Suiet Wallet', 'Kriya DEX', 'MovEx', 'SuiNS', 'Pyth Network', 'Wormhole', 'LayerZero',
+    'Circle', 'Coinbase', 'Binance Labs', 'a]16z Crypto', 'Paradigm', 'Jump Crypto'
+];
+
+const logos = [
+    '/images/partners/sui-logo.svg', '/images/partners/cetus.svg', '/images/partners/flowxfinance.svg',
+    '/images/partners/deepbook.svg', '/images/logos/sui-ng-logo.png'
+];
+
+const locations = [
+    'Remote', 'Remote (US/EU)', 'Remote (Global)', 'Lagos, Nigeria', 'London, UK', 'Singapore',
+    'San Francisco, CA', 'New York, NY', 'Berlin, Germany', 'Dubai, UAE', 'Tokyo, Japan',
+    'Hong Kong', 'Austin, TX', 'Miami, FL', 'Lisbon, Portugal', 'Amsterdam, Netherlands'
+];
+
+const types: ('Full-time' | 'Contract' | 'Freelance')[] = ['Full-time', 'Contract', 'Freelance'];
+const levels: ('Entry' | 'Mid' | 'Senior' | 'Lead')[] = ['Entry', 'Mid', 'Senior', 'Lead'];
+
+const tagGroups = [
+    ['Rust', 'Blockchain', 'Sui'], ['Move', 'DeFi', 'Smart Contracts'], ['Community', 'Social Media', 'Marketing'],
+    ['React', 'TypeScript', 'Web3'], ['UI/UX', 'Figma', 'Design System'], ['DevRel', 'Content', 'Community'],
+    ['Marketing', 'Growth', 'Analytics'], ['Security', 'Auditing', 'Rust'], ['Python', 'Data', 'Analytics'],
+    ['Node.js', 'GraphQL', 'API'], ['Solidity', 'EVM', 'DeFi'], ['NFT', 'Creative', 'Design'],
+    ['Testing', 'Automation', 'Web3'], ['Mobile', 'React Native', 'iOS'], ['DevOps', 'AWS', 'Kubernetes'],
+    ['AI/ML', 'Python', 'TensorFlow'], ['Video', 'Motion', 'After Effects'], ['Writing', 'Documentation', 'Technical']
+];
+
+const salaries = [
+    '$40k - $60k', '$50k - $80k', '$60k - $90k', '$70k - $100k', '$80k - $120k', '$90k - $140k',
+    '$100k - $150k', '$120k - $180k', '$140k - $220k', '$150k - $250k', '$180k - $300k', '$200k - $350k',
+    '$1.5k - $3k /mo', '$2k - $4k /mo', '$3k - $6k /mo', '$4k - $8k /mo',
+    '$50 - $80 /hr', '$80 - $120 /hr', '$100 - $150 /hr', '$120 - $200 /hr',
+    '$3k - $10k /project', '$5k - $15k /project', '$10k - $30k /project'
+];
+
+const postedTimes = [
+    '1 hour ago', '2 hours ago', '3 hours ago', '5 hours ago', '6 hours ago', '8 hours ago', '12 hours ago',
+    '1 day ago', '2 days ago', '3 days ago', '4 days ago', '5 days ago', '6 days ago',
+    '1 week ago', '2 weeks ago', '3 weeks ago', '1 month ago'
+];
+
+function generateJobs(count: number): Job[] {
+    const jobs: Job[] = [];
+
+    for (let i = 1; i <= count; i++) {
+        const isFeatured = i <= 8;
+        const title = titles[i % titles.length];
+        const company = companies[i % companies.length];
+        const logo = logos[i % logos.length];
+        const location = locations[i % locations.length];
+        const type = types[i % types.length];
+        const level = levels[i % levels.length];
+        const tags = tagGroups[i % tagGroups.length];
+        const salary = salaries[i % salaries.length];
+        const postedAt = postedTimes[i % postedTimes.length];
+
+        jobs.push({
+            id: String(i),
+            title,
+            company,
+            logo,
+            location,
+            type,
+            level,
+            salary,
+            tags,
+            postedAt,
+            ...(isFeatured && { featured: true })
+        });
+    }
+
+    return jobs;
+}
+
+export const JOBS: Job[] = generateJobs(200);
 
 export const FILTERS = {
     types: ['Full-time', 'Contract', 'Freelance', 'Internship'],
@@ -253,6 +121,7 @@ export const FILTERS = {
         'Community Manager',
         'Quant/Tokenomics Expert',
         'Cyber Security',
+        'AI/ML',
     ],
     salary: ['$0 - $50k', '$50k - $100k', '$100k - $150k', '$150k+', 'Hourly'],
 };
