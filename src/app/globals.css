@@ -10943,3 +10943,1065 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* ============================================
+   AVALANCHE-INSPIRED BLOG STYLES
+   ============================================ */
+
+.avax-blog-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.avax-page-header {
+  padding: 120px 0 60px;
+  background-color: #121212;
+  text-align: left;
+}
+
+.avax-header-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: 56px;
+  color: white;
+  margin-bottom: 16px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.avax-header-desc {
+  font-family: 'Montserrat', sans-serif;
+  color: #a3a3a3;
+  font-size: 18px;
+  max-width: 600px;
+}
+
+/* Featured Card */
+.avax-featured-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 80px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.avax-featured-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 992px) {
+  .avax-featured-card {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.avax-featured-image {
+  position: relative;
+  min-height: 300px;
+}
+
+.avax-featured-content {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.avax-tag {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #008751;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.avax-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.avax-desc {
+  font-family: 'Montserrat', sans-serif;
+  color: #d4d4d4;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.avax-meta {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  color: #737373;
+}
+
+/* Filter Bar */
+.avax-filters {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+  overflow-x: auto;
+}
+
+.avax-filter-btn {
+  background: none;
+  border: none;
+  color: #a3a3a3;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 0;
+  position: relative;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.avax-filter-btn:hover {
+  color: white;
+}
+
+.avax-filter-btn.active {
+  color: white;
+}
+
+.avax-filter-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -17px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #008751;
+}
+
+/* Grid Layout */
+.avax-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .avax-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .avax-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Standard Card */
+.avax-card {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.avax-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.avax-card-image {
+  position: relative;
+  aspect-ratio: 16/9;
+  background-color: #262626;
+  overflow: hidden;
+}
+
+.avax-card-image img {
+  transition: transform 0.5s ease;
+}
+
+.avax-card:hover .avax-card-image img {
+  transform: scale(1.05);
+}
+
+.avax-card-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.avax-card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.avax-card-desc {
+  font-family: 'Montserrat', sans-serif;
+  color: #a3a3a3;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.avax-card-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avax-read-more {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #008751;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.2s ease;
+}
+
+.avax-read-more:hover {
+  gap: 8px;
+}
+
+/* Load More Button */
+.avax-load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  margin-bottom: 80px;
+}
+
+.avax-load-more-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.avax-load-more-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Blog Page Wrapper */
+.blog-page {
+  background-color: #1a1a1a;
+}
+
+/* Blog Hero Section - Featured Carousel Style */
+.blog-hero {
+  position: relative;
+  width: 100%;
+  min-height: 450px;
+  margin-top: 76px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(135deg, #0d1a12 0%, #121212 50%, #0a1510 100%);
+  border-radius: 0 0 24px 24px;
+  padding: 32px 24px;
+  overflow: hidden;
+}
+
+.blog-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  background: radial-gradient(ellipse at 70% 50%, rgba(76, 175, 80, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.blog-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .blog-hero {
+    min-height: 550px;
+    padding: 40px 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .blog-hero {
+    min-height: 680px;
+    padding: 48px 64px;
+  }
+}
+
+.blog-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.blog-hero-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: clamp(24px, 4vw, 42px);
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+.blog-hero-meta {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.blog-hero-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.blog-hero-desc {
+  font-size: clamp(14px, 2vw, 16px);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  max-width: 450px;
+}
+
+.blog-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sui-green, #4CAF50);
+  color: #0a0a0a;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: fit-content;
+  margin-top: 8px;
+}
+
+.blog-hero-btn:hover {
+  background: var(--sui-green-light, #66BB6A);
+  transform: translateX(4px);
+}
+
+.blog-hero-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.blog-hero-btn:hover svg {
+  transform: translateX(4px);
+}
+
+.blog-hero-dots {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 3;
+}
+
+.blog-hero-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.blog-hero-dot.active {
+  background: white;
+  width: 24px;
+  border-radius: 4px;
+}
+
+.blog-hero-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55%;
+  height: 100%;
+  z-index: 1;
+}
+
+.blog-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 768px) {
+  .blog-hero-image {
+    width: 100%;
+    opacity: 0.3;
+  }
+}
+
+.blog-page-content {
+  padding-top: 2px;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+@media (min-width: 640px) {
+  .blog-page-content {
+    padding-top: 2px;
+    padding-bottom: 80px;
+    gap: 2px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .blog-page-content {
+    padding-top: 2px;
+    padding-bottom: 100px;
+    gap: 2px;
+  }
+}
+
+/* Blog Section Inner Container */
+.blog-section-inner {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (min-width: 640px) {
+  .blog-section-inner {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .blog-section-inner {
+    padding-left: 96px;
+    padding-right: 96px;
+  }
+}
+
+/* ============================================
+   AVALANCHE-ACCURATE BLOG STYLES V2
+   ============================================ */
+
+/* Hero Section */
+.avax-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  margin-top: 80px;
+  margin-bottom: 1px;
+  background-color: #1a1a1a;
+}
+
+@media (min-width: 1024px) {
+  .avax-hero {
+    grid-template-columns: 9fr 3fr;
+  }
+}
+
+.avax-hero-main {
+  background-color: #121212;
+  padding: 40px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 200px;
+}
+
+.avax-hero-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.avax-hero-side {
+  background-color: #121212;
+  padding: 40px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.avax-hero-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #a3a3a3;
+  line-height: 1.6;
+}
+
+.avax-hero-desc strong {
+  font-size: 20px;
+  color: white;
+  display: block;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.avax-hero-scroll {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.avax-hero-scroll-text {
+  text-align: right;
+}
+
+.avax-hero-scroll-text h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  color: white;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.avax-hero-scroll-text p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  color: #737373;
+  margin: 0;
+}
+
+.avax-hero-arrow {
+  width: 80px;
+  height: 80px;
+  color: white;
+}
+
+/* Featured Section */
+.avax-featured-section {
+  background-color: #121212;
+  border-radius: 24px;
+  padding: 32px 0;
+  margin-bottom: 0;
+}
+
+@media (min-width: 640px) {
+  .avax-featured-section {
+    padding: 40px 0;
+    border-radius: 28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .avax-featured-section {
+    padding: 48px 0;
+    border-radius: 32px;
+  }
+}
+
+.avax-featured-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .avax-featured-grid {
+    grid-template-columns: 2fr 5fr;
+  }
+}
+
+.avax-featured-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.avax-featured-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.avax-tag-primary {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  background-color: var(--sui-green);
+  padding: 6px 12px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.avax-tag-secondary {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  background-color: transparent;
+  border: 1px solid var(--sui-green);
+  padding: 6px 12px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.avax-featured-meta {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  color: #737373;
+}
+
+.avax-featured-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.avax-featured-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  color: #a3a3a3;
+  line-height: 1.6;
+}
+
+.avax-featured-image-wrapper {
+  position: relative;
+  width: 80%;
+  margin-left: auto;
+  aspect-ratio: 16/9;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.avax-btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 14px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+
+.avax-btn-arrow:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Main Content Layout */
+.avax-main-layout {
+  background-color: #121212;
+  border-radius: 24px;
+  padding: 32px 0;
+}
+
+@media (min-width: 640px) {
+  .avax-main-layout {
+    padding: 40px 0;
+    border-radius: 28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .avax-main-layout {
+    padding: 48px 0;
+    border-radius: 32px;
+  }
+}
+
+.avax-content-header {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: flex-end;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 32px;
+}
+
+@media (min-width: 1024px) {
+  .avax-content-header {
+    grid-template-columns: 2fr 5fr;
+    padding-bottom: 48px;
+    margin-bottom: 48px;
+  }
+}
+
+.avax-content-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  color: white;
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 1;
+}
+
+.avax-content-arrow {
+  width: 60px;
+  height: 60px;
+  color: white;
+}
+
+.avax-content-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+
+@media (min-width: 1024px) {
+  .avax-content-body {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+/* Sidebar Filters */
+.avax-sidebar {
+  width: 100%;
+  max-width: 280px;
+}
+
+@media (max-width: 1023px) {
+  .avax-sidebar {
+    max-width: 100%;
+    margin-bottom: 32px;
+  }
+}
+
+.avax-sidebar-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.avax-filter-group {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.avax-filter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+.avax-filter-header:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.avax-filter-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.avax-filter-group.open .avax-filter-icon {
+  transform: rotate(180deg);
+}
+
+.avax-filter-options {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.avax-filter-group.open .avax-filter-options {
+  max-height: 300px;
+}
+
+.avax-filter-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.avax-filter-option:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.avax-filter-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+  appearance: none;
+  position: relative;
+}
+
+.avax-filter-checkbox:checked {
+  background-color: #008751;
+  border-color: #008751;
+}
+
+.avax-filter-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+}
+
+.avax-filter-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  color: #a3a3a3;
+}
+
+/* Article Grid in Main Content */
+.avax-articles-wrapper {
+  flex: 1;
+}
+
+.avax-articles-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 640px) {
+  .avax-articles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .avax-articles-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Improved Card V2 */
+.avax-card-v2 {
+  background-color: #1a1a1a;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.avax-card-v2:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.avax-card-v2-image {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.avax-card-v2-image img {
+  transition: transform 0.5s ease;
+}
+
+.avax-card-v2:hover .avax-card-v2-image img {
+  transform: scale(1.05);
+}
+
+.avax-card-v2-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.avax-card-v2-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.avax-card-v2-meta {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  color: #737373;
+}
+
+.avax-card-v2-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.avax-card-v2-excerpt {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  color: #a3a3a3;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.avax-card-v2-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.avax-card-v2-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #008751;
+  transition: gap 0.2s ease;
+}
+
+.avax-card-v2-link:hover {
+  gap: 10px;
+}
+
+/* Sui Nigeria Theme Utilities */
+.avax-tag-small {
+  font-size: 10px !important;
+  padding: 4px 10px !important;
+}
+
+.avax-header-flex {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.avax-hero-arrow-green {
+  color: var(--sui-green);
+}
+
+.avax-content-arrow-green {
+  color: var(--sui-green);
+}
+
+.avax-btn-arrow-green {
+  border-color: var(--sui-green);
+  color: var(--sui-green);
+}
+
+.avax-btn-arrow-green:hover {
+  background-color: var(--sui-green);
+  color: white;
+}
+
+/* Sui Nigeria accent on hover */
+.avax-filter-group:hover {
+  border-color: rgba(0, 135, 81, 0.3);
+}
+
+.avax-card-v2:hover {
+  border-color: rgba(0, 135, 81, 0.3);
+}
