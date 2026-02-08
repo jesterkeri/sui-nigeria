@@ -9,19 +9,27 @@ const navItems = [
   { name: 'Events', href: '/events', hasDropdown: true },
   { name: 'Communities', href: '/communities', hasDropdown: false },
   { name: 'Earn', href: '/earn', hasDropdown: false },
-  { name: 'Blog', href: '/blog', hasDropdown: false },
+  { name: 'Blog', href: '/blog', hasDropdown: true },
   { name: 'Academy', href: '/academy', hasDropdown: false },
 ];
 
 const hiringDropdownItems = [
   { name: 'Hire a freelancer', href: '/hiring/freelancers' },
   { name: 'Get a job', href: '/hiring/gigs' },
+  { name: 'Applications', href: '/hiring/applications' },
 ];
 
 const eventsDropdownItems = [
   { name: 'Upcoming events', href: '/events/upcoming' },
   { name: 'Developer events', href: '/events/developer' },
   { name: 'Community Spaces', href: '/events/community-spaces' },
+];
+
+const blogDropdownItems = [
+  { name: 'Post a Blog', href: '/blog/post' },
+  { name: 'Blog Posts', href: '/blog' },
+  { name: 'Community', href: '/blog/community' },
+  { name: 'Sui Foundation', href: 'https://blog.sui.io/' },
 ];
 
 interface HeaderProps {
@@ -73,7 +81,6 @@ export function Header({ showGreenBorder = false }: HeaderProps) {
     >
       <div
         className={`header-wrapper ${activeDropdown ? 'header-wrapper-expanded' : ''}`}
-        onMouseLeave={() => setActiveDropdown(null)}
       >
         <nav className="header-nav">
           <div className="header-content">
@@ -189,6 +196,32 @@ export function Header({ showGreenBorder = false }: HeaderProps) {
                       href={item.href}
                       className="dropdown-link"
                       onClick={() => setActiveDropdown(null)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Blog Dropdown Panel */}
+        {activeDropdown === 'Blog' && (
+          <div className="header-dropdown" ref={dropdownRef}>
+            <div className="dropdown-content">
+              <div className="dropdown-section">
+                <div className="dropdown-header">
+                  <h3 className="dropdown-title">Blog</h3>
+                </div>
+                <div className="dropdown-links">
+                  {blogDropdownItems.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className="dropdown-link"
+                      onClick={() => setActiveDropdown(null)}
+                      {...(item.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     >
                       {item.name}
                     </Link>

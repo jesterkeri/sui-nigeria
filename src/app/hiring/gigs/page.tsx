@@ -139,27 +139,86 @@ const getCategoryIcon = (name: string) => {
                 <path d="M12 12l6 6M30 30l6 6M12 36l6-6M30 18l6-6" />
             </svg>
         ),
+        'DeFi Developer': (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+                <circle cx="24" cy="24" r="16" />
+                <path d="M18 20h12M18 28h12" />
+                <path d="M20 16v16M28 16v16" />
+            </svg>
+        ),
+        'DAO Specialist': (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+                <circle cx="24" cy="12" r="6" />
+                <circle cx="12" cy="34" r="6" />
+                <circle cx="36" cy="34" r="6" />
+                <path d="M24 18v10M18 31l-3-3M30 31l3-3" />
+            </svg>
+        ),
+        'GameFi/Web3 Gaming': (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+                <rect x="6" y="14" width="36" height="20" rx="10" />
+                <circle cx="16" cy="24" r="3" />
+                <circle cx="32" cy="24" r="2" fill="currentColor" />
+                <circle cx="36" cy="20" r="2" fill="currentColor" />
+            </svg>
+        ),
+        'Wallet/Infra Engineer': (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+                <rect x="6" y="12" width="36" height="24" rx="4" />
+                <path d="M6 20h36" />
+                <circle cx="34" cy="28" r="3" fill="currentColor" />
+            </svg>
+        ),
+        'DevRel/Developer Advocate': (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+                <path d="M14 14l-8 10 8 10" />
+                <path d="M34 14l8 10-8 10" />
+                <circle cx="24" cy="40" r="4" />
+                <path d="M24 34v2" />
+            </svg>
+        ),
+        'Blockchain Researcher': (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+                <circle cx="20" cy="20" r="12" />
+                <path d="M28 28l12 12" />
+                <path d="M16 16h8M16 20h6M16 24h4" />
+            </svg>
+        ),
+        'Growth/BD Manager': (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+                <path d="M8 40V28l8-4 8 8 8-16 8-4v28" />
+                <path d="M32 12l8-4" />
+                <path d="M36 8l4 4" />
+            </svg>
+        ),
     };
     return icons[name] || icons['Video Editing'];
 };
 
 // Category data (same as freelancers page)
 const categories = [
-    { id: 1, name: 'Video Editing', jobCount: 24 },
-    { id: 3, name: 'Animation', jobCount: 18 },
-    { id: 4, name: 'Software Development', jobCount: 156 },
+    { id: 1, name: 'Software Development', jobCount: 156 },
+    { id: 2, name: 'Sui-Move Dev', jobCount: 67 },
+    { id: 3, name: 'DeFi Developer', jobCount: 54 },
+    { id: 4, name: 'Smart Contract Auditor', jobCount: 28 },
     { id: 5, name: 'Product Design', jobCount: 42 },
-    { id: 6, name: 'Ghost Writing', jobCount: 15 },
-    { id: 7, name: 'Graphics Design', jobCount: 38 },
-    { id: 8, name: 'Smart Contract Auditor', jobCount: 28 },
-    { id: 9, name: 'Sui-Move Dev', jobCount: 67 },
-    { id: 10, name: 'Product Manager', jobCount: 22 },
-    { id: 11, name: 'Social Media Manager', jobCount: 31 },
-    { id: 12, name: 'NFT Specialist', jobCount: 19 },
-    { id: 13, name: 'Community Manager', jobCount: 45 },
-    { id: 14, name: 'Quant/Tokenomics Expert', jobCount: 12 },
-    { id: 15, name: 'Cyber Security', jobCount: 21 },
-    { id: 16, name: 'AI/ML', jobCount: 34 },
+    { id: 6, name: 'DAO Specialist', jobCount: 23 },
+    { id: 7, name: 'GameFi/Web3 Gaming', jobCount: 31 },
+    { id: 8, name: 'Wallet/Infra Engineer', jobCount: 26 },
+    { id: 9, name: 'DevRel/Developer Advocate', jobCount: 35 },
+    { id: 10, name: 'Blockchain Researcher', jobCount: 18 },
+    { id: 11, name: 'Growth/BD Manager', jobCount: 29 },
+    { id: 12, name: 'Community Manager', jobCount: 45 },
+    { id: 13, name: 'Product Manager', jobCount: 22 },
+    { id: 14, name: 'Social Media Manager', jobCount: 31 },
+    { id: 15, name: 'Graphics Design', jobCount: 38 },
+    { id: 16, name: 'Video Editing', jobCount: 24 },
+    { id: 17, name: 'Animation', jobCount: 18 },
+    { id: 18, name: 'Ghost Writing', jobCount: 15 },
+    { id: 19, name: 'NFT Specialist', jobCount: 19 },
+    { id: 20, name: 'Quant/Tokenomics Expert', jobCount: 12 },
+    { id: 21, name: 'Cyber Security', jobCount: 21 },
+    { id: 22, name: 'AI/ML', jobCount: 34 },
 ];
 
 // Job Card Component
@@ -260,8 +319,10 @@ const JobCard = ({ job, index }: { job: Job; index: number }) => {
             {/* Footer with salary and action */}
             <div className="gigs-job-footer">
                 <div className="gigs-job-salary">
-                    <span className="salary-amount">{job.salary}</span>
-                    <span className="salary-period">{job.type === 'Contract' ? '/project' : '/year'}</span>
+                    <span className="salary-amount">{job.salary.replace(/\s*\/(mo|hr|project)\s*$/, '')}</span>
+                    <span className="salary-period">
+                        {job.salary.includes('/hr') ? '/hour' : job.salary.includes('/mo') ? '/month' : job.salary.includes('/project') ? '/project' : '/month'}
+                    </span>
                 </div>
                 <div className="gigs-job-meta">
                     <span className="gigs-job-posted">{job.postedAt}</span>
@@ -341,13 +402,21 @@ export default function GigsPage() {
     const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [selectedSalary, setSelectedSalary] = useState<string[]>([]);
+    const [selectedStars, setSelectedStars] = useState<string[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [showFilters, setShowFilters] = useState(true);
+    const [showFilters, setShowFilters] = useState(false);
+    const [openFilterGroups, setOpenFilterGroups] = useState<string[]>(['Type of Employment']);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [sortBy, setSortBy] = useState('relevant');
     const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
     const [categoryPage, setCategoryPage] = useState(0);
     const sortDropdownRef = useRef<HTMLDivElement>(null);
+
+    const toggleFilterGroup = (name: string) => {
+        setOpenFilterGroups(prev =>
+            prev.includes(name) ? prev.filter(f => f !== name) : [...prev, name]
+        );
+    };
 
     const sortOptions = [
         { value: 'relevant', label: 'Most Relevant' },
@@ -403,9 +472,21 @@ export default function GigsPage() {
                 if (!categoryMatch) return false;
             }
 
+            // Star rating filter
+            if (selectedStars.length > 0) {
+                const starMap: Record<string, string> = {
+                    '2 Stars': 'Entry',
+                    '3 Stars': 'Mid',
+                    '4 Stars': 'Senior',
+                    'Veteran': 'Lead',
+                };
+                const matchingLevels = selectedStars.map(s => starMap[s]);
+                if (!matchingLevels.includes(job.level)) return false;
+            }
+
             return true;
         });
-    }, [searchQuery, selectedTypes, selectedCategories]);
+    }, [searchQuery, selectedTypes, selectedCategories, selectedStars]);
 
     // Parse "X days ago" to a sortable number (lower = more recent)
     const parsePostedTime = (timeStr: string): number => {
@@ -477,11 +558,12 @@ export default function GigsPage() {
         setSelectedTypes([]);
         setSelectedCategories([]);
         setSelectedSalary([]);
+        setSelectedStars([]);
         setSearchQuery('');
     };
 
     const hasActiveFilters = selectedTypes.length > 0 ||
-        selectedCategories.length > 0 || selectedSalary.length > 0 || searchQuery !== '';
+        selectedCategories.length > 0 || selectedSalary.length > 0 || selectedStars.length > 0 || searchQuery !== '';
 
     return (
         <main className="gigs-page">
@@ -647,92 +729,90 @@ export default function GigsPage() {
             <section className="gigs-listing">
                 <h2 className="recorded-title">ALL JOBS</h2>
 
-                {/* Listing Header */}
+                {/* Listing Controls Row */}
                 <div className="gigs-listing-header">
-                    <div className="gigs-listing-controls">
-                        <div className="gigs-controls-left">
-                            <div className="gigs-sort-wrapper" ref={sortDropdownRef}>
-                                <label>Sort by:</label>
-                                <div className="gigs-sort-dropdown">
-                                    <button
-                                        className={`gigs-sort-trigger ${sortDropdownOpen ? 'open' : ''}`}
-                                        onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
-                                        aria-label="Sort jobs by"
-                                        aria-expanded={sortDropdownOpen}
-                                    >
-                                        <span>{sortOptions.find(o => o.value === sortBy)?.label}</span>
-                                        <svg width="12" height="8" viewBox="0 0 12 8" fill="none" stroke="currentColor" strokeWidth="2">
-                                            <path d="M1 1.5L6 6.5L11 1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                    </button>
-                                    <AnimatePresence>
-                                        {sortDropdownOpen && (
-                                            <motion.div
-                                                className="gigs-sort-menu"
-                                                initial={{ opacity: 0, y: -10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -10 }}
-                                                transition={{ duration: 0.2 }}
-                                            >
-                                                {sortOptions.map((option) => (
-                                                    <button
-                                                        key={option.value}
-                                                        className={`gigs-sort-option ${sortBy === option.value ? 'active' : ''}`}
-                                                        onClick={() => {
-                                                            setSortBy(option.value);
-                                                            setSortDropdownOpen(false);
-                                                        }}
-                                                    >
-                                                        {option.label}
-                                                        {sortBy === option.value && (
-                                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
-                                                                <path d="M3 8l3 3 7-7" strokeLinecap="round" strokeLinejoin="round" />
-                                                            </svg>
-                                                        )}
-                                                    </button>
-                                                ))}
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-                            </div>
-                            <div className="gigs-view-toggle">
+                    <div className="gigs-controls-left">
+                        <div className="gigs-sort-wrapper" ref={sortDropdownRef}>
+                            <label>Sort by:</label>
+                            <div className="gigs-sort-dropdown">
                                 <button
-                                    className={`gigs-view-btn ${viewMode === 'grid' ? 'active' : ''}`}
-                                    onClick={() => setViewMode('grid')}
-                                    aria-label="Grid view"
+                                    className={`gigs-sort-trigger ${sortDropdownOpen ? 'open' : ''}`}
+                                    onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
+                                    aria-label="Sort jobs by"
+                                    aria-expanded={sortDropdownOpen}
                                 >
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                        <rect x="3" y="3" width="7" height="7" rx="1" />
-                                        <rect x="14" y="3" width="7" height="7" rx="1" />
-                                        <rect x="3" y="14" width="7" height="7" rx="1" />
-                                        <rect x="14" y="14" width="7" height="7" rx="1" />
+                                    <span>{sortOptions.find(o => o.value === sortBy)?.label}</span>
+                                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M1 1.5L6 6.5L11 1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                 </button>
-                                <button
-                                    className={`gigs-view-btn ${viewMode === 'list' ? 'active' : ''}`}
-                                    onClick={() => setViewMode('list')}
-                                    aria-label="List view"
-                                >
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                        <rect x="3" y="4" width="18" height="4" rx="1" />
-                                        <rect x="3" y="10" width="18" height="4" rx="1" />
-                                        <rect x="3" y="16" width="18" height="4" rx="1" />
-                                    </svg>
-                                </button>
+                                <AnimatePresence>
+                                    {sortDropdownOpen && (
+                                        <motion.div
+                                            className="gigs-sort-menu"
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            {sortOptions.map((option) => (
+                                                <button
+                                                    key={option.value}
+                                                    className={`gigs-sort-option ${sortBy === option.value ? 'active' : ''}`}
+                                                    onClick={() => {
+                                                        setSortBy(option.value);
+                                                        setSortDropdownOpen(false);
+                                                    }}
+                                                >
+                                                    {option.label}
+                                                    {sortBy === option.value && (
+                                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+                                                            <path d="M3 8l3 3 7-7" strokeLinecap="round" strokeLinejoin="round" />
+                                                        </svg>
+                                                    )}
+                                                </button>
+                                            ))}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
-                            <span className="gigs-listing-count">
-                                Showing {paginatedJobs.length} of {filteredJobs.length} results
-                            </span>
                         </div>
-                        {!showFilters && (
-                            <button className="filter-toggle" onClick={() => setShowFilters(true)}>
-                                <span>Filter</span>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                        <span className="gigs-listing-count">
+                            Showing {paginatedJobs.length} of {filteredJobs.length} results
+                        </span>
+                    </div>
+                    <div className="blog-controls">
+                        <button className={`blog-filter-toggle${showFilters ? ' active' : ''}`} onClick={() => setShowFilters(!showFilters)}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M3 4l6 7v5l4 2v-7l6-7" />
+                            </svg>
+                            <span>{showFilters ? 'Hide Filters' : 'Show Filters'}</span>
+                        </button>
+                        <div className="gigs-view-toggle">
+                            <button
+                                className={`gigs-view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                                onClick={() => setViewMode('grid')}
+                                aria-label="Grid view"
+                            >
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <rect x="3" y="3" width="7" height="7" rx="1" />
+                                    <rect x="14" y="3" width="7" height="7" rx="1" />
+                                    <rect x="3" y="14" width="7" height="7" rx="1" />
+                                    <rect x="14" y="14" width="7" height="7" rx="1" />
                                 </svg>
                             </button>
-                        )}
+                            <button
+                                className={`gigs-view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                                onClick={() => setViewMode('list')}
+                                aria-label="List view"
+                            >
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <rect x="3" y="4" width="18" height="4" rx="1" />
+                                    <rect x="3" y="10" width="18" height="4" rx="1" />
+                                    <rect x="3" y="16" width="18" height="4" rx="1" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -834,94 +914,101 @@ export default function GigsPage() {
                         <AnimatePresence>
                             {showFilters && (
                                 <motion.div
-                                    className="filter-content"
+                                    className="sui-filter-panel"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.2 }}
                                 >
+                                    <p className="sui-filter-panel-title">Filters</p>
+
                                     {/* Type of Employment */}
-                                    <div className="filter-section">
-                                        <div className="filter-section-header">
-                                            <span className="filter-section-title">Type of Employment</span>
-                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                                                <path d="M5 8l5 5 5-5" />
+                                    <div className={`sui-filter-group ${openFilterGroups.includes('Type of Employment') ? 'open' : ''}`}>
+                                        <button className="sui-filter-header" onClick={() => toggleFilterGroup('Type of Employment')}>
+                                            <span>Type of Employment</span>
+                                            <svg className="sui-filter-icon" viewBox="0 0 16 16" fill="none">
+                                                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                                             </svg>
-                                        </div>
-                                        <div className="filter-options">
+                                        </button>
+                                        <div className="sui-filter-options">
                                             {FILTERS.types.map((type) => (
-                                                <label key={type} className="filter-checkbox">
-                                                    <span>{type}</span>
+                                                <label key={type} className="sui-filter-option">
                                                     <input
                                                         type="checkbox"
+                                                        className="sui-filter-checkbox"
                                                         checked={selectedTypes.includes(type)}
                                                         onChange={() => toggleFilter(type, selectedTypes, setSelectedTypes)}
                                                     />
-                                                    <span className={`checkbox-custom ${selectedTypes.includes(type) ? 'checkbox-checked' : ''}`}>
-                                                        {selectedTypes.includes(type) && (
-                                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2">
-                                                                <path d="M3 8l3 3 7-7" />
-                                                            </svg>
-                                                        )}
-                                                    </span>
+                                                    <span className="sui-filter-label">{type}</span>
                                                 </label>
                                             ))}
                                         </div>
                                     </div>
 
                                     {/* Categories */}
-                                    <div className="filter-section">
-                                        <div className="filter-section-header">
-                                            <span className="filter-section-title">Categories</span>
-                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                                                <path d="M5 8l5 5 5-5" />
+                                    <div className={`sui-filter-group ${openFilterGroups.includes('Categories') ? 'open' : ''}`}>
+                                        <button className="sui-filter-header" onClick={() => toggleFilterGroup('Categories')}>
+                                            <span>Categories</span>
+                                            <svg className="sui-filter-icon" viewBox="0 0 16 16" fill="none">
+                                                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                                             </svg>
-                                        </div>
-                                        <div className="filter-options">
+                                        </button>
+                                        <div className="sui-filter-options">
                                             {FILTERS.categories.map((category) => (
-                                                <label key={category} className="filter-checkbox">
-                                                    <span>{category}</span>
+                                                <label key={category} className="sui-filter-option">
                                                     <input
                                                         type="checkbox"
+                                                        className="sui-filter-checkbox"
                                                         checked={selectedCategories.includes(category)}
                                                         onChange={() => toggleFilter(category, selectedCategories, setSelectedCategories)}
                                                     />
-                                                    <span className={`checkbox-custom ${selectedCategories.includes(category) ? 'checkbox-checked' : ''}`}>
-                                                        {selectedCategories.includes(category) && (
-                                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2">
-                                                                <path d="M3 8l3 3 7-7" />
-                                                            </svg>
-                                                        )}
-                                                    </span>
+                                                    <span className="sui-filter-label">{category}</span>
                                                 </label>
                                             ))}
                                         </div>
                                     </div>
 
                                     {/* Salary Range */}
-                                    <div className="filter-section">
-                                        <div className="filter-section-header">
-                                            <span className="filter-section-title">Salary Range</span>
-                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                                                <path d="M5 8l5 5 5-5" />
+                                    <div className={`sui-filter-group ${openFilterGroups.includes('Salary Range') ? 'open' : ''}`}>
+                                        <button className="sui-filter-header" onClick={() => toggleFilterGroup('Salary Range')}>
+                                            <span>Salary Range</span>
+                                            <svg className="sui-filter-icon" viewBox="0 0 16 16" fill="none">
+                                                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                                             </svg>
-                                        </div>
-                                        <div className="filter-options">
+                                        </button>
+                                        <div className="sui-filter-options">
                                             {FILTERS.salary.map((salary) => (
-                                                <label key={salary} className="filter-checkbox">
-                                                    <span>{salary}</span>
+                                                <label key={salary} className="sui-filter-option">
                                                     <input
                                                         type="checkbox"
+                                                        className="sui-filter-checkbox"
                                                         checked={selectedSalary.includes(salary)}
                                                         onChange={() => toggleFilter(salary, selectedSalary, setSelectedSalary)}
                                                     />
-                                                    <span className={`checkbox-custom ${selectedSalary.includes(salary) ? 'checkbox-checked' : ''}`}>
-                                                        {selectedSalary.includes(salary) && (
-                                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2">
-                                                                <path d="M3 8l3 3 7-7" />
-                                                            </svg>
-                                                        )}
-                                                    </span>
+                                                    <span className="sui-filter-label">{salary}</span>
+                                                </label>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Star Rating */}
+                                    <div className={`sui-filter-group ${openFilterGroups.includes('Star Rating') ? 'open' : ''}`}>
+                                        <button className="sui-filter-header" onClick={() => toggleFilterGroup('Star Rating')}>
+                                            <span>Star Rating</span>
+                                            <svg className="sui-filter-icon" viewBox="0 0 16 16" fill="none">
+                                                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                            </svg>
+                                        </button>
+                                        <div className="sui-filter-options">
+                                            {['2 Stars', '3 Stars', '4 Stars', 'Veteran'].map((rating) => (
+                                                <label key={rating} className="sui-filter-option">
+                                                    <input
+                                                        type="checkbox"
+                                                        className="sui-filter-checkbox"
+                                                        checked={selectedStars.includes(rating)}
+                                                        onChange={() => toggleFilter(rating, selectedStars, setSelectedStars)}
+                                                    />
+                                                    <span className="sui-filter-label">{rating}</span>
                                                 </label>
                                             ))}
                                         </div>
@@ -929,14 +1016,6 @@ export default function GigsPage() {
                                 </motion.div>
                             )}
                         </AnimatePresence>
-                        {showFilters && (
-                            <button className="filter-toggle" onClick={() => setShowFilters(false)}>
-                                <span>Filter</span>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-                                </svg>
-                            </button>
-                        )}
                     </motion.aside>
                 </div>
             </section>

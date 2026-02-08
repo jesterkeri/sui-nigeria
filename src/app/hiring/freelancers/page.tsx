@@ -124,26 +124,94 @@ const getCategoryIcon = (name: string) => {
         <path d="M24 24v4" />
       </svg>
     ),
+    'AI/ML': (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+        <circle cx="24" cy="24" r="8" />
+        <circle cx="24" cy="24" r="3" fill="currentColor" />
+        <path d="M24 8v8M24 32v8M8 24h8M32 24h8" />
+        <path d="M12 12l6 6M30 30l6 6M12 36l6-6M30 18l6-6" />
+      </svg>
+    ),
+    'DeFi Developer': (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+        <circle cx="24" cy="24" r="16" />
+        <path d="M18 20h12M18 28h12" />
+        <path d="M20 16v16M28 16v16" />
+      </svg>
+    ),
+    'DAO Specialist': (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+        <circle cx="24" cy="12" r="6" />
+        <circle cx="12" cy="34" r="6" />
+        <circle cx="36" cy="34" r="6" />
+        <path d="M24 18v10M18 31l-3-3M30 31l3-3" />
+      </svg>
+    ),
+    'GameFi/Web3 Gaming': (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+        <rect x="6" y="14" width="36" height="20" rx="10" />
+        <circle cx="16" cy="24" r="3" />
+        <circle cx="32" cy="24" r="2" fill="currentColor" />
+        <circle cx="36" cy="20" r="2" fill="currentColor" />
+      </svg>
+    ),
+    'Wallet/Infra Engineer': (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+        <rect x="6" y="12" width="36" height="24" rx="4" />
+        <path d="M6 20h36" />
+        <circle cx="34" cy="28" r="3" fill="currentColor" />
+      </svg>
+    ),
+    'DevRel/Developer Advocate': (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+        <path d="M14 14l-8 10 8 10" />
+        <path d="M34 14l8 10-8 10" />
+        <circle cx="24" cy="40" r="4" />
+        <path d="M24 34v2" />
+      </svg>
+    ),
+    'Blockchain Researcher': (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+        <circle cx="20" cy="20" r="12" />
+        <path d="M28 28l12 12" />
+        <path d="M16 16h8M16 20h6M16 24h4" />
+      </svg>
+    ),
+    'Growth/BD Manager': (
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3">
+        <path d="M8 40V28l8-4 8 8 8-16 8-4v28" />
+        <path d="M32 12l8-4" />
+        <path d="M36 8l4 4" />
+      </svg>
+    ),
   };
   return icons[name] || icons['Video Editing'];
 };
 
 // Category data
 const categories = [
-  { id: 1, name: 'Video Editing', freelancerCount: 235 },
-  { id: 3, name: 'Animation', freelancerCount: 235 },
-  { id: 4, name: 'Software Development', freelancerCount: 235 },
+  { id: 1, name: 'Software Development', freelancerCount: 235 },
+  { id: 2, name: 'Sui-Move Dev', freelancerCount: 180 },
+  { id: 3, name: 'DeFi Developer', freelancerCount: 145 },
+  { id: 4, name: 'Smart Contract Auditor', freelancerCount: 120 },
   { id: 5, name: 'Product Design', freelancerCount: 235 },
-  { id: 6, name: 'Ghost Writing', freelancerCount: 235 },
-  { id: 7, name: 'Graphics Design', freelancerCount: 235 },
-  { id: 8, name: 'Smart Contract Auditor', freelancerCount: 120 },
-  { id: 9, name: 'Sui-Move Dev', freelancerCount: 180 },
-  { id: 10, name: 'Product Manager', freelancerCount: 95 },
-  { id: 11, name: 'Social Media Manager', freelancerCount: 150 },
-  { id: 12, name: 'NFT Specialist', freelancerCount: 110 },
-  { id: 13, name: 'Community Manager', freelancerCount: 140 },
-  { id: 14, name: 'Quant/Tokenomics Expert', freelancerCount: 75 },
-  { id: 15, name: 'Cyber Security', freelancerCount: 85 },
+  { id: 6, name: 'DAO Specialist', freelancerCount: 65 },
+  { id: 7, name: 'GameFi/Web3 Gaming', freelancerCount: 90 },
+  { id: 8, name: 'Wallet/Infra Engineer', freelancerCount: 78 },
+  { id: 9, name: 'DevRel/Developer Advocate', freelancerCount: 105 },
+  { id: 10, name: 'Blockchain Researcher', freelancerCount: 55 },
+  { id: 11, name: 'Growth/BD Manager', freelancerCount: 88 },
+  { id: 12, name: 'Community Manager', freelancerCount: 140 },
+  { id: 13, name: 'Product Manager', freelancerCount: 95 },
+  { id: 14, name: 'Social Media Manager', freelancerCount: 150 },
+  { id: 15, name: 'Graphics Design', freelancerCount: 235 },
+  { id: 16, name: 'Video Editing', freelancerCount: 235 },
+  { id: 17, name: 'Animation', freelancerCount: 235 },
+  { id: 18, name: 'Ghost Writing', freelancerCount: 235 },
+  { id: 19, name: 'NFT Specialist', freelancerCount: 110 },
+  { id: 20, name: 'Quant/Tokenomics Expert', freelancerCount: 75 },
+  { id: 21, name: 'Cyber Security', freelancerCount: 85 },
+  { id: 22, name: 'AI/ML', freelancerCount: 95 },
 ];
 
 
@@ -236,21 +304,28 @@ const freelancers = Array.from({ length: 200 }, (_, i) => {
 // Filter options
 const employmentTypes = ['Full-time', 'Internship', 'Contract', 'Gig'];
 const categoryFilters = [
-  'UI/UX design',
-  'Video Editing',
-  'Animation',
   'Software Development',
-  '3d Artist',
-  'Content Creation',
-  'Motion Designer',
+  'Product Design',
   'Smart Contract Auditor',
   'Sui-Move Dev',
+  'DeFi Developer',
+  'DAO Specialist',
+  'GameFi/Web3 Gaming',
+  'Wallet/Infra Engineer',
+  'DevRel/Developer Advocate',
+  'Blockchain Researcher',
+  'Growth/BD Manager',
   'Product Manager',
-  'Social Media Manager',
-  'NFT Specialist',
   'Community Manager',
+  'Social Media Manager',
+  'Graphics Design',
+  'Video Editing',
+  'Animation',
+  'Ghost Writing',
+  'NFT Specialist',
   'Quant/Tokenomics Expert',
   'Cyber Security',
+  'AI/ML',
 ];
 const starRatings = ['2 stars', '3 stars', '4 stars', 'Veteran'];
 
@@ -259,10 +334,17 @@ export default function FreelancersPage() {
   const [selectedEmployment, setSelectedEmployment] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
+  const [openFilterGroups, setOpenFilterGroups] = useState<string[]>(['Type of Employment']);
   const [categoryPage, setCategoryPage] = useState(0);
   const [freelancerPage, setFreelancerPage] = useState(0);
   const [subtitleVisible, setSubtitleVisible] = useState(false);
+
+  const toggleFilterGroup = (name: string) => {
+    setOpenFilterGroups(prev =>
+      prev.includes(name) ? prev.filter(f => f !== name) : [...prev, name]
+    );
+  };
 
 
 
@@ -491,6 +573,14 @@ export default function FreelancersPage() {
 
         {/* Freelancers Listing Section */}
         <section className="freelancers-listing">
+          <div className="blog-controls" style={{ justifyContent: 'flex-end', padding: '0 0 16px' }}>
+            <button className={`blog-filter-toggle${showFilters ? ' active' : ''}`} onClick={() => setShowFilters(!showFilters)}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M3 4l6 7v5l4 2v-7l6-7" />
+              </svg>
+              <span>{showFilters ? 'Hide Filters' : 'Show Filters'}</span>
+            </button>
+          </div>
           <div className="freelancers-listing-content">
             {/* Freelancer Grid */}
             {paginatedFreelancers.length > 0 && (
@@ -611,117 +701,95 @@ export default function FreelancersPage() {
 
             {/* Filter Sidebar */}
             <motion.aside
-              className={`filter-sidebar ${showFilters ? 'sidebar-open' : 'sidebar-closed'}`}
-              initial={false}
-              animate={{ width: showFilters ? 324 : 0 }}
-              transition={{ duration: 0.3, type: "tween", ease: "easeInOut" }}
-              style={{ width: showFilters ? 324 : 0 }} // Force width to match animation state for Grid flow
-            >
-              <AnimatePresence>
-                {showFilters && (
-                  <motion.div
-                    className="filter-content"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {/* Type of Employment */}
-                    <div className="filter-section">
-                      <div className="filter-section-header">
-                        <span className="filter-section-title">Type of Employment</span>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M5 8l5 5 5-5" />
-                        </svg>
-                      </div>
-                      <div className="filter-options">
-                        {employmentTypes.map((type) => (
-                          <label key={type} className="filter-checkbox">
-                            <span>{type}</span>
-                            <input
-                              type="checkbox"
-                              checked={selectedEmployment.includes(type)}
-                              onChange={() => toggleFilter(type, selectedEmployment, setSelectedEmployment, 2)}
-                            />
-                            <span className={`checkbox-custom ${selectedEmployment.includes(type) ? 'checkbox-checked' : ''}`}>
-                              {selectedEmployment.includes(type) && (
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2">
-                                  <path d="M3 8l3 3 7-7" />
-                                </svg>
-                              )}
-                            </span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
+                className={`filter-sidebar ${showFilters ? 'sidebar-open' : 'sidebar-closed'}`}
+                initial={false}
+                animate={{ width: showFilters ? 324 : 0 }}
+                transition={{ duration: 0.3, type: "tween", ease: "easeInOut" }}
+                style={{ width: showFilters ? 324 : 0 }}
+              >
+                <AnimatePresence>
+                  {showFilters && (
+                    <motion.div
+                      className="sui-filter-panel"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <p className="sui-filter-panel-title">Filters</p>
 
-                    {/* Categories */}
-                    <div className="filter-section">
-                      <div className="filter-section-header">
-                        <span className="filter-section-title">Categories</span>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M5 8l5 5 5-5" />
-                        </svg>
+                      {/* Type of Employment */}
+                      <div className={`sui-filter-group ${openFilterGroups.includes('Type of Employment') ? 'open' : ''}`}>
+                        <button className="sui-filter-header" onClick={() => toggleFilterGroup('Type of Employment')}>
+                          <span>Type of Employment</span>
+                          <svg className="sui-filter-icon" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                          </svg>
+                        </button>
+                        <div className="sui-filter-options">
+                          {employmentTypes.map((type) => (
+                            <label key={type} className="sui-filter-option">
+                              <input
+                                type="checkbox"
+                                className="sui-filter-checkbox"
+                                checked={selectedEmployment.includes(type)}
+                                onChange={() => toggleFilter(type, selectedEmployment, setSelectedEmployment, 2)}
+                              />
+                              <span className="sui-filter-label">{type}</span>
+                            </label>
+                          ))}
+                        </div>
                       </div>
-                      <div className="filter-options">
-                        {categoryFilters.map((category) => (
-                          <label key={category} className="filter-checkbox">
-                            <span>{category}</span>
-                            <input
-                              type="checkbox"
-                              checked={selectedCategories.includes(category)}
-                              onChange={() => toggleFilter(category, selectedCategories, setSelectedCategories)}
-                            />
-                            <span className={`checkbox-custom ${selectedCategories.includes(category) ? 'checkbox-checked' : ''}`}>
-                              {selectedCategories.includes(category) && (
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2">
-                                  <path d="M3 8l3 3 7-7" />
-                                </svg>
-                              )}
-                            </span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
 
-                    {/* Star Rating */}
-                    <div className="filter-section">
-                      <div className="filter-section-header">
-                        <span className="filter-section-title">Star Rating</span>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M5 8l5 5 5-5" />
-                        </svg>
+                      {/* Categories */}
+                      <div className={`sui-filter-group ${openFilterGroups.includes('Categories') ? 'open' : ''}`}>
+                        <button className="sui-filter-header" onClick={() => toggleFilterGroup('Categories')}>
+                          <span>Categories</span>
+                          <svg className="sui-filter-icon" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                          </svg>
+                        </button>
+                        <div className="sui-filter-options">
+                          {categoryFilters.map((category) => (
+                            <label key={category} className="sui-filter-option">
+                              <input
+                                type="checkbox"
+                                className="sui-filter-checkbox"
+                                checked={selectedCategories.includes(category)}
+                                onChange={() => toggleFilter(category, selectedCategories, setSelectedCategories)}
+                              />
+                              <span className="sui-filter-label">{category}</span>
+                            </label>
+                          ))}
+                        </div>
                       </div>
-                      <div className="filter-options">
-                        {starRatings.map((rating) => (
-                          <label key={rating} className="filter-checkbox">
-                            <span>{rating}</span>
-                            <input
-                              type="checkbox"
-                              checked={selectedRatings.includes(rating)}
-                              onChange={() => toggleFilter(rating, selectedRatings, setSelectedRatings)}
-                            />
-                            <span className={`checkbox-custom ${selectedRatings.includes(rating) ? 'checkbox-checked' : ''}`}>
-                              {selectedRatings.includes(rating) && (
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2">
-                                  <path d="M3 8l3 3 7-7" />
-                                </svg>
-                              )}
-                            </span>
-                          </label>
-                        ))}
+
+                      {/* Star Rating */}
+                      <div className={`sui-filter-group ${openFilterGroups.includes('Star Rating') ? 'open' : ''}`}>
+                        <button className="sui-filter-header" onClick={() => toggleFilterGroup('Star Rating')}>
+                          <span>Star Rating</span>
+                          <svg className="sui-filter-icon" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                          </svg>
+                        </button>
+                        <div className="sui-filter-options">
+                          {starRatings.map((rating) => (
+                            <label key={rating} className="sui-filter-option">
+                              <input
+                                type="checkbox"
+                                className="sui-filter-checkbox"
+                                checked={selectedRatings.includes(rating)}
+                                onChange={() => toggleFilter(rating, selectedRatings, setSelectedRatings)}
+                              />
+                              <span className="sui-filter-label">{rating}</span>
+                            </label>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <button className="filter-toggle" onClick={() => setShowFilters(!showFilters)}>
-                <span>Filter</span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-                </svg>
-              </button>
-            </motion.aside>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.aside>
           </div>
 
           {/* Freelancers Pagination */}

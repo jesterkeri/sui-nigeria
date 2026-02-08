@@ -1,0 +1,525 @@
+/* Post Job Page - Only page-specific styles */
+/* Reuses register page classes from globals.css */
+
+.post-job-page {
+    min-height: 100vh;
+    background: var(--background);
+}
+
+.post-job-page .employment-option {
+    position: relative;
+    z-index: 1;
+}
+
+.post-job-page .employment-option > * {
+    pointer-events: none;
+}
+
+/* Select Dropdown */
+.post-job-select {
+    width: 100%;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #FFFFFF;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+    outline: none;
+}
+
+.post-job-select:focus {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
+}
+
+.post-job-select option {
+    background: #1a1a1a;
+    color: white;
+}
+
+/* Custom Dropdown */
+.post-job-dropdown {
+    position: relative;
+}
+
+.post-job-dropdown-trigger {
+    width: 100%;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.post-job-dropdown-trigger:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.post-job-dropdown-trigger.open {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.post-job-dropdown-trigger .placeholder {
+    color: #666;
+}
+
+.post-job-dropdown-trigger svg {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.post-job-dropdown-trigger.open svg {
+    transform: rotate(180deg);
+}
+
+.post-job-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    z-index: 50;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+    animation: dropdownFadeIn 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+}
+
+@keyframes dropdownFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.post-job-dropdown-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.post-job-dropdown-search svg {
+    flex-shrink: 0;
+}
+
+.post-job-dropdown-search input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: white;
+}
+
+.post-job-dropdown-search input::placeholder {
+    color: #555;
+}
+
+.post-job-dropdown-options {
+    display: block;
+    max-height: 200px !important;
+    overflow-y: scroll !important;
+    overscroll-behavior: contain;
+    padding: 6px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.post-job-dropdown-options::-webkit-scrollbar {
+    width: 4px;
+}
+
+.post-job-dropdown-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.post-job-dropdown-options::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 2px;
+}
+
+.post-job-dropdown-option {
+    width: 100%;
+    padding: 10px 14px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #ccc;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.15s ease;
+}
+
+.post-job-dropdown-option:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+}
+
+.post-job-dropdown-option.selected {
+    color: #008751;
+}
+
+.post-job-dropdown-option.has-desc {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 12px 14px;
+}
+
+.post-job-dropdown-option-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.post-job-dropdown-option-name {
+    font-size: 13px;
+    color: #ccc;
+}
+
+.post-job-dropdown-option.selected .post-job-dropdown-option-name {
+    color: #008751;
+}
+
+.post-job-dropdown-option:hover .post-job-dropdown-option-name {
+    color: white;
+}
+
+.post-job-dropdown-option-desc {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.4;
+}
+
+.post-job-dropdown-option:hover .post-job-dropdown-option-desc {
+    color: #777;
+}
+
+.post-job-dropdown-empty {
+    display: block;
+    padding: 16px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #555;
+}
+
+/* Salary Row */
+.post-job-salary-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+    align-items: start;
+}
+
+.post-job-salary-row .form-input,
+.post-job-salary-row .post-job-dropdown-trigger {
+    height: 52px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 639px) {
+    .post-job-salary-row {
+        grid-template-columns: 1fr 1fr;
+    }
+    .post-job-salary-row > .form-field:last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Preview Summary */
+.post-job-preview-summary {
+    margin-top: 8px;
+    margin-bottom: 24px;
+}
+
+.post-job-preview-card {
+    margin-top: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.post-job-preview-company {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--sui-green);
+}
+
+.post-job-preview-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    min-height: 24px;
+}
+
+.post-job-preview-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.post-job-preview-badge {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.post-job-preview-badge.type {
+    background: rgba(0, 135, 81, 0.15);
+    color: #00B46C;
+}
+
+.post-job-preview-badge.level {
+    background: rgba(255, 255, 255, 0.06);
+    color: #aaa;
+}
+
+.post-job-preview-badge.location {
+    background: rgba(78, 160, 255, 0.12);
+    color: #4EA0FF;
+}
+
+.post-job-preview-salary {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--sui-green);
+}
+
+.post-job-preview-salary span {
+    font-size: 13px;
+    font-weight: 400;
+    color: #666;
+}
+
+.post-job-preview-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* Skills Expanded */
+.post-job-see-more {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 8px 0;
+    background: none;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--sui-green);
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.post-job-see-more:hover {
+    opacity: 0.8;
+}
+
+.post-job-skill-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.post-job-skill-search input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: white;
+}
+
+.post-job-skill-search input::placeholder {
+    color: #555;
+}
+
+.post-job-skill-search-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    border-radius: 50%;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+}
+
+.post-job-skill-search-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.post-job-skills-expanded {
+    max-height: 240px;
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding-right: 4px;
+}
+
+.post-job-skills-expanded::-webkit-scrollbar {
+    width: 4px;
+}
+
+.post-job-skills-expanded::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.post-job-skills-expanded::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 2px;
+}
+
+/* List Input (Responsibilities / Requirements) */
+.post-job-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.post-job-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #ccc;
+}
+
+.post-job-list-item span {
+    flex: 1;
+}
+
+.post-job-list-remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.04);
+    border: none;
+    border-radius: 50%;
+    color: #666;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s ease;
+}
+
+.post-job-list-remove:hover {
+    background: rgba(255, 80, 80, 0.15);
+    color: #ff5050;
+}
+
+.post-job-list-add {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.post-job-list-add .form-input {
+    flex: 1;
+    height: 44px;
+    padding: 12px 16px;
+    box-sizing: border-box;
+}
+
+.post-job-list-add-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 135, 81, 0.15);
+    border: 1px solid rgba(0, 135, 81, 0.3);
+    border-radius: 12px;
+    color: var(--sui-green);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.post-job-list-add-btn:hover {
+    background: rgba(0, 135, 81, 0.25);
+    border-color: rgba(0, 135, 81, 0.5);
+}
+
+/* Success State */
+.post-job-success-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(0, 135, 81, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sui-green);
+}
+
+.post-job-success-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+}

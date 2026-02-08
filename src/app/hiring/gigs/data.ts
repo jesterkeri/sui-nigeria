@@ -4,7 +4,7 @@ export interface Job {
     company: string;
     logo: string;
     location: string;
-    type: 'Full-time' | 'Contract' | 'Freelance';
+    type: 'Full-time' | 'Internship' | 'Contract' | 'Gig';
     level: 'Entry' | 'Mid' | 'Senior' | 'Lead';
     salary: string;
     tags: string[];
@@ -42,7 +42,7 @@ const locations = [
     'Hong Kong', 'Austin, TX', 'Miami, FL', 'Lisbon, Portugal', 'Amsterdam, Netherlands'
 ];
 
-const types: ('Full-time' | 'Contract' | 'Freelance')[] = ['Full-time', 'Contract', 'Freelance'];
+const types: ('Full-time' | 'Internship' | 'Contract' | 'Gig')[] = ['Full-time', 'Internship', 'Contract', 'Gig'];
 const levels: ('Entry' | 'Mid' | 'Senior' | 'Lead')[] = ['Entry', 'Mid', 'Senior', 'Lead'];
 
 const tagGroups = [
@@ -55,11 +55,11 @@ const tagGroups = [
 ];
 
 const salaries = [
-    '$40k - $60k', '$50k - $80k', '$60k - $90k', '$70k - $100k', '$80k - $120k', '$90k - $140k',
-    '$100k - $150k', '$120k - $180k', '$140k - $220k', '$150k - $250k', '$180k - $300k', '$200k - $350k',
-    '$1.5k - $3k /mo', '$2k - $4k /mo', '$3k - $6k /mo', '$4k - $8k /mo',
-    '$50 - $80 /hr', '$80 - $120 /hr', '$100 - $150 /hr', '$120 - $200 /hr',
-    '$3k - $10k /project', '$5k - $15k /project', '$10k - $30k /project'
+    '$800 - $1.5k', '$1k - $2k', '$1.2k - $2.5k', '$1.5k - $3k', '$2k - $3.5k', '$2.5k - $4k',
+    '$3k - $5k', '$3.5k - $6k', '$4k - $7k', '$5k - $8k',
+    '$500 - $1k /mo', '$800 - $1.5k /mo', '$1k - $2k /mo', '$1.5k - $3k /mo',
+    '$15 - $25 /hr', '$20 - $35 /hr', '$30 - $50 /hr', '$40 - $70 /hr',
+    '$500 - $2k /project', '$1k - $3k /project', '$2k - $5k /project'
 ];
 
 const postedTimes = [
@@ -104,24 +104,31 @@ function generateJobs(count: number): Job[] {
 export const JOBS: Job[] = generateJobs(200);
 
 export const FILTERS = {
-    types: ['Full-time', 'Contract', 'Freelance', 'Internship'],
+    types: ['Full-time', 'Internship', 'Contract', 'Gig'],
     levels: ['Entry Level', 'Mid Level', 'Senior Level', 'Lead', 'Executive'],
     categories: [
-        'Video Editing',
-        'Animation',
         'Software Development',
         'Product Design',
-        'Ghost Writing',
-        'Graphics Design',
         'Smart Contract Auditor',
         'Sui-Move Dev',
+        'DeFi Developer',
+        'DAO Specialist',
+        'GameFi/Web3 Gaming',
+        'Wallet/Infra Engineer',
+        'DevRel/Developer Advocate',
+        'Blockchain Researcher',
+        'Growth/BD Manager',
         'Product Manager',
-        'Social Media Manager',
-        'NFT Specialist',
         'Community Manager',
+        'Social Media Manager',
+        'Graphics Design',
+        'Video Editing',
+        'Animation',
+        'Ghost Writing',
+        'NFT Specialist',
         'Quant/Tokenomics Expert',
         'Cyber Security',
         'AI/ML',
     ],
-    salary: ['$0 - $50k', '$50k - $100k', '$100k - $150k', '$150k+', 'Hourly'],
+    salary: ['Per Project', 'Per Month', 'Per Hour'],
 };
