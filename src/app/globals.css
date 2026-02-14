@@ -105,7 +105,6 @@ img {
 
    - Russo One: Bold display font for headings
    - Montserrat: Primary body/UI font
-   - Press Start 2P: Pixel font for retro/gaming aesthetic
 
    ============================================ */
 .font-russo {
@@ -116,9 +115,6 @@ img {
   font-family: 'Montserrat', sans-serif;
 }
 
-.font-press-start {
-  font-family: 'Press Start 2P', cursive;
-}
 
 /* ============================================
    Layout Utilities
@@ -186,6 +182,10 @@ img {
 /* Green bottom border for hiring pages */
 .header-green-border {
   border-bottom: 0.5px solid #008751;
+  background: var(--background);
+}
+
+.header-solid-bg {
   background: var(--background);
 }
 
@@ -1691,7 +1691,7 @@ img {
 
 .about-logo-label {
   color: var(--sui-green);
-  font-family: 'Press Start 2P', cursive;
+  font-family: 'Russo One', sans-serif;
   font-size: 12px;
 }
 

@@ -34,9 +34,10 @@ const blogDropdownItems = [
 
 interface HeaderProps {
   showGreenBorder?: boolean;
+  solidBackground?: boolean;
 }
 
-export function Header({ showGreenBorder = false }: HeaderProps) {
+export function Header({ showGreenBorder = false, solidBackground = false }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -77,7 +78,7 @@ export function Header({ showGreenBorder = false }: HeaderProps) {
   return (
     <header
       ref={headerRef}
-      className={`header ${isScrolled ? 'header-scrolled' : ''} ${activeDropdown ? 'header-dropdown-open' : ''} ${showGreenBorder ? 'header-green-border' : ''}`}
+      className={`header ${isScrolled ? 'header-scrolled' : ''} ${activeDropdown ? 'header-dropdown-open' : ''} ${showGreenBorder ? 'header-green-border' : ''} ${solidBackground ? 'header-solid-bg' : ''}`}
     >
       <div
         className={`header-wrapper ${activeDropdown ? 'header-wrapper-expanded' : ''}`}
