@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import LenisProvider from "@/components/LenisProvider";
+import SuiProviders from "@/components/SuiProviders";
 
 export const metadata: Metadata = {
   title: "Sui Nigeria - Move-ing with Sui",
@@ -32,7 +33,9 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Russo+One&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <LenisProvider>{children}</LenisProvider>
+        <SuiProviders>
+          <LenisProvider>{children}</LenisProvider>
+        </SuiProviders>
       </body>
     </html>
   );

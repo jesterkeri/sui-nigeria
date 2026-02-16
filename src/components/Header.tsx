@@ -114,6 +114,7 @@ export function Header({ showGreenBorder = false, solidBackground = false }: Hea
                     href={item.href}
                     className="nav-link"
                     onClick={() => setActiveDropdown(null)}
+                    {...(item.name === 'Academy' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
                     {item.name}
                   </Link>
@@ -244,6 +245,7 @@ export function Header({ showGreenBorder = false, solidBackground = false }: Hea
                 href={item.href}
                 className="nav-link"
                 onClick={() => setIsMenuOpen(false)}
+                {...(item.name === 'Academy' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               >
                 {item.name}
               </Link>
