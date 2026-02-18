@@ -3,6 +3,7 @@ import "./globals.css";
 import LenisProvider from "@/components/LenisProvider";
 import SuiProviders from "@/components/SuiProviders";
 
+
 export const metadata: Metadata = {
   title: "Sui Nigeria - Move-ing with Sui",
   description: "Community run page dedicated to the advancement and adoption of Sui in Nigeria and Africa. Join developers, creators, and blockchain enthusiasts building on Sui.",
@@ -36,6 +37,7 @@ export default function RootLayout({
         <SuiProviders>
           <LenisProvider>{children}</LenisProvider>
         </SuiProviders>
+
       </body>
     </html>
   );
