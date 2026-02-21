@@ -7,9 +7,11 @@ import '@mysten/dapp-kit/dist/index.css';
 const queryClient = new QueryClient();
 
 const { networkConfig } = createNetworkConfig({
-  mainnet: { url: 'https://fullnode.mainnet.sui.io:443', network: 'mainnet' },
+  devnet: { url: 'https://fullnode.devnet.sui.io:443', network: 'devnet' },
   testnet: { url: 'https://fullnode.testnet.sui.io:443', network: 'testnet' },
+  mainnet: { url: 'https://fullnode.mainnet.sui.io:443', network: 'mainnet' },
 });
+
 
 export default function SuiProviders({ children }: { children: React.ReactNode }) {
   return (
