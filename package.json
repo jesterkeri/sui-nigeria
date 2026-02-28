@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
     "@mysten/dapp-kit": "^1.0.3",
     "@mysten/sui": "^2.4.0",
     "@react-three/drei": "^10.7.7",

@@ -7,7 +7,7 @@ import { useState, useEffect, useRef } from 'react';
 const navItems = [
   { name: 'Hiring', href: '/hiring', hasDropdown: true },
   { name: 'Events', href: '/events', hasDropdown: true },
-  { name: 'Communities', href: '/communities', hasDropdown: false },
+  { name: 'Game Hub', href: '/game-hub', hasDropdown: false },
   { name: 'Earn', href: '/earn', hasDropdown: false },
   { name: 'Blog', href: '/blog', hasDropdown: true },
   { name: 'Academy', href: '/academy', hasDropdown: false },
@@ -114,7 +114,7 @@ export function Header({ showGreenBorder = false, solidBackground = false }: Hea
                     href={item.href}
                     className="nav-link"
                     onClick={() => setActiveDropdown(null)}
-                    {...(item.name === 'Academy' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    {...(item.name === 'Academy' || item.name === 'Game Hub' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
                     {item.name}
                   </Link>
@@ -245,7 +245,7 @@ export function Header({ showGreenBorder = false, solidBackground = false }: Hea
                 href={item.href}
                 className="nav-link"
                 onClick={() => setIsMenuOpen(false)}
-                {...(item.name === 'Academy' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                {...(item.name === 'Academy' || item.name === 'Game Hub' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               >
                 {item.name}
               </Link>
